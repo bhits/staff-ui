@@ -29,10 +29,7 @@ public class SecurityConfig {
                 http.authorizeRequests()
                         // Security scope for accessing management endpoint
                         .antMatchers(HttpMethod.GET, "/management/**").access("#oauth2.hasScope('staffAdminUI.management')")
-                        .antMatchers(HttpMethod.POST, "/management/**").access("#oauth2.hasScope('staffAdminUI.management')")
-                        .antMatchers(HttpMethod.GET, "/**").access("#oauth2.hasScope('staffAdminUI.read')")
-                        .antMatchers(HttpMethod.OPTIONS, "/**").access("#oauth2.hasScope('staffAdminUI.read')")
-                        .anyRequest().denyAll();
+                        .antMatchers(HttpMethod.POST, "/management/**").access("#oauth2.hasScope('staffAdminUI.management')");
             }
         };
     }
