@@ -4,24 +4,25 @@ import {PageHeaderComponent} from "./page-header/page-header.component";
 import {PageFooterComponent} from "./page-footer/page-footer.component";
 import {PageContentComponent} from "./page-content/page-content.component";
 import {LogoComponent} from "./logo/logo.component";
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import {UserProfileComponent} from "./user-profile/user-profile.component";
+import {MenuComponent} from "./menu/menu.component";
 
 @NgModule({
   imports: [
     SharedModule
   ],
   declarations: [
+    LogoComponent,
+    MenuComponent,
     PageHeaderComponent,
     PageFooterComponent,
     PageContentComponent,
-    LogoComponent,
     UserProfileComponent
   ],
   exports: [
     PageHeaderComponent,
     PageFooterComponent,
-    PageContentComponent,
-    LogoComponent
+    PageContentComponent
   ]
 })
 export class LayoutModule {
