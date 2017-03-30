@@ -4,6 +4,7 @@ import {PageHeaderComponent} from "./page-header/page-header.component";
 import {PageFooterComponent} from "./page-footer/page-footer.component";
 import {PageContentComponent} from "./page-content/page-content.component";
 import {LogoComponent} from "./logo/logo.component";
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import {LogoComponent} from "./logo/logo.component";
     PageHeaderComponent,
     PageFooterComponent,
     PageContentComponent,
-    LogoComponent
+    LogoComponent,
+    UserProfileComponent
   ],
   exports: [
     PageHeaderComponent,

@@ -3,6 +3,7 @@ import {NgModule} from "@angular/core";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MaterialModule} from "@angular/material";
 import {CommonModule} from "@angular/common";
+import "hammerjs";
 
 @NgModule({
   imports: [],
