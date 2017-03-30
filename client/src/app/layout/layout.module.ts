@@ -1,19 +1,22 @@
 import {NgModule} from "@angular/core";
-import {HeaderComponent} from "./header/header.component";
 import {SharedModule} from "../shared/shared.module";
-import {FooterComponent} from "./footer/footer.component";
+import {PageHeaderComponent} from "./page-header/page-header.component";
+import {PageFooterComponent} from "./page-footer/page-footer.component";
+import {PageContentComponent} from "./page-content/page-content.component";
 
 @NgModule({
   imports: [
     SharedModule
   ],
   declarations: [
-    HeaderComponent,
-    FooterComponent
+    PageHeaderComponent,
+    PageFooterComponent,
+    PageContentComponent
   ],
   exports: [
-    HeaderComponent,
-    FooterComponent
+    PageHeaderComponent,
+    PageFooterComponent,
+    PageContentComponent
   ]
 })
 export class LayoutModule {
