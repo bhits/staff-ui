@@ -3,6 +3,7 @@ import {SharedModule} from "../shared/shared.module";
 import {PageHeaderComponent} from "./page-header/page-header.component";
 import {PageFooterComponent} from "./page-footer/page-footer.component";
 import {PageContentComponent} from "./page-content/page-content.component";
+import {LogoComponent} from "./logo/logo.component";
 
 @NgModule({
   imports: [
@@ -11,12 +12,14 @@ import {PageContentComponent} from "./page-content/page-content.component";
   declarations: [
     PageHeaderComponent,
     PageFooterComponent,
-    PageContentComponent
+    PageContentComponent,
+    LogoComponent
   ],
   exports: [
     PageHeaderComponent,
     PageFooterComponent,
-    PageContentComponent
+    PageContentComponent,
+    LogoComponent
   ]
 })
 export class LayoutModule {

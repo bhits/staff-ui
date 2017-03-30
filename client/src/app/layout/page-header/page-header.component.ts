@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 
 @Component({
   selector: 'c2s-page-header',
@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-header.component.scss']
 })
 export class PageHeaderComponent implements OnInit {
+  //Todo: Add handler for it
+  public showHeader: boolean = true;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

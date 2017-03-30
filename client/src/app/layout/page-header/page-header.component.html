@@ -1,3 +1,9 @@
-<p>
-  page-header works!
-</p>
+<div class="sticky-header" *ngIf="showHeader">
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="bg-white p-xs border-bottom">
+    <div fxFlex="0 0 140px">
+      <div fxLayout="row" fxLayoutAlign="end center">
+        <c2s-logo fxFlex="0 0 auto"></c2s-logo>
+      </div>
+    </div>
+  </div>
+</div>
