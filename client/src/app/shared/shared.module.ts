@@ -4,6 +4,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {MaterialModule} from "@angular/material";
 import {CommonModule} from "@angular/common";
 import "hammerjs";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   imports: [],
@@ -12,7 +13,8 @@ import "hammerjs";
     BrowserAnimationsModule,
     CommonModule,
     FlexLayoutModule,
-    MaterialModule
+    MaterialModule,
+    RouterModule
   ]
 })
 export class SharedModule {
