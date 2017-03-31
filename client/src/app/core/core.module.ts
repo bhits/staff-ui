@@ -1,7 +1,8 @@
 import {NgModule} from "@angular/core";
+import {SecurityModule} from "../security/security.module";
 
 @NgModule({
-  imports: [],
+  imports: [SecurityModule],
   declarations: [],
   exports: []
 })

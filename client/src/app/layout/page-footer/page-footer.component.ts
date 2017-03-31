@@ -7,7 +7,7 @@ import {Component, OnInit} from "@angular/core";
 })
 export class PageFooterComponent implements OnInit {
   //Todo: Add handler for it
-  public showFooter: boolean = true;
+  public showFooter: boolean = false;
 
   constructor() {
   }

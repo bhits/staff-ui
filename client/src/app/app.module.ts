@@ -1,13 +1,11 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
-import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
-
-import {AppComponent} from "./app.component";
 import {CoreModule} from "app/core/core.module";
 import {LayoutModule} from "./layout/layout.module";
 import {HomeModule} from "./home/home.module";
 import {AppRoutingModule} from "./app-routing.module";
+
+import {AppComponent} from "./app.component";
 
 @NgModule({
   declarations: [
@@ -16,8 +14,6 @@ import {AppRoutingModule} from "./app-routing.module";
   imports: [
     // Angular Modules
     BrowserModule,
-    FormsModule,
-    HttpModule,
 
     // Third Party Modules
 
