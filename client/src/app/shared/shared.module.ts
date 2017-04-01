@@ -1,20 +1,26 @@
+import "hammerjs";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgModule} from "@angular/core";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MaterialModule} from "@angular/material";
 import {CommonModule} from "@angular/common";
-import "hammerjs";
 import {RouterModule} from "@angular/router";
+import {ReactiveFormsModule} from "@angular/forms";
+import {ApiUrlService} from "app/shared/api-url.service";
 
 @NgModule({
   imports: [],
   declarations: [],
+  providers: [
+    ApiUrlService
+  ],
   exports: [
     BrowserAnimationsModule,
     CommonModule,
     FlexLayoutModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule {
