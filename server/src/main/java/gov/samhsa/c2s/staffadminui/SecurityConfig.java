@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 
 @Configuration
 public class SecurityConfig {
-    private static final String RESOURCE_ID = "staffAdminUI";
+    private static final String RESOURCE_ID = "staffAdminUi";
 
     @Bean
     public ResourceServerConfigurer resourceServer(SecurityProperties securityProperties) {
@@ -28,8 +28,8 @@ public class SecurityConfig {
                 }
                 http.authorizeRequests()
                         // Security scope for accessing management endpoint
-                        .antMatchers(HttpMethod.GET, "/management/**").access("#oauth2.hasScope('staffAdminUI.management')")
-                        .antMatchers(HttpMethod.POST, "/management/**").access("#oauth2.hasScope('staffAdminUI.management')");
+                        .antMatchers(HttpMethod.GET, "/management/**").access("#oauth2.hasScope('staffAdminUi.management')")
+                        .antMatchers(HttpMethod.POST, "/management/**").access("#oauth2.hasScope('staffAdminUi.management')");
             }
         };
     }

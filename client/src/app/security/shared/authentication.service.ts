@@ -7,7 +7,7 @@ import {AuthorizationResponse} from "app/security/shared/authorization-response.
 
 @Injectable()
 export class AuthenticationService {
-  private AUTHORIZATION_HEADER: string = 'YzJzLXVpOmNoYW5nZWl0';
+  private AUTHORIZATION_HEADER: string = 'c3RhZmYtYWRtaW4tdWk6Y2hhbmdlaXQ=';
 
   constructor(private apiUrlService: ApiUrlService,
               private exceptionService: ExceptionService,
