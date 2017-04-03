@@ -3,6 +3,8 @@ import {SecurityRoutingModule} from "./security-routing.module";
 import {LoginComponent} from "./login/login.component";
 import {SharedModule} from "../shared/shared.module";
 import {AuthenticationService} from "app/security/shared/authentication.service";
+import {TokenService} from "./shared/token.service";
+import {SessionStorageService} from "./shared/session-storage.service";
 
 @NgModule({
   imports: [
@@ -11,7 +13,9 @@ import {AuthenticationService} from "app/security/shared/authentication.service"
   ],
   declarations: [LoginComponent],
   providers: [
-    AuthenticationService
+    AuthenticationService,
+    SessionStorageService,
+    TokenService
   ]
 })
 export class SecurityModule {
