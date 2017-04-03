@@ -1,9 +1,9 @@
 import {MenuItem} from "./menu-item.model";
 
-export const MenuItems: MenuItem[] = [
+export const MENU_ITEMS: MenuItem[] = [
   {
     text: "Home",
-    routerLink: ""
+    routerLink: "/home"
   },
   {
     text: "Logout",

@@ -7,7 +7,7 @@ import {Component, OnInit} from "@angular/core";
 })
 export class PageHeaderComponent implements OnInit {
   //Todo: Add handler for it
-  public showHeader: boolean = false;
+  public showHeader: boolean = true;
 
   constructor() {
   }

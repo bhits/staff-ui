@@ -14,7 +14,11 @@ export class TokenService {
     return this.sessionStorageService.retrieve(this.OAUTH_TOKEN_KEY);
   }
 
-  setOauthToken(authorizationResponse: AuthorizationResponse) {
+  setOauthToken(authorizationResponse: AuthorizationResponse): void {
     this.sessionStorageService.store(this.OAUTH_TOKEN_KEY, authorizationResponse);
+  }
+
+  deleteOauthToken(): void {
+    this.sessionStorageService.clear(this.OAUTH_TOKEN_KEY);
   }
 }

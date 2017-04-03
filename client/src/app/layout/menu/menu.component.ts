@@ -1,6 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {MenuItem} from "../shared/menu-item.model";
-import {MenuItems} from "../shared/menu-items.model";
+import {MENU_ITEMS} from "../shared/menu-items.model";
+import {AuthenticationService} from "../../security/shared/authentication.service";
+import {UtilityService} from "../../shared/utility.service";
 
 @Component({
   selector: 'c2s-menu',
@@ -11,15 +13,21 @@ export class MenuComponent implements OnInit {
 
   public menuItems: MenuItem[];
 
-  constructor() {
+  constructor(private authenticationService: AuthenticationService,
+              private utilityService: UtilityService) {
   }
 
   ngOnInit() {
-    this.menuItems = MenuItems;
+    this.menuItems = MENU_ITEMS;
   }
 
-  //Todo: Add the handler
   navigateTo(text: string, routerLink: string) {
-    console.log(routerLink);
+    switch (text) {
+      case 'Logout':
+        this.authenticationService.logout();
+        break;
+      default:
+        this.utilityService.navigateTo(routerLink);
+    }
   }
 }
