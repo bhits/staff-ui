@@ -4,6 +4,7 @@ import {Headers, Http, Response, URLSearchParams} from "@angular/http";
 import {ExceptionService} from "app/shared/exception.service";
 import {Observable} from "rxjs";
 import {AuthorizationResponse} from "app/security/shared/authorization-response.model";
+import {UserInfoResponse} from "./user-info-response.model";
 
 @Injectable()
 export class AuthenticationService {
@@ -27,6 +28,12 @@ export class AuthenticationService {
 
     return this.http.post(this.apiUrlService.getUaaTokenUrl(), params, {headers: headers})
       .map((resp: Response) => <AuthorizationResponse>(resp.json()))
+      .catch(this.exceptionService.handleError);
+  }
+
+  public getUserInfo(): Observable<UserInfoResponse> {
+    return this.http.get(this.apiUrlService.getUaaUserInfoUrl())
+      .map((resp: Response) => <UserInfoResponse>(resp.json()))
       .catch(this.exceptionService.handleError);
   }
 }

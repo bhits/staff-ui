@@ -33,7 +33,16 @@ export class LoginComponent implements OnInit {
         (res) => {
           this.unauthorized = false;
           this.utilityService.navigateTo('/home');
-          console.log(res)
+          console.log(res);
+          this.authenticationService.getUserInfo()
+            .subscribe(
+              (res) => {
+                console.log(res);
+              },
+              error => {
+                console.log(error);
+              }
+            )
         },
         err => {
           this.unauthorized = true;
