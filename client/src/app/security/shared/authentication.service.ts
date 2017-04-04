@@ -11,7 +11,7 @@ import {UtilityService} from "../../shared/utility.service";
 @Injectable()
 export class AuthenticationService {
   //Todo: get from configuration
-  private AUTHORIZATION_HEADER: string = 'c3RhZmYtYWRtaW4tdWk6Y2hhbmdlaXQ=';
+  private AUTHORIZATION_HEADER: string = 'c3RhZmYtdWk6Y2hhbmdlaXQ=';
 
   constructor(private apiUrlService: ApiUrlService,
               private exceptionService: ExceptionService,

@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>gov.samhsa.c2s</groupId>
-    <artifactId>staff-admin-ui</artifactId>
+    <artifactId>staff-ui</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>staff-admin-ui</name>
-    <description>Staff Admin UI</description>
+    <name>staff-ui</name>
+    <description>Staff UI</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

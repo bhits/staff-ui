@@ -1,4 +1,4 @@
-package gov.samhsa.c2s.staffadminui;
+package gov.samhsa.c2s.staffui;
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 
 @Configuration
 public class SecurityConfig {
-    private static final String RESOURCE_ID = "staffAdminUi";
+    private static final String RESOURCE_ID = "staffUi";
 
     @Bean
     public ResourceServerConfigurer resourceServer(SecurityProperties securityProperties) {
@@ -28,8 +28,8 @@ public class SecurityConfig {
                 }
                 http.authorizeRequests()
                         // Security scope for accessing management endpoint
-                        .antMatchers(HttpMethod.GET, "/management/**").access("#oauth2.hasScope('staffAdminUi.management')")
-                        .antMatchers(HttpMethod.POST, "/management/**").access("#oauth2.hasScope('staffAdminUi.management')");
+                        .antMatchers(HttpMethod.GET, "/management/**").access("#oauth2.hasScope('staffUi.management')")
+                        .antMatchers(HttpMethod.POST, "/management/**").access("#oauth2.hasScope('staffUi.management')");
             }
         };
     }

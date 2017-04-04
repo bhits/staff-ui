@@ -1,4 +1,4 @@
-package gov.samhsa.c2s.staffadminui;
+package gov.samhsa.c2s.staffui;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Ignore("Depends on config-server on bootstrap")
-public class StaffAdminUiApplicationTests {
+public class StaffUiApplicationTests {
 
     @Test
     public void contextLoads() {

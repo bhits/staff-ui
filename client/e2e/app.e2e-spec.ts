@@ -1,10 +1,10 @@
-import { StaffAdminUiPage } from './app.po';
+import { StaffUiPage } from './app.po';
 
-describe('staff-admin-ui App', () => {
-  let page: StaffAdminUiPage;
+describe('staff-ui App', () => {
+  let page: StaffUiPage;
 
   beforeEach(() => {
-    page = new StaffAdminUiPage();
+    page = new StaffUiPage();
   });
 
   it('should display message saying app works', () => {

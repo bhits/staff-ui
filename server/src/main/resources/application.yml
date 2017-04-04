@@ -1,6 +1,6 @@
 server:
   port: 8460
 logging:
-  file: /java/C2S_LOGS/staff-admin-ui/staff-admin-ui.log
+  file: /java/C2S_LOGS/staff-ui/staff-ui.log
 info:
-  component: Staff Admin UI
+  component: Staff UI

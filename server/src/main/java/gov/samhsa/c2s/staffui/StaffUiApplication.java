@@ -1,4 +1,4 @@
-package gov.samhsa.c2s.staffadminui;
+package gov.samhsa.c2s.staffui;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,9 +8,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableResourceServer
-public class StaffAdminUiApplication {
+public class StaffUiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(StaffAdminUiApplication.class, args);
+        SpringApplication.run(StaffUiApplication.class, args);
     }
 }

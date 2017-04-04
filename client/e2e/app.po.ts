@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class StaffAdminUiPage {
+export class StaffUiPage {
   navigateTo() {
     return browser.get('/');
   }
