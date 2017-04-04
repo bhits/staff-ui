@@ -4,6 +4,7 @@ import {SlimLoadingBarModule, SlimLoadingBarService} from "ng2-slim-loading-bar"
 import {Http, RequestOptions, XHRBackend} from "@angular/http";
 import {httpInterceptorServiceFactory} from "./http-interceptor.service";
 import {TokenService} from "../security/shared/token.service";
+import {GlobalEventManagementService} from "./global-event-management.service";
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import {TokenService} from "../security/shared/token.service";
   ],
   declarations: [],
   providers: [
+    GlobalEventManagementService,
     {
       provide: Http,
       useFactory: httpInterceptorServiceFactory,

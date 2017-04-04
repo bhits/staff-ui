@@ -7,6 +7,7 @@ import {AuthorizationResponse} from "app/security/shared/authorization-response.
 import {UserInfoResponse} from "./user-info-response.model";
 import {TokenService} from "./token.service";
 import {UtilityService} from "../../shared/utility.service";
+import {GlobalEventManagementService} from "../../core/global-event-management.service";
 
 @Injectable()
 export class AuthenticationService {
@@ -15,6 +16,7 @@ export class AuthenticationService {
 
   constructor(private apiUrlService: ApiUrlService,
               private exceptionService: ExceptionService,
+              private globalEventManagementService: GlobalEventManagementService,
               private http: Http,
               private tokenService: TokenService,
               private utilityService: UtilityService) {
@@ -38,6 +40,7 @@ export class AuthenticationService {
 
   public logout() {
     this.tokenService.deleteOauthToken();
+    this.globalEventManagementService.setShowHeader(false);
     this.utilityService.navigateTo(this.apiUrlService.getLoginUrl());
   }
 

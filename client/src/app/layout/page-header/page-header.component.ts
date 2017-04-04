@@ -1,4 +1,5 @@
 import {Component, OnInit} from "@angular/core";
+import {GlobalEventManagementService} from "../../core/global-event-management.service";
 
 @Component({
   selector: 'c2s-page-header',
@@ -6,13 +7,16 @@ import {Component, OnInit} from "@angular/core";
   styleUrls: ['./page-header.component.scss']
 })
 export class PageHeaderComponent implements OnInit {
-  //Todo: Add handler for it
   public showHeader: boolean = true;
 
-  constructor() {
+  constructor(private globalEventManagementService: GlobalEventManagementService) {
   }
 
   ngOnInit() {
+    this.globalEventManagementService.getShowHeaderEmitter().subscribe((showHeader) => {
+      if (showHeader !== null) {
+        this.showHeader = showHeader;
+      }
+    });
   }
-
 }

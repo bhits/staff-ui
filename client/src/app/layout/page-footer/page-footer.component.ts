@@ -6,13 +6,10 @@ import {Component, OnInit} from "@angular/core";
   styleUrls: ['./page-footer.component.scss']
 })
 export class PageFooterComponent implements OnInit {
-  //Todo: Add handler for it
-  public showFooter: boolean = false;
 
   constructor() {
   }
 
   ngOnInit() {
   }
-
 }
