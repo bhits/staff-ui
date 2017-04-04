@@ -10,15 +10,23 @@ export class TokenService {
   constructor(private sessionStorageService: SessionStorageService) {
   }
 
-  getOauthToken(): AuthorizationResponse {
+  public getOauthToken(): AuthorizationResponse {
     return this.sessionStorageService.retrieve(this.OAUTH_TOKEN_KEY);
   }
 
-  setOauthToken(authorizationResponse: AuthorizationResponse): void {
+  public setOauthToken(authorizationResponse: AuthorizationResponse): void {
     this.sessionStorageService.store(this.OAUTH_TOKEN_KEY, authorizationResponse);
   }
 
-  deleteOauthToken(): void {
+  public deleteOauthToken(): void {
     this.sessionStorageService.clear(this.OAUTH_TOKEN_KEY);
+  }
+
+  public hasScope(scope: string): boolean {
+    if (this.getOauthToken()) {
+      const uaaToken: AuthorizationResponse = this.getOauthToken();
+      return uaaToken.scope.includes(scope);
+    }
+    return false;
   }
 }
