@@ -13,10 +13,12 @@ export class PageHeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.globalEventManagementService.getShowHeaderEmitter().subscribe((showHeader) => {
-      if (showHeader !== null) {
-        this.showHeader = showHeader;
-      }
-    });
+    this.globalEventManagementService.getShowHeaderEmitter()
+      .subscribe(
+        (showHeader) => {
+          if (showHeader !== null) {
+            this.showHeader = showHeader;
+          }
+        });
   }
 }

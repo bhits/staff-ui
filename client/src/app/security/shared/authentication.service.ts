@@ -38,9 +38,8 @@ export class AuthenticationService {
       .catch(this.exceptionService.handleError);
   }
 
-  public isLoggedIn(response: AuthorizationResponse) {
+  public isLoggedIn(response: AuthorizationResponse): void {
     this.tokenService.setOauthToken(response);
-    this.globalEventManagementService.setShowHeader(true);
     this.getUserInfo()
       .subscribe(
         (res) => {
@@ -53,7 +52,7 @@ export class AuthenticationService {
     this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
   }
 
-  public logout() {
+  public logout(): void {
     this.tokenService.deleteOauthToken();
     this.globalEventManagementService.setShowHeader(false);
     this.utilityService.navigateTo(this.apiUrlService.getLoginUrl());
