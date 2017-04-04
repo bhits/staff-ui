@@ -18,7 +18,7 @@ import {TokenService} from "../security/shared/token.service";
       deps: [XHRBackend, RequestOptions, SlimLoadingBarService, TokenService]
     }
   ],
-  exports: []
+  exports: [SlimLoadingBarModule]
 })
 export class CoreModule {
 }
