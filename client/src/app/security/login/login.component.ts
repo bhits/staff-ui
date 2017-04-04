@@ -1,8 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationService} from "app/security/shared/authentication.service";
-import {UtilityService} from "../../shared/utility.service";
-import {TokenService} from "../shared/token.service";
 
 @Component({
   selector: 'c2s-login',
@@ -14,9 +12,7 @@ export class LoginComponent implements OnInit {
   public unauthorized: boolean = false;
 
   constructor(private authenticationService: AuthenticationService,
-              private formBuilder: FormBuilder,
-              private tokenService: TokenService,
-              private utilityService: UtilityService) {
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
@@ -34,18 +30,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (res) => {
           this.unauthorized = false;
-          this.tokenService.setOauthToken(res);
-          this.utilityService.navigateTo('/home');
-          console.log(res);
-          this.authenticationService.getUserInfo()
-            .subscribe(
-              (res) => {
-                console.log(res);
-              },
-              error => {
-                console.log(error);
-              }
-            )
+          this.authenticationService.isLoggedIn(res);
         },
         err => {
           this.unauthorized = true;

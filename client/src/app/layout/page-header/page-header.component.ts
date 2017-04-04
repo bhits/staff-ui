@@ -7,7 +7,7 @@ import {GlobalEventManagementService} from "../../core/global-event-management.s
   styleUrls: ['./page-header.component.scss']
 })
 export class PageHeaderComponent implements OnInit {
-  public showHeader: boolean = true;
+  public showHeader: boolean = false;
 
   constructor(private globalEventManagementService: GlobalEventManagementService) {
   }

@@ -38,6 +38,21 @@ export class AuthenticationService {
       .catch(this.exceptionService.handleError);
   }
 
+  public isLoggedIn(response: AuthorizationResponse) {
+    this.tokenService.setOauthToken(response);
+    this.globalEventManagementService.setShowHeader(true);
+    this.getUserInfo()
+      .subscribe(
+        (res) => {
+          console.log(res);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
+  }
+
   public logout() {
     this.tokenService.deleteOauthToken();
     this.globalEventManagementService.setShowHeader(false);
