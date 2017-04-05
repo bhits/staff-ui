@@ -1,6 +1,5 @@
 import {NgModule} from "@angular/core";
-import {SecurityRoutingModule} from "./security-routing.module";
-import {LoginComponent} from "./login/login.component";
+import {routedComponents, SecurityRoutingModule} from "./security-routing.module";
 import {SharedModule} from "../shared/shared.module";
 import {AuthenticationService} from "app/security/shared/authentication.service";
 import {TokenService} from "./shared/token.service";
@@ -13,7 +12,7 @@ import {AuthorizationService} from "app/security/shared/authorization.service";
     SharedModule,
     SecurityRoutingModule
   ],
-  declarations: [LoginComponent],
+  declarations: [routedComponents],
   providers: [
     AuthenticationService,
     AuthorizationService,

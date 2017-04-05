@@ -6,6 +6,11 @@ const appRoutes: Routes = [
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: '/page-not-found',
+    pathMatch: 'full'
   }
 ];
 

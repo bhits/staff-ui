@@ -17,11 +17,11 @@ import {AppComponent} from "./app.component";
 
     // Third Party Modules
 
-    // C2S Modules
-    AppRoutingModule,
+    // Staff UI Modules
     CoreModule,
     HomeModule,
-    LayoutModule
+    LayoutModule,
+    AppRoutingModule // Order matters, this must in the end
   ],
   providers: [],
   bootstrap: [AppComponent]
