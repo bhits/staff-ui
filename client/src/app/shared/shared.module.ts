@@ -9,10 +9,12 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {ApiUrlService} from "app/shared/api-url.service";
 import {ExceptionService} from "app/shared/exception.service";
 import {UtilityService} from "./utility.service";
+import {Ng2PaginationModule} from "ng2-pagination";
+import {UsPhoneNumberPipe} from "./us-phone-number.pipe";
 
 @NgModule({
   imports: [],
-  declarations: [],
+  declarations: [UsPhoneNumberPipe],
   providers: [
     ApiUrlService,
     ExceptionService,
@@ -24,7 +26,9 @@ import {UtilityService} from "./utility.service";
     FlexLayoutModule,
     MaterialModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng2PaginationModule,
+    UsPhoneNumberPipe
   ]
 })
 export class SharedModule {
