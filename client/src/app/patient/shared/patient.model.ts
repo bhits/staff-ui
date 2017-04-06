@@ -9,6 +9,6 @@ export class Patient {
   birthDate: string;
   genderCode: string;
   socialSecurityNumber: string;
-  telephone: string;
+  phone: string;
   address: Address;
 }
