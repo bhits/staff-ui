@@ -7,7 +7,14 @@ export class UtilityService {
   constructor(private router: Router) {
   }
 
-  navigateTo(url: string) {
+  public navigateTo(url: string) {
     this.router.navigate([url]);
+  }
+
+  public formatZipCode(zipCode: string): string {
+    if (zipCode.length > 5) {
+      zipCode = zipCode.slice(0, 5) + "-" + zipCode.slice(5);
+    }
+    return zipCode;
   }
 }

@@ -9,7 +9,7 @@
       "birthDate": "2000-01-01",
       "genderCode": "M",
       "socialSecurityNumber": "123456789",
-      "telephone": "1234567890",
+      "phone": "1234567890",
       "address": {
         "street": "8647 GREENBELT RD",
         "city": "GREENBELT",
@@ -27,7 +27,7 @@
       "birthDate": "2000-02-02",
       "genderCode": "M",
       "socialSecurityNumber": "223456789",
-      "telephone": "2234567890",
+      "phone": "2234567890",
       "address": {
         "street": "14333 LAUREL BOWIE RD",
         "city": "LAUREL",
@@ -45,7 +45,7 @@
       "birthDate": "2000-03-03",
       "genderCode": "F",
       "socialSecurityNumber": "323456789",
-      "telephone": "3234567890",
+      "phone": "3234567890",
       "address": {
         "street": "7500 MONTPELIER RD ",
         "city": "LAUREL",
@@ -63,7 +63,7 @@
       "birthDate": "2000-04-04",
       "genderCode": "M",
       "socialSecurityNumber": "423456789",
-      "telephone": "4234567890",
+      "phone": "4234567890",
       "address": {
         "street": "9821 GREENBELT RD",
         "city": "LANHAM",
