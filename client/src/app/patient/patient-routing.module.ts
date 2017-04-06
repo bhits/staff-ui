@@ -3,6 +3,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {PatientsComponent} from "app/patient/patients/patients.component";
 import {PatientListComponent} from "app/patient/patient-list/patient-list.component";
 import {CanActivateAuthGuardService} from "app/security/shared/can-activate-auth-guard.service";
+import {UserCreateEditComponent} from "app/patient/user-create-edit/user-create-edit.component";
 
 const patientRoutes: Routes = [
   {
@@ -14,6 +15,10 @@ const patientRoutes: Routes = [
       {
         path: '',
         component: PatientListComponent
+      },
+      {
+        path: 'user-create-edit',
+        component: UserCreateEditComponent
       }
     ]
   }
@@ -28,5 +33,6 @@ export class PatientRoutingModule {
 
 export const routedComponents = [
   PatientsComponent,
-  PatientListComponent
+  PatientListComponent,
+  UserCreateEditComponent
 ];
