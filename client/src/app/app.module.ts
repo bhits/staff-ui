@@ -6,6 +6,7 @@ import {HomeModule} from "./home/home.module";
 import {AppRoutingModule} from "./app-routing.module";
 
 import {AppComponent} from "./app.component";
+import {PatientModule} from "./patient/patient.module";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {AppComponent} from "./app.component";
     CoreModule,
     HomeModule,
     LayoutModule,
+    PatientModule,
     AppRoutingModule // Order matters, this must in the end
   ],
   providers: [],

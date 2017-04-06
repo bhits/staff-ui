@@ -4,8 +4,11 @@ import {Injectable} from "@angular/core";
 export class ApiUrlService {
   private urls: Map<string, string> = new Map(
     [
+      // Internal Url maps
       ["loginUrl", "/login"],
       ["homeUrl", "/home"],
+      ["patientListUrl", "/patients"],
+      // External Url maps
       ["uaaTokenUrl", "/uaa/oauth/token"],
       ["uaaUserInfoUrl", "/uaa/userinfo"]
     ]
@@ -28,5 +31,9 @@ export class ApiUrlService {
 
   getUaaUserInfoUrl(): string {
     return this.urls.get('uaaUserInfoUrl');
+  }
+
+  getPatientListUrl(): string {
+    return this.urls.get('patientListUrl');
   }
 }
