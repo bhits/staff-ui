@@ -17,6 +17,6 @@ export class HomeComponent implements OnInit {
   }
 
   navigateTo() {
-    this.utilityService.navigateTo(this.apiUrlService.getPatientListUrl());
+    this.utilityService.navigateTo(this.apiUrlService.getUserListUrl());
   }
 }

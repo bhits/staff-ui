@@ -8,6 +8,7 @@ export class ApiUrlService {
       ["loginUrl", "/login"],
       ["homeUrl", "/home"],
       ["patientListUrl", "/patients"],
+      ["userListUrl", "/users"],
       // External Url maps
       ["uaaTokenUrl", "/uaa/oauth/token"],
       ["uaaUserInfoUrl", "/uaa/userinfo"]
@@ -25,15 +26,19 @@ export class ApiUrlService {
     return this.urls.get('homeUrl');
   }
 
+  getPatientListUrl(): string {
+    return this.urls.get('patientListUrl');
+  }
+
+  getUserListUrl(): string {
+    return this.urls.get('userListUrl');
+  }
+
   getUaaTokenUrl(): string {
     return this.urls.get('uaaTokenUrl');
   }
 
   getUaaUserInfoUrl(): string {
     return this.urls.get('uaaUserInfoUrl');
-  }
-
-  getPatientListUrl(): string {
-    return this.urls.get('patientListUrl');
   }
 }

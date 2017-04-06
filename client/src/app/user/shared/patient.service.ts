@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
+import {ExceptionService} from "../../shared/exception.service";
 import {Http, Response} from "@angular/http";
-import {Observable} from "rxjs";
-import {PageableData} from "app/shared/pageable-data.model";
-import {Patient} from "app/patient/shared/patient.model";
-import {ExceptionService} from "app/shared/exception.service";
+import {Observable} from "rxjs/Observable";
+import {PageableData} from "../../shared/pageable-data.model";
+import {Patient} from "./patient.model";
 
 @Injectable()
 export class PatientService {

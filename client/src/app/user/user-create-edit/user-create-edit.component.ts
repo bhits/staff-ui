@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'c2s-user-create-edit',
@@ -7,9 +7,9 @@ import {Component, OnInit} from "@angular/core";
 })
 export class UserCreateEditComponent implements OnInit {
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit() {
   }
+
 }

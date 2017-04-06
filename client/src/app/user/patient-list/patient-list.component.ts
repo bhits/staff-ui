@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-import {PageableData} from "../../shared/pageable-data.model";
+import {Observable} from "rxjs/Observable";
 import {Patient} from "../shared/patient.model";
-import {Observable} from "rxjs";
 import {PatientService} from "../shared/patient.service";
+import {PageableData} from "../../shared/pageable-data.model";
 
 @Component({
   selector: 'c2s-patient-list',

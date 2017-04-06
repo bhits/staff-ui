@@ -4,9 +4,8 @@ import {CoreModule} from "app/core/core.module";
 import {LayoutModule} from "./layout/layout.module";
 import {HomeModule} from "./home/home.module";
 import {AppRoutingModule} from "./app-routing.module";
-
 import {AppComponent} from "./app.component";
-import {PatientModule} from "./patient/patient.module";
+import {UserModule} from "app/user/user.module";
 
 @NgModule({
   declarations: [
@@ -22,7 +21,7 @@ import {PatientModule} from "./patient/patient.module";
     CoreModule,
     HomeModule,
     LayoutModule,
-    PatientModule,
+    UserModule,
     AppRoutingModule // Order matters, this must in the end
   ],
   providers: [],
