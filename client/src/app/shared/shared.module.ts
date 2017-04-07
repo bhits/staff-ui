@@ -11,6 +11,7 @@ import {ExceptionService} from "app/shared/exception.service";
 import {UtilityService} from "./utility.service";
 import {Ng2PaginationModule} from "ng2-pagination";
 import {UsPhoneNumberPipe} from "./us-phone-number.pipe";
+import {Md2Module} from "md2";
 
 @NgModule({
   imports: [],
@@ -25,6 +26,7 @@ import {UsPhoneNumberPipe} from "./us-phone-number.pipe";
     CommonModule,
     FlexLayoutModule,
     MaterialModule,
+    Md2Module,
     RouterModule,
     ReactiveFormsModule,
     Ng2PaginationModule,

@@ -17,7 +17,7 @@ const userRoutes: Routes = [
         component: PatientListComponent
       },
       {
-        path: 'user-create-edit',
+        path: 'user-create',
         component: UserCreateEditComponent
       }
     ]

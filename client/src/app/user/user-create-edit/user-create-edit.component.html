@@ -1,8 +1,98 @@
 <div class="p-t-75 p-l-md p-r-md p-b">
-  <h1 class="">My Users</h1>
+  <h1 class="">Create User</h1>
   <div>
-    <div style="background-color: #BCDEDB;" class="p-md font-size18 font-weight center-sm-left">OK! You are now ready to
-      manage your users.
+    <div style="background-color: #BCDEDB;" class="p-md font-size18 font-weight center-sm-left">Please Note: Complete
+      all required fields to create a User Account. Additional Information may also be added as provided.
     </div>
   </div>
+  <form [formGroup]="createEditUserFrom" class="create-edit-user-form" novalidate>
+    <h2>Required Information</h2>
+    <div fxLayout="row" fxLayoutGap="20px">
+      <div fxFlex>
+        <md-input-container class="full-width font-size20">
+          <input mdInput placeholder="First Name" formControlName="firstName">
+        </md-input-container>
+      </div>
+      <div fxFlex>
+        <md-input-container class="full-width font-size20">
+          <input mdInput placeholder="Middle Name (Optional)" formControlName="middleName">
+        </md-input-container>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="20px">
+      <div fxFlex>
+        <md-input-container class="full-width font-size20">
+          <input mdInput placeholder="Last Name" formControlName="lastName">
+        </md-input-container>
+      </div>
+      <div fxFlex>
+        <md-input-container class="full-width font-size20">
+          <input mdInput placeholder="Email" formControlName="email">
+        </md-input-container>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="20px">
+      <md-select fxLayout="column" placeholder="Gender" formControlName="genderCode"
+                 class="full-width font-size20">
+        <md-option *ngFor="let gender of genderGroup" [value]="gender.genderCode">
+          {{ gender.genderValue }}
+        </md-option>
+      </md-select>
+      <md2-datepicker class="full-width font-size20" placeholder="Date of Birth"
+                      [openOnFocus]="isOpenOnFocus" [format]="FORMAT"
+                      formControlName="birthDate"></md2-datepicker>
+    </div>
+
+    <h2>Additional Information</h2>
+    <div formGroupName="address">
+      <md-input-container class="full-width font-size20">
+        <input mdInput placeholder="Street" formControlName="street">
+      </md-input-container>
+      <div fxLayout="row" fxLayoutGap="20px">
+        <div fxFlex>
+          <md-input-container class="full-width font-size20">
+            <input mdInput placeholder="City" formControlName="city">
+          </md-input-container>
+        </div>
+        <div fxFlex>
+          <md-input-container class="full-width font-size20">
+            <input mdInput placeholder="State" formControlName="state">
+          </md-input-container>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutGap="20px">
+        <div fxFlex>
+          <md-input-container class="full-width font-size20">
+            <input mdInput placeholder="Postal Code" formControlName="postalCode">
+          </md-input-container>
+        </div>
+        <div fxFlex>
+          <md-input-container class="full-width font-size20">
+            <input mdInput placeholder="Country" formControlName="country">
+          </md-input-container>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="20px">
+      <div fxFlex>
+        <md-input-container class="full-width font-size20">
+          <input mdInput placeholder="Social Security Number" formControlName="socialSecurityNumber">
+        </md-input-container>
+      </div>
+      <div fxFlex>
+        <md-input-container class="full-width font-size20">
+          <input mdInput placeholder="Phone" formControlName="phone">
+        </md-input-container>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="20px">
+      <button md-raised-button color="primary" (click)="clearForm()" [disabled]="createEditUserFrom.pristine">
+        <strong>Clear All</strong>
+      </button>
+      <button md-raised-button color="primary"
+              [disabled]="createEditUserFrom.invalid">
+        <strong>Create User</strong>
+      </button>
+    </div>
+  </form>
 </div>
