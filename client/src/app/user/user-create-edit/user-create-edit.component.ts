@@ -20,25 +20,25 @@ export class UserCreateEditComponent implements OnInit {
 
   ngOnInit() {
     this.createEditUserFrom = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      middleName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['', [Validators.minLength(2), Validators.required]],
+      middleName: ['', Validators.minLength(2)],
+      lastName: ['', [Validators.minLength(2), Validators.required]],
       email: ['', Validators.required],
       genderCode: ['', Validators.required],
       birthDate: ['', Validators.required],
-      socialSecurityNumber: ['', Validators.required],
-      phone: ['', Validators.required],
+      socialSecurityNumber: ['', Validators.minLength(2)],
+      phone: ['', Validators.minLength(2)],
       address: this.initAddressFormGroup()
     })
   }
 
   private initAddressFormGroup() {
     return this.formBuilder.group({
-      street: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      postalCode: ['', Validators.required],
-      country: ['', Validators.required]
+      street: ['', Validators.minLength(2)],
+      city: ['', Validators.minLength(2)],
+      state: ['', Validators.minLength(2)],
+      postalCode: ['', Validators.minLength(2)],
+      country: ['', Validators.minLength(2)]
     });
   }
 

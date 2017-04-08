@@ -3,6 +3,7 @@ import {routedComponents, UserRoutingModule} from "./user-routing.module";
 import {PatientPipe} from "./shared/patient.pipe";
 import {PatientService} from "app/user/shared/patient.service";
 import {SharedModule} from "app/shared/shared.module";
+import {UserService} from "./shared/user.service";
 
 @NgModule({
   imports: [
@@ -12,7 +13,10 @@ import {SharedModule} from "app/shared/shared.module";
   declarations: [
     routedComponents,
     PatientPipe],
-  providers: [PatientService]
+  providers: [
+    PatientService,
+    UserService
+  ]
 })
 export class UserModule {
 }
