@@ -27,4 +27,11 @@ export class UserService {
       .map((resp: Response) => <User>(resp.json()))
       .catch(this.exceptionService.handleError);
   }
+
+  public updateUser(user: User): Observable<void> {
+    const GET_USER_URL = `${this.umsUserUrl}/${user.id}`;
+    return this.http.put(GET_USER_URL, user)
+      .map(() => null)
+      .catch(this.exceptionService.handleError);
+  }
 }
