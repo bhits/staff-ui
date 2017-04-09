@@ -8,6 +8,20 @@
   <form [formGroup]="createEditUserFrom" class="create-edit-user-form" novalidate>
     <h2>Required Information</h2>
     <div fxLayout="row" fxLayoutGap="20px">
+      <md-select fxLayout="column" placeholder="Role" formControlName="userRole"
+                 class="full-width font-size20">
+        <md-option *ngFor="let userRole of userRoles" [value]="userRole.roleCode">
+          {{ userRole.roleValue }}
+        </md-option>
+      </md-select>
+      <md-select fxLayout="column" placeholder="Language" formControlName="language"
+                 class="full-width font-size20">
+        <md-option *ngFor="let language of languages" [value]="language.languageCode">
+          {{ language.languageValue }}
+        </md-option>
+      </md-select>
+    </div>
+    <div fxLayout="row" fxLayoutGap="20px">
       <div fxFlex>
         <md-input-container class="full-width font-size20">
           <input mdInput placeholder="First Name" formControlName="firstName">

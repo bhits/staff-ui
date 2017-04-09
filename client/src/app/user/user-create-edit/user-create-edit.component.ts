@@ -5,6 +5,10 @@ import {User} from "app/user/shared/user.model";
 import {NotificationService} from "app/shared/notification.service";
 import {UtilityService} from "app/shared/utility.service";
 import {ApiUrlService} from "app/shared/api-url.service";
+import {Language} from "app/user/shared/language.model";
+import {UserRole} from "app/user/shared/user-role.model";
+import {LANGUAGES} from "app/user/shared/languages.model";
+import {USER_ROLES} from "app/user/shared/user-roles.model";
 
 @Component({
   selector: 'c2s-user-create-edit',
@@ -19,6 +23,8 @@ export class UserCreateEditComponent implements OnInit {
     {genderCode: 'M', genderValue: 'Male'},
     {genderCode: 'F', genderValue: 'Female'}
   ];
+  public languages: Language[];
+  public userRoles: UserRole[];
 
   constructor(private apiUrlService: ApiUrlService,
               private formBuilder: FormBuilder,
@@ -28,6 +34,8 @@ export class UserCreateEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.languages = LANGUAGES;
+    this.userRoles = USER_ROLES;
     this.createEditUserFrom = this.formBuilder.group({
       firstName: ['', [Validators.minLength(2), Validators.required]],
       middleName: ['', Validators.minLength(2)],
@@ -37,7 +45,9 @@ export class UserCreateEditComponent implements OnInit {
       birthDate: ['', Validators.required],
       socialSecurityNumber: ['', Validators.minLength(2)],
       phone: ['', Validators.minLength(2)],
-      address: this.initAddressFormGroup()
+      address: this.initAddressFormGroup(),
+      userRole: ['', Validators.required],
+      language: ['', Validators.required]
     })
   }
 
@@ -79,7 +89,9 @@ export class UserCreateEditComponent implements OnInit {
       genderCode: formModel.genderCode,
       socialSecurityNumber: formModel.socialSecurityNumber,
       phone: formModel.phone,
-      address: formModel.address
+      address: formModel.address,
+      userRole: formModel.userRole,
+      language: formModel.language
     };
   }
 }
