@@ -1,5 +1,10 @@
 import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UserService} from "app/user/shared/user.service";
+import {User} from "app/user/shared/user.model";
+import {NotificationService} from "app/shared/notification.service";
+import {UtilityService} from "app/shared/utility.service";
+import {ApiUrlService} from "app/shared/api-url.service";
 
 @Component({
   selector: 'c2s-user-create-edit',
@@ -15,7 +20,11 @@ export class UserCreateEditComponent implements OnInit {
     {genderCode: 'F', genderValue: 'Female'}
   ];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private apiUrlService: ApiUrlService,
+              private formBuilder: FormBuilder,
+              private notificationService: NotificationService,
+              private userService: UserService,
+              private utilityService: UtilityService) {
   }
 
   ngOnInit() {
@@ -44,5 +53,33 @@ export class UserCreateEditComponent implements OnInit {
 
   clearForm(): void {
     this.createEditUserFrom.reset();
+  }
+
+  createUser(): void {
+    this.userService.createUser(this.prepareCreateUser())
+      .subscribe(
+        () => {
+          this.utilityService.navigateTo(this.apiUrlService.getUserListUrl())
+        },
+        err => {
+          this.notificationService.show("Error in create user.");
+          console.log(err);
+        }
+      );
+  }
+
+  private prepareCreateUser(): User {
+    const formModel = this.createEditUserFrom.value;
+    return {
+      firstName: formModel.firstName,
+      middleName: formModel.middleName,
+      lastName: formModel.lastName,
+      email: formModel.email,
+      birthDate: formModel.birthDate,
+      genderCode: formModel.genderCode,
+      socialSecurityNumber: formModel.socialSecurityNumber,
+      phone: formModel.phone,
+      address: formModel.address
+    };
   }
 }

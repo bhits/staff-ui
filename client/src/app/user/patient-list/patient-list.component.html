@@ -28,7 +28,12 @@
     </div>
 
     <div fxLayoutAlign="center">
-      <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+      <div style="padding-top: 20px">
+        <div style="background-color: #DEBCC9;" class="p-md font-size18 font-weight center-sm-left" *ngIf="noResult">
+          There are currently no Patients available. Please click the Create a User Account button to create a new user.
+        </div>
+      </div>
+      <pagination-controls (pageChange)="getPage($event)" *ngIf="!noResult"></pagination-controls>
       <md-spinner *ngIf="loading"></md-spinner>
     </div>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap="wrap" fxLayoutGap="15px" fxLayoutAlign="center">
@@ -73,7 +78,7 @@
     </div>
 
     <div fxLayoutAlign="center">
-      <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+      <pagination-controls (pageChange)="getPage($event)" *ngIf="!noResult"></pagination-controls>
     </div>
   </div>
 </div>

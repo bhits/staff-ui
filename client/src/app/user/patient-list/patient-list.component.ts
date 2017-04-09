@@ -14,6 +14,7 @@ export class PatientListComponent implements OnInit {
   private totalPages: number = 0;
   private itemsPerPage: number = 0;
   private currentPage: number = 1;
+  private noResult: boolean = false;
   private loading: boolean = false;
 
   private asyncPatients: Observable<Patient[]>;
@@ -28,6 +29,9 @@ export class PatientListComponent implements OnInit {
   getPage(page: number) {
     this.loading = true;
     this.asyncPatients = this.patientService.getPatients(page - 1)
+      .do((patients: PageableData<Patient>) => {
+        this.noResult = patients.totalElements === 0;
+      })
       .do((patients: PageableData<Patient>) => {
         this.totalItems = patients.totalElements;
         this.totalPages = patients.totalPages;

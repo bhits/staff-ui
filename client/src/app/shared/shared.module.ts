@@ -12,6 +12,7 @@ import {UtilityService} from "./utility.service";
 import {Ng2PaginationModule} from "ng2-pagination";
 import {UsPhoneNumberPipe} from "./us-phone-number.pipe";
 import {Md2Module} from "md2";
+import {NotificationService} from "app/shared/notification.service";
 
 @NgModule({
   imports: [],
@@ -19,6 +20,7 @@ import {Md2Module} from "md2";
   providers: [
     ApiUrlService,
     ExceptionService,
+    NotificationService,
     UtilityService
   ],
   exports: [
