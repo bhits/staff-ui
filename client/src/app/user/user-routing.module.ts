@@ -4,6 +4,7 @@ import {UsersComponent} from "app/user/users/users.component";
 import {CanActivateAuthGuardService} from "../security/shared/can-activate-auth-guard.service";
 import {PatientListComponent} from "app/user/patient-list/patient-list.component";
 import {UserCreateEditComponent} from "app/user/user-create-edit/user-create-edit.component";
+import {UserResolveService} from "app/user/shared/user-resolve.service";
 
 const userRoutes: Routes = [
   {
@@ -23,7 +24,9 @@ const userRoutes: Routes = [
       {
         path: 'edit/:userId',
         component: UserCreateEditComponent,
-        resolve: {}
+        resolve: {
+          user: UserResolveService
+        }
       }
     ]
   }

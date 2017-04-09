@@ -3,6 +3,7 @@ import {Observable} from "rxjs/Observable";
 import {Patient} from "../shared/patient.model";
 import {PatientService} from "../shared/patient.service";
 import {PageableData} from "../../shared/pageable-data.model";
+import {UtilityService} from "app/shared/utility.service";
 
 @Component({
   selector: 'c2s-patient-list',
@@ -19,7 +20,8 @@ export class PatientListComponent implements OnInit {
 
   private asyncPatients: Observable<Patient[]>;
 
-  constructor(private patientService: PatientService) {
+  constructor(private patientService: PatientService,
+              private utilityService: UtilityService) {
   }
 
   ngOnInit() {
@@ -38,5 +40,10 @@ export class PatientListComponent implements OnInit {
         this.loading = false;
       })
       .map(patients => patients.content);
+  }
+
+  redirectToUserEdit(patient: Patient) {
+    const editUserUrl: string = `${"/users/edit"}/${patient.id}`;
+    this.utilityService.navigateTo(editUserUrl)
   }
 }
