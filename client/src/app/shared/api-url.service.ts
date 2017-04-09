@@ -11,8 +11,7 @@ export class ApiUrlService {
 
       // External api Url maps
       //Todo: Change to correct url
-      ["patientListUrl", "http://localhost:9999/patients"],
-      ["createUserUrl", "http://localhost:9999/users"],
+      ["UmsBaseUrl", "http://localhost:9999/ums"],
       ["uaaTokenUrl", "/uaa/oauth/token"],
       ["uaaUserInfoUrl", "/uaa/userinfo"]
     ]
@@ -33,12 +32,8 @@ export class ApiUrlService {
     return this.urls.get('userListUrl');
   }
 
-  getPatientListUrl(): string {
-    return this.urls.get('patientListUrl');
-  }
-
-  getCreateUserUrl(): string {
-    return this.urls.get('createUserUrl');
+  getUmsBaseUrl(): string {
+    return this.urls.get('UmsBaseUrl');
   }
 
   getUaaTokenUrl(): string {

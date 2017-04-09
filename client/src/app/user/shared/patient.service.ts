@@ -15,10 +15,10 @@ export class PatientService {
   }
 
   public getPatients(page: number): Observable<PageableData<Patient>> {
-    const resourceUrl = this.apiUrlService.getPatientListUrl();
+    const PATIENT_LIST_URL = this.apiUrlService.getUmsBaseUrl().concat("/patients");
     let params: URLSearchParams = new URLSearchParams();
     params.set('page', page.toString());
-    return this.http.get(resourceUrl, {search: params})
+    return this.http.get(PATIENT_LIST_URL, {search: params})
       .map((resp: Response) => <PageableData<Patient>>(resp.json()))
       .catch(this.exceptionService.handleError);
   }
