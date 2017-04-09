@@ -1,9 +1,6 @@
-export enum LanguageEnum {
-  EN,
-  ES
-}
+type LanguageType = "EN" | "ES";
 
 export class Language {
-  languageCode: LanguageEnum;
+  languageCode: LanguageType;
   languageValue: string;
 }

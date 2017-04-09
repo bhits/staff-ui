@@ -1,20 +1,20 @@
-import {UserRole, UserRoleEnum} from "./user-role.model";
+import {UserRole} from "./user-role.model";
 
 export const USER_ROLES: UserRole[] = [
   {
-    roleCode: UserRoleEnum.PATIENT,
+    roleCode: "PATIENT",
     roleValue: "Patient"
   },
   {
-    roleCode: UserRoleEnum.PARENT,
+    roleCode: "PARENT",
     roleValue: "Parent"
   },
   {
-    roleCode: UserRoleEnum.GUARDIAN,
+    roleCode: "GUARDIAN",
     roleValue: "Guardian"
   },
   {
-    roleCode: UserRoleEnum.STAFF,
+    roleCode: "STAFF",
     roleValue: "Staff"
   }
 ];

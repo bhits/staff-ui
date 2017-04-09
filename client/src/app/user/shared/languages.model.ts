@@ -1,12 +1,12 @@
-import {Language, LanguageEnum} from "./language.model";
+import {Language} from "./language.model";
 
 export const LANGUAGES: Language[] = [
   {
-    languageCode: LanguageEnum.EN,
+    languageCode: "EN",
     languageValue: "English"
   },
   {
-    languageCode: LanguageEnum.ES,
+    languageCode: "ES",
     languageValue: "Spanish"
   }
 ];

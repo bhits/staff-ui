@@ -4,6 +4,7 @@ import {PatientPipe} from "./shared/patient.pipe";
 import {PatientService} from "app/user/shared/patient.service";
 import {SharedModule} from "app/shared/shared.module";
 import {UserService} from "./shared/user.service";
+import {UserResolveService} from "./shared/user-resolve.service";
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import {UserService} from "./shared/user.service";
     PatientPipe],
   providers: [
     PatientService,
-    UserService
+    UserService,
+    UserResolveService
   ]
 })
 export class UserModule {

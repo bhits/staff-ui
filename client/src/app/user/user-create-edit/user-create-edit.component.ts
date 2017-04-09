@@ -9,6 +9,7 @@ import {Language} from "app/user/shared/language.model";
 import {UserRole} from "app/user/shared/user-role.model";
 import {LANGUAGES} from "app/user/shared/languages.model";
 import {USER_ROLES} from "app/user/shared/user-roles.model";
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
   selector: 'c2s-user-create-edit',
@@ -25,10 +26,13 @@ export class UserCreateEditComponent implements OnInit {
   ];
   public languages: Language[];
   public userRoles: UserRole[];
+  public isEditMode: boolean = false;
+  private userId: number;
 
   constructor(private apiUrlService: ApiUrlService,
               private formBuilder: FormBuilder,
               private notificationService: NotificationService,
+              private route: ActivatedRoute,
               private userService: UserService,
               private utilityService: UtilityService) {
   }
@@ -48,12 +52,39 @@ export class UserCreateEditComponent implements OnInit {
       address: this.initAddressFormGroup(),
       userRole: ['', Validators.required],
       language: ['', Validators.required]
-    })
+    });
+    this.route.params
+      .switchMap((params: Params) => this.userService.getUser(params['userId']))
+      .subscribe((user: User) => {
+        this.isEditMode = user.id != null;
+        this.userId = user.id;
+        this.createEditUserFrom.setValue({
+          firstName: user.firstName,
+          middleName: user.middleName,
+          lastName: user.lastName,
+          email: user.email,
+          genderCode: user.genderCode,
+          birthDate: user.birthDate,
+          socialSecurityNumber: user.socialSecurityNumber,
+          phone: user.phone,
+          address: {
+            line1: user.address.line1,
+            line2: user.address.line2,
+            city: user.address.city,
+            state: user.address.state,
+            postalCode: user.address.postalCode,
+            country: user.address.country
+          },
+          userRole: user.userRole,
+          language: user.language
+        })
+      });
   }
 
   private initAddressFormGroup() {
     return this.formBuilder.group({
-      street: ['', Validators.minLength(2)],
+      line1: ['', Validators.minLength(2)],
+      line2: ['', Validators.minLength(2)],
       city: ['', Validators.minLength(2)],
       state: ['', Validators.minLength(2)],
       postalCode: ['', Validators.minLength(2)],
@@ -66,16 +97,29 @@ export class UserCreateEditComponent implements OnInit {
   }
 
   createUser(): void {
-    this.userService.createUser(this.prepareCreateUser())
-      .subscribe(
-        () => {
-          this.utilityService.navigateTo(this.apiUrlService.getUserListUrl())
-        },
-        err => {
-          this.notificationService.show("Error in create user.");
-          console.log(err);
-        }
-      );
+    if (this.isEditMode) {
+      this.userService.updateUser(this.userId, this.prepareCreateUser())
+        .subscribe(
+          () => {
+            this.utilityService.navigateTo(this.apiUrlService.getUserListUrl())
+          },
+          err => {
+            this.notificationService.show("Error in updating user.");
+            console.log(err);
+          }
+        );
+    } else {
+      this.userService.createUser(this.prepareCreateUser())
+        .subscribe(
+          () => {
+            this.utilityService.navigateTo(this.apiUrlService.getUserListUrl())
+          },
+          err => {
+            this.notificationService.show("Error in creating user.");
+            console.log(err);
+          }
+        );
+    }
   }
 
   private prepareCreateUser(): User {

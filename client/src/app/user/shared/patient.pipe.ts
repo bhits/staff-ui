@@ -26,7 +26,8 @@ export class PatientPipe implements PipeTransform {
           return value.phone;
         case "address":
           const address = [];
-          address.push(value.address.street || "");
+          address.push(value.address.line1 || "");
+          address.push(value.address.line2 || "");
           address.push(value.address.city || "");
           address.push(value.address.state || "");
           address.push(this.utilityService.formatZipCode(value.address.postalCode || ""));

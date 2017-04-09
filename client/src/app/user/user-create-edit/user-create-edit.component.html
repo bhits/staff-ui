@@ -59,9 +59,18 @@
 
     <h2>Additional Information</h2>
     <div formGroupName="address">
-      <md-input-container class="full-width font-size20">
-        <input mdInput placeholder="Street" formControlName="street">
-      </md-input-container>
+      <div fxLayout="row" fxLayoutGap="20px">
+        <div fxFlex>
+          <md-input-container class="full-width font-size20">
+            <input mdInput placeholder="Street Line1" formControlName="line1">
+          </md-input-container>
+        </div>
+        <div fxFlex>
+          <md-input-container class="full-width font-size20">
+            <input mdInput placeholder="Street Line2 (Optional)" formControlName="line2">
+          </md-input-container>
+        </div>
+      </div>
       <div fxLayout="row" fxLayoutGap="20px">
         <div fxFlex>
           <md-input-container class="full-width font-size20">
@@ -105,8 +114,15 @@
       </button>
       <button md-raised-button color="primary" (click)="createUser()"
               [disabled]="createEditUserFrom.invalid">
-        <strong>Create User</strong>
+        <strong *ngIf="isEditMode; else create">Update User</strong>
+        <ng-template #create>Create User</ng-template>
       </button>
     </div>
   </form>
 </div>
+
+<pre class="font-size20">
+  {{createEditUserFrom.get("userRole").value|json}}
+  {{createEditUserFrom.get("language").value|json}}
+  {{createEditUserFrom.get("genderCode").value|json}}
+</pre>

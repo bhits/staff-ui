@@ -1,11 +1,6 @@
-export enum UserRoleEnum {
-  PATIENT,
-  PARENT,
-  GUARDIAN,
-  STAFF
-}
+type UserRoleType = "PATIENT" | "PARENT" | "GUARDIAN" | "STAFF";
 
 export class UserRole {
-  roleCode: UserRoleEnum;
+  roleCode: UserRoleType;
   roleValue: string;
 }
