@@ -9,7 +9,7 @@ import {Language} from "app/user/shared/language.model";
 import {UserRole} from "app/user/shared/user-role.model";
 import {LANGUAGES} from "app/user/shared/languages.model";
 import {USER_ROLES} from "app/user/shared/user-roles.model";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {Gender} from "app/user/shared/gender.model";
 import {GENDERS} from "app/user/shared/genders.model";
 
@@ -27,6 +27,7 @@ export class UserCreateEditComponent implements OnInit {
   public userRoles: UserRole[];
   public isEditMode: boolean = false;
   private userId: number;
+  private title: string = "Create User";
 
   constructor(private apiUrlService: ApiUrlService,
               private formBuilder: FormBuilder,
@@ -54,31 +55,17 @@ export class UserCreateEditComponent implements OnInit {
       language: ['', Validators.required]
     });
     this.route.params
-      .switchMap((params: Params) => this.userService.getUser(params['userId']))
-      .subscribe((user: User) => {
-        this.isEditMode = user.id != null;
-        this.userId = user.id;
-        this.createEditUserFrom.setValue({
-          firstName: user.firstName,
-          middleName: user.middleName,
-          lastName: user.lastName,
-          email: user.email,
-          genderCode: user.genderCode,
-          birthDate: user.birthDate,
-          socialSecurityNumber: user.socialSecurityNumber,
-          phone: user.phone,
-          address: {
-            line1: user.address.line1,
-            line2: user.address.line2,
-            city: user.address.city,
-            state: user.address.state,
-            postalCode: user.address.postalCode,
-            country: user.address.country
-          },
-          userRole: user.userRole,
-          language: user.language
-        })
-      });
+      .subscribe(
+        params => {
+          if (params['userId']) {
+            // Edit mode
+            this.title = "Edit User";
+            let user: User = this.route.snapshot.data['user'];
+            this.isEditMode = user.id != null;
+            this.userId = user.id;
+            this.setValueOnEditUserForm(user);
+          }
+        });
   }
 
   private initAddressFormGroup() {
@@ -92,8 +79,31 @@ export class UserCreateEditComponent implements OnInit {
     });
   }
 
-  clearForm(): void {
-    this.createEditUserFrom.reset();
+  private setValueOnEditUserForm(user: User) {
+    this.createEditUserFrom.setValue({
+      firstName: user.firstName,
+      middleName: user.middleName,
+      lastName: user.lastName,
+      email: user.email,
+      genderCode: user.genderCode,
+      birthDate: user.birthDate,
+      socialSecurityNumber: user.socialSecurityNumber,
+      phone: user.phone,
+      address: {
+        line1: user.address.line1,
+        line2: user.address.line2,
+        city: user.address.city,
+        state: user.address.state,
+        postalCode: user.address.postalCode,
+        country: user.address.country
+      },
+      userRole: user.userRole,
+      language: user.language
+    })
+  }
+
+  cancel(): void {
+    this.utilityService.navigateTo(this.apiUrlService.getUserListUrl());
   }
 
   createEditUser(): void {

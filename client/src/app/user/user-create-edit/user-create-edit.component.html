@@ -1,5 +1,5 @@
 <div class="p-t-75 p-l-md p-r-md p-b">
-  <h1 class="">Create User</h1>
+  <h1 class="">{{title}}</h1>
   <div>
     <div style="background-color: #BCDEDB;" class="p-md font-size18 font-weight center-sm-left">Please Note: Complete
       all required fields to create a User Account. Additional Information may also be added as provided.
@@ -109,13 +109,12 @@
       </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="20px">
-      <button md-raised-button color="primary" (click)="clearForm()" [disabled]="createEditUserFrom.pristine">
-        <strong>Clear All</strong>
+      <button md-raised-button color="primary" (click)="cancel()">
+        <strong>Cancel</strong>
       </button>
       <button md-raised-button color="primary" (click)="createEditUser()"
               [disabled]="createEditUserFrom.invalid">
-        <strong *ngIf="isEditMode; else create">Update User</strong>
-        <ng-template #create>Create User</ng-template>
+        <strong>{{title}}</strong>
       </button>
     </div>
   </form>
