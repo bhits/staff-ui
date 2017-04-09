@@ -48,7 +48,7 @@
     <div fxLayout="row" fxLayoutGap="20px">
       <md-select fxLayout="column" placeholder="Gender" formControlName="genderCode"
                  class="full-width font-size20">
-        <md-option *ngFor="let gender of genderGroup" [value]="gender.genderCode">
+        <md-option *ngFor="let gender of genders" [value]="gender.genderCode">
           {{ gender.genderValue }}
         </md-option>
       </md-select>
@@ -112,7 +112,7 @@
       <button md-raised-button color="primary" (click)="clearForm()" [disabled]="createEditUserFrom.pristine">
         <strong>Clear All</strong>
       </button>
-      <button md-raised-button color="primary" (click)="createUser()"
+      <button md-raised-button color="primary" (click)="createEditUser()"
               [disabled]="createEditUserFrom.invalid">
         <strong *ngIf="isEditMode; else create">Update User</strong>
         <ng-template #create>Create User</ng-template>
@@ -120,9 +120,3 @@
     </div>
   </form>
 </div>
-
-<pre class="font-size20">
-  {{createEditUserFrom.get("userRole").value|json}}
-  {{createEditUserFrom.get("language").value|json}}
-  {{createEditUserFrom.get("genderCode").value|json}}
-</pre>

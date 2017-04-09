@@ -10,6 +10,8 @@ import {UserRole} from "app/user/shared/user-role.model";
 import {LANGUAGES} from "app/user/shared/languages.model";
 import {USER_ROLES} from "app/user/shared/user-roles.model";
 import {ActivatedRoute, Params} from "@angular/router";
+import {Gender} from "app/user/shared/gender.model";
+import {GENDERS} from "app/user/shared/genders.model";
 
 @Component({
   selector: 'c2s-user-create-edit',
@@ -20,10 +22,7 @@ export class UserCreateEditComponent implements OnInit {
   public createEditUserFrom: FormGroup;
   public isOpenOnFocus: boolean = true;
   public FORMAT: string = "MM/dd/yyyy";
-  public genderGroup = [
-    {genderCode: 'M', genderValue: 'Male'},
-    {genderCode: 'F', genderValue: 'Female'}
-  ];
+  public genders: Gender[];
   public languages: Language[];
   public userRoles: UserRole[];
   public isEditMode: boolean = false;
@@ -38,6 +37,7 @@ export class UserCreateEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.genders = GENDERS;
     this.languages = LANGUAGES;
     this.userRoles = USER_ROLES;
     this.createEditUserFrom = this.formBuilder.group({
@@ -96,9 +96,9 @@ export class UserCreateEditComponent implements OnInit {
     this.createEditUserFrom.reset();
   }
 
-  createUser(): void {
+  createEditUser(): void {
     if (this.isEditMode) {
-      this.userService.updateUser(this.userId, this.prepareCreateUser())
+      this.userService.updateUser(this.userId, this.prepareCreateEditUser())
         .subscribe(
           () => {
             this.utilityService.navigateTo(this.apiUrlService.getUserListUrl())
@@ -109,7 +109,7 @@ export class UserCreateEditComponent implements OnInit {
           }
         );
     } else {
-      this.userService.createUser(this.prepareCreateUser())
+      this.userService.createUser(this.prepareCreateEditUser())
         .subscribe(
           () => {
             this.utilityService.navigateTo(this.apiUrlService.getUserListUrl())
@@ -122,7 +122,7 @@ export class UserCreateEditComponent implements OnInit {
     }
   }
 
-  private prepareCreateUser(): User {
+  private prepareCreateEditUser(): User {
     const formModel = this.createEditUserFrom.value;
     return {
       firstName: formModel.firstName,
