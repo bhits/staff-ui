@@ -4,6 +4,7 @@ import {ExceptionService} from "../../shared/exception.service";
 import {User} from "app/user/shared/user.model";
 import {Observable} from "rxjs/Observable";
 import {ApiUrlService} from "app/shared/api-url.service";
+import {UserCreationResponse} from "app/user/shared/user-creation-response.model";
 
 @Injectable()
 export class UserService {
@@ -29,9 +30,16 @@ export class UserService {
   }
 
   public updateUser(userId: number, user: User): Observable<void> {
-    const GET_USER_URL = `${this.umsUserUrl}/${userId}`;
-    return this.http.put(GET_USER_URL, user)
+    const UPDATE_USER_URL = `${this.umsUserUrl}/${userId}`;
+    return this.http.put(UPDATE_USER_URL, user)
       .map(() => null)
+      .catch(this.exceptionService.handleError);
+  }
+
+  public sendVerificationEmail(userId: number): Observable<UserCreationResponse> {
+    const resourceUrl = this.umsUserUrl.concat("/creations");
+    return this.http.post(resourceUrl, userId)
+      .map((resp: Response) => <UserCreationResponse>(resp.json()))
       .catch(this.exceptionService.handleError);
   }
 }
