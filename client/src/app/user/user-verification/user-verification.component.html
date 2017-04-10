@@ -19,14 +19,40 @@
         <div class="m-t-xs flexcontainer column">
           <div fxLayout="column">
             <div class="font-size20">Verification Code:</div>
-            <div class="font-size18"><strong>adfsfsdfwerwe</strong></div>
+            <div class="font-size18" *ngIf="verificationCode; else hyphenSymbol">
+              <strong>{{verificationCode}}</strong>
+            </div>
+            <template #hyphenSymbol>
+              <strong class="font-size20">---</strong>
+            </template>
           </div>
         </div>
       </div>
     </div>
-    <hr>
-    <div class="row" fxLayoutAlign="start">
-      <i class="fa fa-2x fa-tags">Account Status:</i>
+    <div *ngIf="!verified">
+      <p class="font-size16">
+        <span>
+          <strong>Please Send Email to generate the Verification Code.</strong>
+        </span>
+        Sending an account activation email to the address listed above will generate
+        a unique Verification Code. That Verification Code will be displayed above.</p>
+      <p>
     </div>
+    <hr>
   </md-card-content>
+  <md-card-footer>
+    <div fxLayout="row" style="padding: 10px">
+      <div fxFlex>
+        <i class="fa fa-2x fa-tags">Account Status:</i>
+        <div class="font-size18">
+          <strong>{{accountStatus}}</strong>
+        </div>
+      </div>
+      <div fxFlex fxLayoutAlign="end" *ngIf="!verified">
+        <button md-raised-button color="primary" (click)="sendVerificationEmail()">
+          <strong>Send Email</strong>
+        </button>
+      </div>
+    </div>
+  </md-card-footer>
 </md-card>

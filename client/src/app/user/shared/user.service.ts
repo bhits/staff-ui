@@ -36,9 +36,9 @@ export class UserService {
       .catch(this.exceptionService.handleError);
   }
 
-  public sendVerificationEmail(userId: number): Observable<UserCreationResponse> {
+  public initiateUserCreation(userId: number): Observable<UserCreationResponse> {
     const resourceUrl = this.umsUserUrl.concat("/creations");
-    return this.http.post(resourceUrl, userId)
+    return this.http.post(resourceUrl, JSON.stringify({userId: userId}))
       .map((resp: Response) => <UserCreationResponse>(resp.json()))
       .catch(this.exceptionService.handleError);
   }
