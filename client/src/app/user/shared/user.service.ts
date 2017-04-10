@@ -9,6 +9,7 @@ import {UserCreationResponse} from "app/user/shared/user-creation-response.model
 @Injectable()
 export class UserService {
   private umsUserUrl: string = this.apiUrlService.getUmsBaseUrl().concat("/users");
+  private umsUserCreationUrl: string = this.apiUrlService.getUmsBaseUrl().concat("/users/creations");
 
   constructor(private apiUrlService: ApiUrlService,
               private exceptionService: ExceptionService,
@@ -37,8 +38,15 @@ export class UserService {
   }
 
   public initiateUserCreation(userId: number): Observable<UserCreationResponse> {
-    const resourceUrl = this.umsUserUrl.concat("/creations");
-    return this.http.post(resourceUrl, JSON.stringify({userId: userId}))
+    return this.http.post(this.umsUserCreationUrl, JSON.stringify({userId: userId}))
+      .map((resp: Response) => <UserCreationResponse>(resp.json()))
+      .catch(this.exceptionService.handleError);
+  }
+
+  public getCurrentUserCreationInfo(userId: number): Observable<UserCreationResponse> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('userId', userId.toString());
+    return this.http.get(this.umsUserCreationUrl, {search: params})
       .map((resp: Response) => <UserCreationResponse>(resp.json()))
       .catch(this.exceptionService.handleError);
   }
