@@ -20,6 +20,7 @@ import {GENDERS} from "app/user/shared/genders.model";
 })
 export class UserCreateEditComponent implements OnInit {
   public createEditUserFrom: FormGroup;
+  public editingUser: User;
   public isOpenOnFocus: boolean = true;
   public FORMAT: string = "MM/dd/yyyy";
   public genders: Gender[];
@@ -63,6 +64,7 @@ export class UserCreateEditComponent implements OnInit {
             let user: User = this.route.snapshot.data['user'];
             this.isEditMode = user.id != null;
             this.userId = user.id;
+            this.editingUser = user;
             this.setValueOnEditUserForm(user);
           }
         });

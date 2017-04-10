@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from "@angular/core";
+import {User} from "../shared/user.model";
 
 @Component({
   selector: 'c2s-user-verification',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserVerificationComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  public user: User;
+
+  constructor() {
+  }
 
   ngOnInit() {
   }

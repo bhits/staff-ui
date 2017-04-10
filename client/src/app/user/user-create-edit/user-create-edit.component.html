@@ -1,7 +1,7 @@
 <div class="p-t-75 p-l-md p-r-md p-b">
   <h1 class="">{{title}}</h1>
   <div style="padding-bottom: 20px" *ngIf="isEditMode">
-    <c2s-user-verification></c2s-user-verification>
+    <c2s-user-verification [user]="editingUser"></c2s-user-verification>
   </div>
   <div>
     <div style="background-color: #BCDEDB;" class="p-md font-size18 font-weight center-sm-left">Please Note: Complete
