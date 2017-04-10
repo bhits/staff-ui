@@ -20,6 +20,16 @@ export class UserVerificationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.getCurrentUserCreationInfo(this.user.id)
+      .subscribe(
+        (userCreationResponse) => {
+          this.verificationCode = userCreationResponse.verificationCode;
+          this.verified = userCreationResponse.verified;
+        },
+        err => {
+          console.log(err);
+        }
+      );
   }
 
   public sendVerificationEmail() {

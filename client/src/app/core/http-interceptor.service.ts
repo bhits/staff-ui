@@ -49,7 +49,11 @@ export class HttpInterceptorService extends Http {
   }
 
   intercept(observable: Observable<Response>): Observable<Response> {
-    return observable.do(() => this.slimLoadingBarService.complete());
+    return observable.do(() => this.slimLoadingBarService.complete())
+      .catch((err: any, caught: Observable<Response>) => {
+        this.slimLoadingBarService.complete();
+        return Observable.throw(err);
+      });
   }
 
   private setHeaders(options: RequestOptionsArgs): RequestOptionsArgs {

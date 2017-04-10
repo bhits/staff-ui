@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, Response} from "@angular/http";
+import {Http, Response, URLSearchParams} from "@angular/http";
 import {ExceptionService} from "../../shared/exception.service";
 import {User} from "app/user/shared/user.model";
 import {Observable} from "rxjs/Observable";

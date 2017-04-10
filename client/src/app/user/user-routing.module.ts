@@ -44,3 +44,7 @@ export const routedComponents = [
   PatientListComponent,
   UserCreateEditComponent
 ];
+
+export const routedResolveServices = [
+  UserResolveService
+];
