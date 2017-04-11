@@ -29,7 +29,15 @@
         </div>
       </div>
     </div>
-    <div *ngIf="!verified">
+    <div *ngIf="verificationCode; else sentVerificationCode">
+      <p class="font-size16">
+        <span>
+          <strong>Email has been sent, waiting for user to activate account. Or re-send an an account activation email</strong>
+        </span>
+      </p>
+      <p>
+    </div>
+    <template #sentVerificationCode>
       <p class="font-size16">
         <span>
           <strong>Please Send Email to generate the Verification Code.</strong>
@@ -37,7 +45,7 @@
         Sending an account activation email to the address listed above will generate
         a unique Verification Code. That Verification Code will be displayed above.</p>
       <p>
-    </div>
+    </template>
     <hr>
   </md-card-content>
   <md-card-footer>
