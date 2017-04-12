@@ -13,19 +13,25 @@ import {Ng2PaginationModule} from "ng2-pagination";
 import {UsPhoneNumberPipe} from "./us-phone-number.pipe";
 import {Md2Module} from "md2";
 import {NotificationService} from "app/shared/notification.service";
+import {ValidationService} from "app/shared/validation.service";
+import {ControlValidationErrorMessageComponent} from "./control-validation-error-message/control-validation-error-message.component";
 
 @NgModule({
-  imports: [],
-  declarations: [UsPhoneNumberPipe],
+  imports: [
+    CommonModule
+  ],
+  declarations: [UsPhoneNumberPipe, ControlValidationErrorMessageComponent],
   providers: [
     ApiUrlService,
     ExceptionService,
     NotificationService,
-    UtilityService
+    UtilityService,
+    ValidationService
   ],
   exports: [
     BrowserAnimationsModule,
     CommonModule,
+    ControlValidationErrorMessageComponent,
     FlexLayoutModule,
     MaterialModule,
     Md2Module,
