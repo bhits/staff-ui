@@ -15,13 +15,17 @@
       <input class="font-size15" mdInput placeholder="Username" formControlName="username">
     </md-input-container>
     <c2s-control-validation-error-message
-      [control]="loginFrom.controls.username"></c2s-control-validation-error-message>
+      [control]="loginFrom.controls.username">
+    </c2s-control-validation-error-message>
     <md-input-container class="full-width">
       <input type="password" class="font-size15" mdInput placeholder="Password" formControlName="password">
       <md-hint class="has-error" *ngIf="unauthorized">
         Sorry, you do not have permission to access this site.
       </md-hint>
     </md-input-container>
+    <c2s-control-validation-error-message
+      [control]="loginFrom.controls.password">
+    </c2s-control-validation-error-message>
     <br><br>
     <div class="flexcontainer row">
       <button class="flex10auto" md-raised-button color="primary"
