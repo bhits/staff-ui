@@ -14,6 +14,8 @@
     <md-input-container class="full-width">
       <input class="font-size15" mdInput placeholder="Username" formControlName="username">
     </md-input-container>
+    <c2s-control-validation-error-message
+      [control]="loginFrom.controls.username"></c2s-control-validation-error-message>
     <md-input-container class="full-width">
       <input type="password" class="font-size15" mdInput placeholder="Password" formControlName="password">
       <md-hint class="has-error" *ngIf="unauthorized">
