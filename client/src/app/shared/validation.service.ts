@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {VALIDATOR_ERROR_MESSAGES} from "./validator-error-messages.model";
+import {ValidationRules} from "app/shared/validation-rules.model";
 
 @Injectable()
 export class ValidationService {
@@ -7,17 +7,20 @@ export class ValidationService {
   constructor() {
   }
 
-  getValidatorErrorMessage(validatorName: string, validatorValue?: any): string {
-    switch (validatorName) {
-      case "minlength":
+  public getValidatorErrorMessage(validatorKey: string, validatorValue?: any, customMessage?: string): string {
+    switch (validatorKey) {
+      case ValidationRules.REQUIRED_KEY:
+        return ValidationRules.REQUIRED_MESSAGE;
+      case ValidationRules.REQUIRED_TRUE_KEY:
+        return ValidationRules.REQUIRED_TRUE_MESSAGE;
+      case ValidationRules.EMAIL_KEY:
+        return ValidationRules.EMAIL_MESSAGE;
+      case ValidationRules.MIN_LENGTH_KEY:
         return `Minimum length ${validatorValue.requiredLength}`;
-      case "maxlength":
+      case ValidationRules.MAX_LENGTH_KEY:
         return `Maximum length ${validatorValue.requiredLength}`;
-      default :
-        return VALIDATOR_ERROR_MESSAGES
-          .filter(validatorKeys => validatorName === validatorKeys.validatorKey)
-          .map(errorMessages => errorMessages.errorMessage)
-          .pop();
+      case ValidationRules.PATTERN_KEY:
+        return customMessage;
     }
   }
 }

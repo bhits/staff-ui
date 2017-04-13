@@ -12,6 +12,7 @@ import {USER_ROLES} from "app/user/shared/user-roles.model";
 import {ActivatedRoute} from "@angular/router";
 import {Gender} from "app/user/shared/gender.model";
 import {GENDERS} from "app/user/shared/genders.model";
+import {ValidationRules} from "../../shared/validation-rules.model";
 
 @Component({
   selector: 'c2s-user-create-edit',
@@ -27,6 +28,9 @@ export class UserCreateEditComponent implements OnInit {
   public languages: Language[];
   public userRoles: UserRole[];
   public isEditMode: boolean = false;
+  public phoneErrorMessage: string = ValidationRules.PHONE_MESSAGE;
+  public ssnErrorMessage: string = ValidationRules.SSN_MESSAGE;
+  public zipErrorMessage: string = ValidationRules.ZIP_MESSAGE;
   private userId: number;
   private title: string = "Create User";
 
@@ -43,14 +47,31 @@ export class UserCreateEditComponent implements OnInit {
     this.languages = LANGUAGES;
     this.userRoles = USER_ROLES;
     this.createEditUserFrom = this.formBuilder.group({
-      firstName: ['', [Validators.minLength(2), Validators.required]],
-      middleName: ['', Validators.minLength(2)],
-      lastName: ['', [Validators.minLength(2), Validators.required]],
-      email: ['', Validators.required],
+      firstName: ['',
+        [
+          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
+          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH),
+          Validators.required
+        ]
+      ],
+      middleName: ['',
+        [
+          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
+          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH)
+        ]
+      ],
+      lastName: ['',
+        [
+          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
+          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH),
+          Validators.required
+        ]
+      ],
+      email: ['', Validators.email],
       genderCode: ['', Validators.required],
       birthDate: ['', Validators.required],
-      socialSecurityNumber: ['', Validators.minLength(2)],
-      phone: ['', Validators.minLength(2)],
+      socialSecurityNumber: ['', Validators.pattern(ValidationRules.SSN_PATTERN)],
+      phone: ['', Validators.pattern(ValidationRules.PHONE_PATTERN)],
       address: this.initAddressFormGroup(),
       userRole: ['', Validators.required],
       language: ['', Validators.required]
@@ -72,12 +93,12 @@ export class UserCreateEditComponent implements OnInit {
 
   private initAddressFormGroup() {
     return this.formBuilder.group({
-      line1: ['', Validators.minLength(2)],
-      line2: ['', Validators.minLength(2)],
-      city: ['', Validators.minLength(2)],
-      state: ['', Validators.minLength(2)],
-      postalCode: ['', Validators.minLength(2)],
-      country: ['', Validators.minLength(2)]
+      line1: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
+      line2: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
+      city: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
+      state: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
+      postalCode: ['', Validators.pattern(ValidationRules.ZIP_PATTERN)],
+      country: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)]
     });
   }
 

@@ -9,6 +9,7 @@ import {ValidationService} from "app/shared/validation.service";
 })
 export class ControlValidationErrorMessageComponent implements OnInit {
   @Input() control: AbstractControl;
+  @Input() customMessage: string;
 
   constructor(private validationService: ValidationService) {
   }
@@ -19,7 +20,7 @@ export class ControlValidationErrorMessageComponent implements OnInit {
   get errorMessage() {
     for (const validatorKey in this.control.errors) {
       if (this.control.hasError(validatorKey) && (this.control.dirty || this.control.touched)) {
-        return this.validationService.getValidatorErrorMessage(validatorKey, this.control.errors[validatorKey]);
+        return this.validationService.getValidatorErrorMessage(validatorKey, this.control.errors[validatorKey], this.customMessage);
       }
     }
     return null;
