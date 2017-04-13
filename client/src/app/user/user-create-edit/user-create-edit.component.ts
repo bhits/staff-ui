@@ -31,6 +31,7 @@ export class UserCreateEditComponent implements OnInit {
   public phoneErrorMessage: string = ValidationRules.PHONE_MESSAGE;
   public ssnErrorMessage: string = ValidationRules.SSN_MESSAGE;
   public zipErrorMessage: string = ValidationRules.ZIP_MESSAGE;
+  public today: Date = new Date();
   private userId: number;
   private title: string = "Create User";
 

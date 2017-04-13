@@ -77,8 +77,9 @@
         [control]="createEditUserFrom.controls.genderCode">
       </c2s-control-validation-error-message>
       <md2-datepicker class="full-width font-size20" placeholder="Date of Birth"
-                      [openOnFocus]="isOpenOnFocus" [format]="FORMAT"
-                      formControlName="birthDate"></md2-datepicker>
+                      [openOnFocus]="isOpenOnFocus" [format]="FORMAT" [max]="today"
+                      formControlName="birthDate">
+      </md2-datepicker>
       <c2s-control-validation-error-message
         [control]="createEditUserFrom.controls.birthDate">
       </c2s-control-validation-error-message>
