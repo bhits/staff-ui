@@ -15,14 +15,23 @@ import {Md2Module} from "md2";
 import {NotificationService} from "app/shared/notification.service";
 import {ValidationService} from "app/shared/validation.service";
 import {ControlValidationErrorMessageComponent} from "./control-validation-error-message/control-validation-error-message.component";
+import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
+import {ConfirmDialogService} from "app/shared/confirm-dialog.service";
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    MaterialModule
   ],
-  declarations: [UsPhoneNumberPipe, ControlValidationErrorMessageComponent],
+  declarations: [
+    UsPhoneNumberPipe,
+    ControlValidationErrorMessageComponent,
+    ConfirmDialogComponent
+  ],
+  entryComponents: [ConfirmDialogComponent],
   providers: [
     ApiUrlService,
+    ConfirmDialogService,
     ExceptionService,
     NotificationService,
     UtilityService,

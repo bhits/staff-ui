@@ -7,7 +7,6 @@ import {SessionStorageService} from "./shared/session-storage.service";
 import {CanActivateAuthGuardService} from "./shared/can-activate-auth-guard.service";
 import {AuthorizationService} from "app/security/shared/authorization.service";
 import {CanDeactivateGuardService} from "./shared/can-deactivate-guard.service";
-import {DeactivateDialogService} from "app/security/shared/deactivate-dialog.service";
 
 @NgModule({
   imports: [
@@ -20,7 +19,6 @@ import {DeactivateDialogService} from "app/security/shared/deactivate-dialog.ser
     AuthorizationService,
     CanActivateAuthGuardService,
     CanDeactivateGuardService,
-    DeactivateDialogService,
     SessionStorageService,
     TokenService
   ]

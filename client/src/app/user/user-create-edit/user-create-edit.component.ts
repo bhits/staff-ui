@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewContainerRef} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "app/user/shared/user.service";
 import {User} from "app/user/shared/user.model";
@@ -13,7 +13,8 @@ import {ActivatedRoute} from "@angular/router";
 import {Gender} from "app/user/shared/gender.model";
 import {GENDERS} from "app/user/shared/genders.model";
 import {ValidationRules} from "../../shared/validation-rules.model";
-import {DeactivateDialogService} from "app/security/shared/deactivate-dialog.service";
+import {ConfirmDialogService} from "app/shared/confirm-dialog.service";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'c2s-user-create-edit',
@@ -37,11 +38,12 @@ export class UserCreateEditComponent implements OnInit {
   private title: string = "Create User";
 
   constructor(private apiUrlService: ApiUrlService,
+              private confirmDialogService: ConfirmDialogService,
               private formBuilder: FormBuilder,
-              private deactivateDialogService: DeactivateDialogService,
               private notificationService: NotificationService,
               private route: ActivatedRoute,
               private userService: UserService,
+              private viewContainerRef: ViewContainerRef,
               private utilityService: UtilityService) {
   }
 
@@ -132,12 +134,13 @@ export class UserCreateEditComponent implements OnInit {
     this.utilityService.navigateTo(this.apiUrlService.getUserListUrl());
   }
 
-  canDeactivate(): Promise<boolean> | boolean {
+  canDeactivate(): Observable<boolean> | boolean {
     if (!(this.createEditUserFrom.touched || this.createEditUserFrom.dirty)) {
       return true;
     }
-    const confirmMessage: string = "Are you sure you want to leave this page without saving?";
-    return this.deactivateDialogService.confirm(confirmMessage);
+    const confirmTitle: string = "Confirm Navigation";
+    const confirmMessage: string = "You will lose all unsaved work, Are you sure you want to leave this page?";
+    return this.confirmDialogService.confirm(confirmTitle, confirmMessage, this.viewContainerRef);
   }
 
   createEditUser(): void {
