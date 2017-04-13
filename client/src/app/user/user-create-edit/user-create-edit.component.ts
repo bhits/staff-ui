@@ -13,6 +13,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Gender} from "app/user/shared/gender.model";
 import {GENDERS} from "app/user/shared/genders.model";
 import {ValidationRules} from "../../shared/validation-rules.model";
+import {DeactivateDialogService} from "app/security/shared/deactivate-dialog.service";
 
 @Component({
   selector: 'c2s-user-create-edit',
@@ -37,6 +38,7 @@ export class UserCreateEditComponent implements OnInit {
 
   constructor(private apiUrlService: ApiUrlService,
               private formBuilder: FormBuilder,
+              private deactivateDialogService: DeactivateDialogService,
               private notificationService: NotificationService,
               private route: ActivatedRoute,
               private userService: UserService,
@@ -128,6 +130,14 @@ export class UserCreateEditComponent implements OnInit {
 
   cancel(): void {
     this.utilityService.navigateTo(this.apiUrlService.getUserListUrl());
+  }
+
+  canDeactivate(): Promise<boolean> | boolean {
+    if (!(this.createEditUserFrom.touched || this.createEditUserFrom.dirty)) {
+      return true;
+    }
+    const confirmMessage: string = "Are you sure you want to leave this page without saving?";
+    return this.deactivateDialogService.confirm(confirmMessage);
   }
 
   createEditUser(): void {
