@@ -8,6 +8,7 @@ import {ApiUrlService} from "app/shared/api-url.service";
 
 @Injectable()
 export class PatientService {
+  private umsPatientUrl: string = this.apiUrlService.getUmsBaseUrl().concat("/patients");
 
   constructor(private apiUrlService: ApiUrlService,
               private exceptionService: ExceptionService,
@@ -15,11 +16,17 @@ export class PatientService {
   }
 
   public getPatients(page: number): Observable<PageableData<Patient>> {
-    const PATIENT_LIST_URL = this.apiUrlService.getUmsBaseUrl().concat("/patients");
     let params: URLSearchParams = new URLSearchParams();
     params.set('page', page.toString());
-    return this.http.get(PATIENT_LIST_URL, {search: params})
+    return this.http.get(this.umsPatientUrl, {search: params})
       .map((resp: Response) => <PageableData<Patient>>(resp.json()))
+      .catch(this.exceptionService.handleError);
+  }
+
+  public searchPatients(terms: string): Observable<Patient[]> {
+    const SEARCH_PATIENT_URL = `${this.umsPatientUrl.concat("/search")}/${terms}`;
+    return this.http.get(SEARCH_PATIENT_URL)
+      .map((resp: Response) => <Patient[]>(resp.json()))
       .catch(this.exceptionService.handleError);
   }
 }
