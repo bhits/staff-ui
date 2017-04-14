@@ -10,6 +10,33 @@
 
     <name>staff-ui</name>
     <description>Staff UI</description>
+    <url>${project.scm.url}</url>
+
+    <developers>
+        <developer>
+            <id>BHITS Team</id>
+            <name>BHITS Team</name>
+            <organization>FEi Systems</organization>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>See license in LICENSE.md</name>
+            <url>${project.scm.url}/blob/master/LICENSE.md</url>
+        </license>
+    </licenses>
+
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>http://BhitsBuild03/</url>
+    </ciManagement>
+
+    <scm>
+        <url>https://github.com/bhits/staff-ui</url>
+        <connection>scm:git:${project.scm.url}.git</connection>
+        <developerConnection>scm:git:${project.scm.url}.git</developerConnection>
+    </scm>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
