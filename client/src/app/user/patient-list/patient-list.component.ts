@@ -5,6 +5,7 @@ import {PatientService} from "../shared/patient.service";
 import {PageableData} from "../../shared/pageable-data.model";
 import {UtilityService} from "app/shared/utility.service";
 import {NotificationService} from "app/shared/notification.service";
+import {Subject} from "rxjs/Subject";
 
 @Component({
   selector: 'c2s-patient-list',
@@ -12,16 +13,15 @@ import {NotificationService} from "app/shared/notification.service";
   styleUrls: ['./patient-list.component.scss']
 })
 export class PatientListComponent implements OnInit {
-  private totalItems: number = 0;
+  private searchTerms = new Subject<string>();
   private totalPages: number = 0;
-  private itemsPerPage: number = 0;
-  private currentPage: number = 1;
-  private noResult: boolean = false;
-  private loading: boolean = false;
-  private asyncPatients: Observable<Patient[]>;
+  public totalItems: number = 0;
+  public itemsPerPage: number = 0;
+  public currentPage: number = 1;
+  public noResult: boolean = false;
+  public loading: boolean = false;
+  public asyncPatients: Observable<Patient[]>;
   public searchPatients: Patient[];
-
-  public terms: string = "";
 
   constructor(private notificationService: NotificationService,
               private patientService: PatientService,
@@ -30,10 +30,11 @@ export class PatientListComponent implements OnInit {
 
   ngOnInit() {
     this.getPage(this.currentPage);
-  }
-
-  public search(terms: string) {
-    this.patientService.searchPatients(terms)
+    // Avoid to send too many API calls
+    this.searchTerms
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .switchMap(term => this.patientService.searchPatients(term))
       .subscribe(
         (patients) => {
           this.searchPatients = patients;
@@ -44,7 +45,11 @@ export class PatientListComponent implements OnInit {
         });
   }
 
-  getPage(page: number) {
+  public search(term: string): void {
+    this.searchTerms.next(term);
+  }
+
+  public getPage(page: number) {
     this.loading = true;
     this.asyncPatients = this.patientService.getPatients(page - 1)
       .do((patients: PageableData<Patient>) => {
@@ -58,7 +63,7 @@ export class PatientListComponent implements OnInit {
       .map(patients => patients.content);
   }
 
-  redirectToUserEdit(patient: Patient) {
+  public redirectToUserEdit(patient: Patient) {
     const editUserUrl: string = `${"/users/edit"}/${patient.id}`;
     this.utilityService.navigateTo(editUserUrl)
   }

@@ -9,8 +9,8 @@
   <div fxLayout="column" [ngStyle]="{'padding-top': '20px'}">
     <div fxLayoutAlign="center" fxLayout="column">
       <md-input-container class="search-field font-size20">
-        <input mdInput type="search" placeholder="Search by first and last name" #term
-               (keyup)="search(term.value)" [value]="terms" autofocus/>
+        <input mdInput type="search" placeholder="Search by first and last name"
+               #searchField (keyup)="search(searchField.value)"/>
       </md-input-container>
       <div *ngIf="searchPatients">
         <md-list>
