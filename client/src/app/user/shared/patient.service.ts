@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {ExceptionService} from "../../shared/exception.service";
-import {Http, Response} from "@angular/http";
+import {Http, Response, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {PageableData} from "../../shared/pageable-data.model";
 import {Patient} from "./patient.model";
@@ -24,8 +24,10 @@ export class PatientService {
   }
 
   public searchPatients(terms: string): Observable<Patient[]> {
-    const SEARCH_PATIENT_URL = `${this.umsPatientUrl.concat("/search")}/${terms}`;
-    return this.http.get(SEARCH_PATIENT_URL)
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('term', terms);
+    const SEARCH_PATIENT_URL = this.umsPatientUrl.concat("/search");
+    return this.http.get(SEARCH_PATIENT_URL, {search: params})
       .map((resp: Response) => <Patient[]>(resp.json()))
       .catch(this.exceptionService.handleError);
   }

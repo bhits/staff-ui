@@ -4,6 +4,7 @@ import {Patient} from "../shared/patient.model";
 import {PatientService} from "../shared/patient.service";
 import {PageableData} from "../../shared/pageable-data.model";
 import {UtilityService} from "app/shared/utility.service";
+import {NotificationService} from "app/shared/notification.service";
 
 @Component({
   selector: 'c2s-patient-list',
@@ -17,15 +18,30 @@ export class PatientListComponent implements OnInit {
   private currentPage: number = 1;
   private noResult: boolean = false;
   private loading: boolean = false;
-
   private asyncPatients: Observable<Patient[]>;
+  public searchPatients: Patient[];
 
-  constructor(private patientService: PatientService,
+  public terms: string = "";
+
+  constructor(private notificationService: NotificationService,
+              private patientService: PatientService,
               private utilityService: UtilityService) {
   }
 
   ngOnInit() {
     this.getPage(this.currentPage);
+  }
+
+  public search(terms: string) {
+    this.patientService.searchPatients(terms)
+      .subscribe(
+        (patients) => {
+          this.searchPatients = patients;
+        },
+        err => {
+          this.notificationService.show("Failed to search user, please try again later...");
+          console.log(err);
+        });
   }
 
   getPage(page: number) {

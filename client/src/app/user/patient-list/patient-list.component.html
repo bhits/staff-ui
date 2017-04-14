@@ -7,6 +7,23 @@
   </div>
 
   <div fxLayout="column" [ngStyle]="{'padding-top': '20px'}">
+    <div fxLayoutAlign="center" fxLayout="column">
+      <md-input-container class="search-field font-size20">
+        <input mdInput type="search" placeholder="Search by first and last name" #term
+               (keyup)="search(term.value)" [value]="terms" autofocus/>
+      </md-input-container>
+      <div *ngIf="searchPatients">
+        <md-list>
+          <md-list-item *ngFor="let patient of searchPatients">
+            <button md-menu-item (click)="redirectToUserEdit(patient)">
+              <span>{{patient.firstName}}</span>
+              <span>{{patient.lastName}}</span>
+            </button>
+          </md-list-item>
+        </md-list>
+      </div>
+    </div>
+    <br><br>
     <div fxLayoutAlign="center">
       <a md-raised-button fxFlex="0 1 500px" routerLink="/users/create" color="primary">
         <md-icon class="font-weight700">add</md-icon>
@@ -76,7 +93,6 @@
         </md-card-content>
       </md-card>
     </div>
-
     <div fxLayoutAlign="center">
       <pagination-controls (pageChange)="getPage($event)" *ngIf="!noResult"></pagination-controls>
     </div>
