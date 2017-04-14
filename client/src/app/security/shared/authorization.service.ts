@@ -15,6 +15,7 @@ export class AuthorizationService {
       this.globalEventManagementService.setShowHeader(true);
       return true;
     } else {
+      this.tokenService.deleteOauthToken();
       return false;
     }
   }
