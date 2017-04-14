@@ -22,6 +22,8 @@ import {Observable} from "rxjs/Observable";
   styleUrls: ['./user-create-edit.component.scss']
 })
 export class UserCreateEditComponent implements OnInit {
+  private userId: number;
+  private toSubmit: boolean = false;
   public createEditUserFrom: FormGroup;
   public editingUser: User;
   public isOpenOnFocus: boolean = true;
@@ -34,8 +36,7 @@ export class UserCreateEditComponent implements OnInit {
   public ssnErrorMessage: string = ValidationRules.SSN_MESSAGE;
   public zipErrorMessage: string = ValidationRules.ZIP_MESSAGE;
   public today: Date = new Date();
-  private userId: number;
-  private title: string = "Create User";
+  public title: string = "Create User";
 
   constructor(private apiUrlService: ApiUrlService,
               private confirmDialogService: ConfirmDialogService,
@@ -135,15 +136,19 @@ export class UserCreateEditComponent implements OnInit {
   }
 
   canDeactivate(): Observable<boolean> | boolean {
-    if (!(this.createEditUserFrom.touched || this.createEditUserFrom.dirty)) {
+    if (this.toSubmit) {
+      return true;
+    } else if (this.createEditUserFrom.dirty) {
+      const confirmTitle: string = "Confirm Navigation";
+      const confirmMessage: string = "You will lose all unsaved work, Are you sure you want to leave this page?";
+      return this.confirmDialogService.confirm(confirmTitle, confirmMessage, this.viewContainerRef);
+    } else {
       return true;
     }
-    const confirmTitle: string = "Confirm Navigation";
-    const confirmMessage: string = "You will lose all unsaved work, Are you sure you want to leave this page?";
-    return this.confirmDialogService.confirm(confirmTitle, confirmMessage, this.viewContainerRef);
   }
 
   createEditUser(): void {
+    this.toSubmit = true;
     if (this.isEditMode) {
       this.userService.updateUser(this.userId, this.prepareCreateEditUser())
         .subscribe(
