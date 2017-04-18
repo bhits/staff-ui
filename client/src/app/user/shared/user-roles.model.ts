@@ -5,7 +5,7 @@ export const USER_ROLES: UserRole[] = [
     roleCode: "PATIENT",
     roleValue: "Patient"
   },
-  {
+/*  {
     roleCode: "PARENT",
     roleValue: "Parent"
   },
@@ -16,5 +16,5 @@ export const USER_ROLES: UserRole[] = [
   {
     roleCode: "STAFF",
     roleValue: "Staff"
-  }
+  }*/
 ];

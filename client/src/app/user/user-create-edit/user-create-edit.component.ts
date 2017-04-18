@@ -15,6 +15,7 @@ import {GENDERS} from "app/user/shared/genders.model";
 import {ValidationRules} from "../../shared/validation-rules.model";
 import {ConfirmDialogService} from "app/shared/confirm-dialog.service";
 import {Observable} from "rxjs/Observable";
+import {ValidationService} from "../../shared/validation.service";
 
 @Component({
   selector: 'c2s-user-create-edit',
@@ -35,7 +36,6 @@ export class UserCreateEditComponent implements OnInit {
   public phoneErrorMessage: string = ValidationRules.PHONE_MESSAGE;
   public ssnErrorMessage: string = ValidationRules.SSN_MESSAGE;
   public zipErrorMessage: string = ValidationRules.ZIP_MESSAGE;
-  public today: Date = new Date();
   public title: string = "Create User";
 
   constructor(private apiUrlService: ApiUrlService,
@@ -75,7 +75,10 @@ export class UserCreateEditComponent implements OnInit {
       ],
       email: ['', Validators.email],
       genderCode: ['', Validators.required],
-      birthDate: ['', Validators.required],
+      birthDate: ['', Validators.compose([
+        Validators.required,
+        ValidationService.pastDateValidator])
+      ],
       socialSecurityNumber: ['', Validators.pattern(ValidationRules.SSN_PATTERN)],
       phone: ['', Validators.pattern(ValidationRules.PHONE_PATTERN)],
       address: this.initAddressFormGroup(),

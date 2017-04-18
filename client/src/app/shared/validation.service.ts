@@ -21,6 +21,17 @@ export class ValidationService {
         return `Maximum length ${validatorValue.requiredLength}`;
       case ValidationRules.PATTERN_KEY:
         return customMessage;
+      case ValidationRules.INVALID_PAST_DATE_KEY:
+        return ValidationRules.INVALID_PAST_DATE_MESSAGE;
+    }
+  }
+
+  static pastDateValidator(control) {
+    const today = new Date();
+    if (control.value < today) {
+      return null;
+    } else {
+      return {'invalidPastDate': true};
     }
   }
 }

@@ -77,7 +77,7 @@
         [control]="createEditUserFrom.controls.genderCode">
       </c2s-control-validation-error-message>
       <md2-datepicker class="full-width font-size20" placeholder="Date of Birth"
-                      [openOnFocus]="isOpenOnFocus" [format]="FORMAT" [max]="today"
+                      [openOnFocus]="isOpenOnFocus" [format]="FORMAT"
                       formControlName="birthDate">
       </md2-datepicker>
       <c2s-control-validation-error-message
@@ -174,3 +174,6 @@
     </div>
   </form>
 </div>
+<pre class="font-size20">
+  {{createEditUserFrom.get('birthDate').value|json}}
+</pre>
