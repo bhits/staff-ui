@@ -10,8 +10,7 @@ export class ApiUrlService {
       ["userListUrl", "/users"],
 
       // External api Url maps
-      //Todo: Change to correct url
-      ["UmsBaseUrl", "http://localhost:9999/ums"],
+      ["UmsBaseUrl", "/staff-ui-api/ums"],
       ["uaaTokenUrl", "/uaa/oauth/token"],
       ["uaaUserInfoUrl", "/uaa/userinfo"]
     ]

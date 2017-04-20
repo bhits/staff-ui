@@ -11,23 +11,23 @@
   <form [formGroup]="createEditUserFrom" class="create-edit-user-form" novalidate>
     <h2>Required Information</h2>
     <div fxLayout="row" fxLayoutGap="20px">
-      <md-select fxLayout="column" placeholder="Role" formControlName="userRole"
+      <md-select fxLayout="column" placeholder="Role" formControlName="role"
                  class="full-width font-size20">
-        <md-option *ngFor="let userRole of userRoles" [value]="userRole.roleCode">
-          {{ userRole.roleValue }}
+        <md-option *ngFor="let role of roles" [value]="role.roleCode">
+          {{ role.roleValue }}
         </md-option>
       </md-select>
       <c2s-control-validation-error-message
-        [control]="createEditUserFrom.controls.userRole">
+        [control]="createEditUserFrom.controls.role">
       </c2s-control-validation-error-message>
-      <md-select fxLayout="column" placeholder="Language" formControlName="language"
+      <md-select fxLayout="column" placeholder="Locale" formControlName="locale"
                  class="full-width font-size20">
-        <md-option *ngFor="let language of languages" [value]="language.languageCode">
-          {{ language.languageValue }}
+        <md-option *ngFor="let locale of locales" [value]="locale.localeCode">
+          {{ locale.localeValue }}
         </md-option>
       </md-select>
       <c2s-control-validation-error-message
-        [control]="createEditUserFrom.controls.language">
+        [control]="createEditUserFrom.controls.locale">
       </c2s-control-validation-error-message>
     </div>
     <div fxLayout="row" fxLayoutGap="20px">

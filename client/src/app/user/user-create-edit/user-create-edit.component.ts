@@ -5,10 +5,10 @@ import {User} from "app/user/shared/user.model";
 import {NotificationService} from "app/shared/notification.service";
 import {UtilityService} from "app/shared/utility.service";
 import {ApiUrlService} from "app/shared/api-url.service";
-import {Language} from "app/user/shared/language.model";
-import {UserRole} from "app/user/shared/user-role.model";
-import {LANGUAGES} from "app/user/shared/languages.model";
-import {USER_ROLES} from "app/user/shared/user-roles.model";
+import {Locale} from "app/user/shared/locale.model";
+import {Role} from "app/user/shared/role.model";
+import {LOCALES} from "app/user/shared/locales.model";
+import {ROLES} from "app/user/shared/roles.model";
 import {ActivatedRoute} from "@angular/router";
 import {Gender} from "app/user/shared/gender.model";
 import {GENDERS} from "app/user/shared/genders.model";
@@ -30,8 +30,8 @@ export class UserCreateEditComponent implements OnInit {
   public isOpenOnFocus: boolean = true;
   public FORMAT: string = "MM/dd/yyyy";
   public genders: Gender[];
-  public languages: Language[];
-  public userRoles: UserRole[];
+  public locales: Locale[];
+  public roles: Role[];
   public isEditMode: boolean = false;
   public phoneErrorMessage: string = ValidationRules.PHONE_MESSAGE;
   public ssnErrorMessage: string = ValidationRules.SSN_MESSAGE;
@@ -50,8 +50,8 @@ export class UserCreateEditComponent implements OnInit {
 
   ngOnInit() {
     this.genders = GENDERS;
-    this.languages = LANGUAGES;
-    this.userRoles = USER_ROLES;
+    this.locales = LOCALES;
+    this.roles = ROLES;
     this.createEditUserFrom = this.formBuilder.group({
       firstName: ['',
         [
@@ -82,8 +82,8 @@ export class UserCreateEditComponent implements OnInit {
       socialSecurityNumber: ['', Validators.pattern(ValidationRules.SSN_PATTERN)],
       phone: ['', Validators.pattern(ValidationRules.PHONE_PATTERN)],
       address: this.initAddressFormGroup(),
-      userRole: ['', Validators.required],
-      language: ['', Validators.required]
+      role: ['', Validators.required],
+      locale: ['', Validators.required]
     });
     this.route.params
       .subscribe(
@@ -129,8 +129,8 @@ export class UserCreateEditComponent implements OnInit {
         postalCode: user.address.postalCode,
         country: user.address.country
       },
-      userRole: user.userRole,
-      language: user.language
+      role: user.role,
+      locale: user.locale
     })
   }
 
@@ -189,8 +189,8 @@ export class UserCreateEditComponent implements OnInit {
       socialSecurityNumber: formModel.socialSecurityNumber,
       phone: formModel.phone,
       address: formModel.address,
-      userRole: formModel.userRole,
-      language: formModel.language
+      role: formModel.role,
+      locale: formModel.locale
     };
   }
 }

@@ -1,6 +1,6 @@
 import {Address} from "../../shared/address.model";
-import {UserRole} from "app/user/shared/user-role.model";
-import {Language} from "app/user/shared/language.model";
+import {Role} from "app/user/shared/role.model";
+import {Locale} from "app/user/shared/locale.model";
 
 export class User {
   id?: number;
@@ -13,6 +13,6 @@ export class User {
   socialSecurityNumber?: string;
   phone?: string;
   address?: Address;
-  userRole: UserRole;
-  language: Language;
+  role: Role;
+  locale: Locale;
 }
