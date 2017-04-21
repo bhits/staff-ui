@@ -1,23 +1,24 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {Patient} from "./patient.model";
 import {UtilityService} from "../../shared/utility.service";
+import {User} from "./user.model";
 
 type ArgType = "id" | "fullName" | "birthDate" | "genderCode" | "phone" | "address";
 
 @Pipe({
-  name: 'patient'
+  name: 'user'
 })
-export class PatientPipe implements PipeTransform {
+export class UserPipe implements PipeTransform {
+
   constructor(private utilityService: UtilityService) {
   }
 
-  transform(value: Patient, args?: ArgType): any {
+  transform(value: User, args?: ArgType): any {
     if (value) {
       switch (args) {
         case "id":
           return value.id;
         case "fullName":
-          return PatientPipe.getName(value, 'firstName').concat(' ').concat(PatientPipe.getName(value, 'middleName')).concat(' ').concat(PatientPipe.getName(value, 'lastName'));
+          return UserPipe.getName(value, 'firstName').concat(' ').concat(UserPipe.getName(value, 'middleName')).concat(' ').concat(UserPipe.getName(value, 'lastName'));
         case "birthDate":
           return value.birthDate;
         case "genderCode":
@@ -38,9 +39,9 @@ export class PatientPipe implements PipeTransform {
     return null;
   }
 
-  private static getName(patient: Patient, key: string): string {
-    if (patient !== null && patient[key]) {
-      return patient[key];
+  private static getName(user: User, key: string): string {
+    if (user !== null && user[key]) {
+      return user[key];
     }
     return ''
   }

@@ -1,9 +1,9 @@
 import {NgModule} from "@angular/core";
 import {routedComponents, routedResolveServices, UserRoutingModule} from "./user-routing.module";
-import {PatientPipe} from "./shared/patient.pipe";
 import {SharedModule} from "app/shared/shared.module";
 import {UserService} from "./shared/user.service";
 import {UserVerificationComponent} from "./user-verification/user-verification.component";
+import {UserPipe} from "./shared/user.pipe";
 
 @NgModule({
   imports: [
@@ -12,8 +12,8 @@ import {UserVerificationComponent} from "./user-verification/user-verification.c
   ],
   declarations: [
     routedComponents,
-    PatientPipe,
-    UserVerificationComponent
+    UserVerificationComponent,
+    UserPipe
   ],
   providers: [
     routedResolveServices,
