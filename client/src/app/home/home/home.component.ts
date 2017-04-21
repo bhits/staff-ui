@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ApiUrlService} from "../../shared/api-url.service";
 import {UtilityService} from "../../shared/utility.service";
-import {PatientService} from "app/user/shared/patient.service";
+import {UserService} from "../../user/shared/user.service";
 
 @Component({
   selector: 'c2s-home',
@@ -9,19 +9,19 @@ import {PatientService} from "app/user/shared/patient.service";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public numberOfPatients: number = 0;
+  public numberOfUsers: number = 0;
 
   constructor(private apiUrlService: ApiUrlService,
-              private patientService: PatientService,
+              private userService: UserService,
               private utilityService: UtilityService) {
   }
 
   ngOnInit() {
     const FIRST_PAGE: number = 0;
-    this.patientService.getPatients(FIRST_PAGE)
+    this.userService.getUsers(FIRST_PAGE)
       .subscribe(
-        (patients) => {
-          this.numberOfPatients = patients.totalElements
+        (users) => {
+          this.numberOfUsers = users.totalElements
         },
         (err) => {
           console.log(err);

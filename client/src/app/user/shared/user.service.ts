@@ -5,6 +5,7 @@ import {User} from "app/user/shared/user.model";
 import {Observable} from "rxjs/Observable";
 import {ApiUrlService} from "app/shared/api-url.service";
 import {UserCreationResponse} from "app/user/shared/user-creation-response.model";
+import {PageableData} from "../../shared/pageable-data.model";
 
 @Injectable()
 export class UserService {
@@ -14,6 +15,23 @@ export class UserService {
   constructor(private apiUrlService: ApiUrlService,
               private exceptionService: ExceptionService,
               private http: Http) {
+  }
+
+  public getUsers(page: number): Observable<PageableData<User>> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('page', page.toString());
+    return this.http.get(this.umsUserUrl, {search: params})
+      .map((resp: Response) => <PageableData<User>>(resp.json()))
+      .catch(this.exceptionService.handleError);
+  }
+
+  public searchUsers(terms: string): Observable<User[]> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('term', terms);
+    const SEARCH_USER_URL = this.umsUserUrl.concat("/search");
+    return this.http.get(SEARCH_USER_URL, {search: params})
+      .map((resp: Response) => <User[]>(resp.json()))
+      .catch(this.exceptionService.handleError);
   }
 
   public createUser(user: User): Observable<void> {
