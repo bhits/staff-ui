@@ -11,24 +11,28 @@
   <form [formGroup]="createEditUserFrom" class="create-edit-user-form" novalidate>
     <h2>Required Information</h2>
     <div fxLayout="row" fxLayoutGap="20px">
-      <md-select fxLayout="column" placeholder="Role" formControlName="role"
-                 class="full-width font-size20">
-        <md-option *ngFor="let role of roles" [value]="role.roleCode">
-          {{ role.roleValue }}
-        </md-option>
-      </md-select>
-      <c2s-control-validation-error-message
-        [control]="createEditUserFrom.controls.role">
-      </c2s-control-validation-error-message>
-      <md-select fxLayout="column" placeholder="Locale" formControlName="locale"
-                 class="full-width font-size20">
-        <md-option *ngFor="let locale of locales" [value]="locale.localeCode">
-          {{ locale.localeValue }}
-        </md-option>
-      </md-select>
-      <c2s-control-validation-error-message
-        [control]="createEditUserFrom.controls.locale">
-      </c2s-control-validation-error-message>
+      <div fxFlex>
+        <md-select placeholder="Role" formControlName="role"
+                   class="full-width font-size20">
+          <md-option *ngFor="let role of roles" [value]="role.roleCode">
+            {{ role.roleValue }}
+          </md-option>
+        </md-select>
+        <c2s-control-validation-error-message
+          [control]="createEditUserFrom.controls.role">
+        </c2s-control-validation-error-message>
+      </div>
+      <div fxFlex>
+        <md-select placeholder="Locale" formControlName="locale"
+                   class="full-width font-size20">
+          <md-option *ngFor="let locale of locales" [value]="locale.localeCode">
+            {{ locale.localeValue }}
+          </md-option>
+        </md-select>
+        <c2s-control-validation-error-message
+          [control]="createEditUserFrom.controls.locale">
+        </c2s-control-validation-error-message>
+      </div>
     </div>
     <div fxLayout="row" fxLayoutGap="20px">
       <div fxFlex>
@@ -67,22 +71,26 @@
       </div>
     </div>
     <div fxLayout="row" fxLayoutGap="20px">
-      <md-select fxLayout="column" placeholder="Gender" formControlName="genderCode"
-                 class="full-width font-size20">
-        <md-option *ngFor="let gender of genders" [value]="gender.genderCode">
-          {{ gender.genderValue }}
-        </md-option>
-      </md-select>
-      <c2s-control-validation-error-message
-        [control]="createEditUserFrom.controls.genderCode">
-      </c2s-control-validation-error-message>
-      <md2-datepicker class="full-width font-size20" placeholder="Date of Birth"
-                      [openOnFocus]="isOpenOnFocus" [format]="FORMAT"
-                      formControlName="birthDate">
-      </md2-datepicker>
-      <c2s-control-validation-error-message
-        [control]="createEditUserFrom.controls.birthDate">
-      </c2s-control-validation-error-message>
+      <div fxFlex>
+        <md-select placeholder="Gender" formControlName="genderCode"
+                   class="full-width font-size20">
+          <md-option *ngFor="let gender of genders" [value]="gender.genderCode">
+            {{ gender.genderValue }}
+          </md-option>
+        </md-select>
+        <c2s-control-validation-error-message
+          [control]="createEditUserFrom.controls.genderCode">
+        </c2s-control-validation-error-message>
+      </div>
+      <div fxFlex>
+        <md2-datepicker class="full-width font-size20" placeholder="Date of Birth"
+                        [openOnFocus]="isOpenOnFocus" [format]="FORMAT"
+                        formControlName="birthDate">
+        </md2-datepicker>
+        <c2s-control-validation-error-message
+          [control]="createEditUserFrom.controls.birthDate">
+        </c2s-control-validation-error-message>
+      </div>
     </div>
 
     <h2>Additional Information</h2>
@@ -174,6 +182,3 @@
     </div>
   </form>
 </div>
-<pre class="font-size20">
-  {{createEditUserFrom.get('birthDate').value|json}}
-</pre>

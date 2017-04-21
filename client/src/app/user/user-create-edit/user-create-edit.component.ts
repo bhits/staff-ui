@@ -73,7 +73,10 @@ export class UserCreateEditComponent implements OnInit {
           Validators.required
         ]
       ],
-      email: ['', Validators.email],
+      email: ['', Validators.compose([
+        Validators.required,
+        Validators.email])
+      ],
       genderCode: ['', Validators.required],
       birthDate: ['', Validators.compose([
         Validators.required,
