@@ -2,10 +2,10 @@ import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {UsersComponent} from "app/user/users/users.component";
 import {CanActivateAuthGuardService} from "../security/shared/can-activate-auth-guard.service";
-import {PatientListComponent} from "app/user/patient-list/patient-list.component";
 import {UserCreateEditComponent} from "app/user/user-create-edit/user-create-edit.component";
 import {UserResolveService} from "app/user/shared/user-resolve.service";
 import {CanDeactivateGuardService} from "../security/shared/can-deactivate-guard.service";
+import {UserListComponent} from "./user-list/user-list.component";
 
 const userRoutes: Routes = [
   {
@@ -16,7 +16,7 @@ const userRoutes: Routes = [
     children: [
       {
         path: '',
-        component: PatientListComponent
+        component: UserListComponent
       },
       {
         path: 'create',
@@ -44,7 +44,7 @@ export class UserRoutingModule {
 
 export const routedComponents = [
   UsersComponent,
-  PatientListComponent,
+  UserListComponent,
   UserCreateEditComponent
 ];
 
