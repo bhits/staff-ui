@@ -11,7 +11,6 @@ import {LOCALES} from "app/user/shared/locales.model";
 import {ROLES} from "app/user/shared/roles.model";
 import {ActivatedRoute} from "@angular/router";
 import {Gender} from "app/user/shared/gender.model";
-import {GENDERS} from "app/user/shared/genders.model";
 import {ValidationRules} from "../../shared/validation-rules.model";
 import {ConfirmDialogService} from "app/shared/confirm-dialog.service";
 import {Observable} from "rxjs/Observable";
@@ -49,7 +48,7 @@ export class UserCreateEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.genders = GENDERS;
+    this.genders = this.route.snapshot.data['genderCodes'];
     this.locales = LOCALES;
     this.roles = ROLES;
     this.createEditUserFrom = this.formBuilder.group({

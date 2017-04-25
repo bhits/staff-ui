@@ -4,6 +4,7 @@ import {SharedModule} from "app/shared/shared.module";
 import {UserService} from "./shared/user.service";
 import {UserVerificationComponent} from "./user-verification/user-verification.component";
 import {UserPipe} from "./shared/user.pipe";
+import {UserCreationLookupService} from "./shared/user-creation-lookup.service";
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import {UserPipe} from "./shared/user.pipe";
   ],
   providers: [
     routedResolveServices,
+    UserCreationLookupService,
     UserService
   ]
 })

@@ -74,8 +74,8 @@
       <div fxFlex>
         <md-select placeholder="Gender" formControlName="genderCode"
                    class="full-width font-size20">
-          <md-option *ngFor="let gender of genders" [value]="gender.genderCode">
-            {{ gender.genderValue }}
+          <md-option *ngFor="let gender of genders" [value]="gender.code">
+            {{ gender.displayName }}
           </md-option>
         </md-select>
         <c2s-control-validation-error-message
