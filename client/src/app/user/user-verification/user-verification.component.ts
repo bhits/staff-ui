@@ -23,10 +23,10 @@ export class UserVerificationComponent implements OnInit {
   ngOnInit() {
     this.userService.getCurrentUserCreationInfo(this.user.id)
       .subscribe(
-        (userCreationResponse) => {
-          this.verificationCode = userCreationResponse.verificationCode;
+        (userActivationResponse) => {
+          this.verificationCode = userActivationResponse.verificationCode;
           this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Activated);
-          if (userCreationResponse.verified) {
+          if (userActivationResponse.verified) {
             this.verified = true;
             this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Created);
           }
@@ -38,11 +38,11 @@ export class UserVerificationComponent implements OnInit {
   }
 
   public sendVerificationEmail() {
-    this.userService.initiateUserCreation(this.user.id)
+    this.userService.initiateUserActivation(this.user.id)
       .subscribe(
-        (userCreationResponse) => {
+        (userActivationResponse) => {
           this.notificationService.show("Email sent successfully");
-          this.verificationCode = userCreationResponse.verificationCode;
+          this.verificationCode = userActivationResponse.verificationCode;
           this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Activated)
         },
         err => {

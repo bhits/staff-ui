@@ -4,13 +4,12 @@ import {ExceptionService} from "../../shared/exception.service";
 import {User} from "app/user/shared/user.model";
 import {Observable} from "rxjs/Observable";
 import {ApiUrlService} from "app/shared/api-url.service";
-import {UserCreationResponse} from "app/user/shared/user-creation-response.model";
+import {UserActivationResponse} from "app/user/shared/user-activation-response.model";
 import {PageableData} from "../../shared/pageable-data.model";
 
 @Injectable()
 export class UserService {
   private umsUserUrl: string = this.apiUrlService.getUmsBaseUrl().concat("/users");
-  private umsUserCreationUrl: string = this.apiUrlService.getUmsBaseUrl().concat("/users/creations");
 
   constructor(private apiUrlService: ApiUrlService,
               private exceptionService: ExceptionService,
@@ -55,17 +54,19 @@ export class UserService {
       .catch(this.exceptionService.handleError);
   }
 
-  public initiateUserCreation(userId: number): Observable<UserCreationResponse> {
-    return this.http.post(this.umsUserCreationUrl, JSON.stringify({userId: userId}))
-      .map((resp: Response) => <UserCreationResponse>(resp.json()))
+  public initiateUserActivation(userId: number): Observable<UserActivationResponse> {
+    const USER_ACTIVATION_URL = `${this.umsUserUrl}/${userId}/activation`;
+    return this.http.post(USER_ACTIVATION_URL, {})
+      .map((resp: Response) => <UserActivationResponse>(resp.json()))
       .catch(this.exceptionService.handleError);
   }
 
-  public getCurrentUserCreationInfo(userId: number): Observable<UserCreationResponse> {
+  public getCurrentUserCreationInfo(userId: number): Observable<UserActivationResponse> {
+    const USER_ACTIVATION_URL = `${this.umsUserUrl}/${userId}/activation`;
     let params: URLSearchParams = new URLSearchParams();
     params.set('userId', userId.toString());
-    return this.http.get(this.umsUserCreationUrl, {search: params})
-      .map((resp: Response) => <UserCreationResponse>(resp.json()))
+    return this.http.get(USER_ACTIVATION_URL, {search: params})
+      .map((resp: Response) => <UserActivationResponse>(resp.json()))
       .catch(this.exceptionService.handleError);
   }
 }
