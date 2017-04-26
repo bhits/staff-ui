@@ -13,7 +13,7 @@ export class GenderCodeLookupResolveService implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot): Observable<Gender[]> {
     return this.userCreationLookupService.getGenderCodes()
       .do((genderCodes: Gender[]) => {
-        return genderCodes
+        return genderCodes;
       });
   }
 }

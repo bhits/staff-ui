@@ -7,7 +7,6 @@ import {UtilityService} from "app/shared/utility.service";
 import {ApiUrlService} from "app/shared/api-url.service";
 import {Locale} from "app/user/shared/locale.model";
 import {Role} from "app/user/shared/role.model";
-import {ROLES} from "app/user/shared/roles.model";
 import {ActivatedRoute} from "@angular/router";
 import {Gender} from "app/user/shared/gender.model";
 import {ValidationRules} from "../../shared/validation-rules.model";
@@ -49,7 +48,7 @@ export class UserCreateEditComponent implements OnInit {
   ngOnInit() {
     this.genders = this.route.snapshot.data['genderCodes'];
     this.locales = this.route.snapshot.data['localeCodes'];
-    this.roles = ROLES;
+    this.roles = this.route.snapshot.data['roleCodes'];
     this.createEditUserFrom = this.formBuilder.group({
       firstName: ['',
         [

@@ -5,6 +5,7 @@ import {ApiUrlService} from "../../shared/api-url.service";
 import {Gender} from "./gender.model";
 import {Observable} from "rxjs/Observable";
 import {Locale} from "./locale.model";
+import {Role} from "app/user/shared/role.model";
 
 @Injectable()
 export class UserCreationLookupService {
@@ -24,6 +25,12 @@ export class UserCreationLookupService {
   public getLocales(): Observable<Locale[]> {
     return this.http.get(this.umsUserUrl.concat("/locales"))
       .map((resp: Response) => <Locale[]>(resp.json()))
+      .catch(this.exceptionService.handleError);
+  }
+
+  public getRoles(): Observable<Role[]> {
+    return this.http.get(this.umsUserUrl.concat("/roles"))
+      .map((resp: Response) => <Role[]>(resp.json()))
       .catch(this.exceptionService.handleError);
   }
 }

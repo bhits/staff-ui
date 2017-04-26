@@ -13,6 +13,7 @@ export class User {
   socialSecurityNumber?: string;
   phone?: string;
   address?: Address;
+  //ToDO: One user has multiple roles
   role: Role;
   locale: Locale;
 }

@@ -14,8 +14,8 @@
       <div fxFlex>
         <md-select placeholder="Role" formControlName="role"
                    class="full-width font-size20">
-          <md-option *ngFor="let role of roles" [value]="role.roleCode">
-            {{ role.roleValue }}
+          <md-option *ngFor="let role of roles" [value]="role.code">
+            {{ role.name }}
           </md-option>
         </md-select>
         <c2s-control-validation-error-message
