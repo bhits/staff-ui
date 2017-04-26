@@ -6,6 +6,7 @@ import {Gender} from "./gender.model";
 import {Observable} from "rxjs/Observable";
 import {Locale} from "./locale.model";
 import {Role} from "app/user/shared/role.model";
+import {State} from "app/user/shared/state.model";
 
 @Injectable()
 export class UserCreationLookupService {
@@ -31,6 +32,12 @@ export class UserCreationLookupService {
   public getRoles(): Observable<Role[]> {
     return this.http.get(this.umsUserUrl.concat("/roles"))
       .map((resp: Response) => <Role[]>(resp.json()))
+      .catch(this.exceptionService.handleError);
+  }
+
+  public getStateCodes(): Observable<State[]> {
+    return this.http.get(this.umsUserUrl.concat("/statecodes"))
+      .map((resp: Response) => <State[]>(resp.json()))
       .catch(this.exceptionService.handleError);
   }
 }
