@@ -10,6 +10,7 @@ import {GenderCodeLookupResolveService} from "./shared/gender-code-lookup-resolv
 import {LocaleLookupResolveService} from "./shared/locale-lookup-resolve.service";
 import {RoleLookupResolveService} from "app/user/shared/role-lookup-resolve.service";
 import {StateLookupResolveService} from "app/user/shared/state-lookup-resolve.service";
+import {CountryLookupResolveService} from "app/user/shared/country-lookup-resolve.service";
 
 const userRoutes: Routes = [
   {
@@ -27,6 +28,7 @@ const userRoutes: Routes = [
         component: UserCreateEditComponent,
         canDeactivate: [CanDeactivateGuardService],
         resolve: {
+          countryCodes: CountryLookupResolveService,
           genderCodes: GenderCodeLookupResolveService,
           localeCodes: LocaleLookupResolveService,
           roleCodes: RoleLookupResolveService,
@@ -38,6 +40,7 @@ const userRoutes: Routes = [
         component: UserCreateEditComponent,
         canDeactivate: [CanDeactivateGuardService],
         resolve: {
+          countryCodes: CountryLookupResolveService,
           user: UserResolveService,
           genderCodes: GenderCodeLookupResolveService,
           localeCodes: LocaleLookupResolveService,
@@ -64,6 +67,7 @@ export const routedComponents = [
 
 export const routedResolveServices = [
   UserResolveService,
+  CountryLookupResolveService,
   GenderCodeLookupResolveService,
   LocaleLookupResolveService,
   RoleLookupResolveService,

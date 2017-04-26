@@ -7,6 +7,7 @@ import {Observable} from "rxjs/Observable";
 import {Locale} from "./locale.model";
 import {Role} from "app/user/shared/role.model";
 import {State} from "app/user/shared/state.model";
+import {Country} from "app/user/shared/country.model";
 
 @Injectable()
 export class UserCreationLookupService {
@@ -38,6 +39,12 @@ export class UserCreationLookupService {
   public getStateCodes(): Observable<State[]> {
     return this.http.get(this.umsUserUrl.concat("/statecodes"))
       .map((resp: Response) => <State[]>(resp.json()))
+      .catch(this.exceptionService.handleError);
+  }
+
+  public getCountryCodes(): Observable<Country[]> {
+    return this.http.get(this.umsUserUrl.concat("/countrycodes"))
+      .map((resp: Response) => <Country[]>(resp.json()))
       .catch(this.exceptionService.handleError);
   }
 }

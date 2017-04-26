@@ -14,6 +14,7 @@ import {ConfirmDialogService} from "app/shared/confirm-dialog.service";
 import {Observable} from "rxjs/Observable";
 import {ValidationService} from "../../shared/validation.service";
 import {State} from "app/user/shared/state.model";
+import {Country} from "app/user/shared/country.model";
 
 @Component({
   selector: 'c2s-user-create-edit',
@@ -31,6 +32,7 @@ export class UserCreateEditComponent implements OnInit {
   public locales: Locale[];
   public roles: Role[];
   public states: State[];
+  public countries: Country[];
   public isEditMode: boolean = false;
   public phoneErrorMessage: string = ValidationRules.PHONE_MESSAGE;
   public ssnErrorMessage: string = ValidationRules.SSN_MESSAGE;
@@ -52,6 +54,7 @@ export class UserCreateEditComponent implements OnInit {
     this.locales = this.route.snapshot.data['localeCodes'];
     this.roles = this.route.snapshot.data['roleCodes'];
     this.states = this.route.snapshot.data['stateCodes'];
+    this.countries = this.route.snapshot.data['countryCodes'];
     this.createEditUserFrom = this.formBuilder.group({
       firstName: ['',
         [
@@ -110,7 +113,7 @@ export class UserCreateEditComponent implements OnInit {
       city: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
       state: '',
       postalCode: ['', Validators.pattern(ValidationRules.ZIP_PATTERN)],
-      country: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)]
+      country: ''
     });
   }
 

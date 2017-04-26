@@ -123,16 +123,6 @@
           </c2s-control-validation-error-message>
         </div>
         <div fxFlex>
-          <md-select placeholder="State" formControlName="state"
-                     class="full-width font-size20">
-            <md-option *ngFor="let state of states" [value]="state.code">
-              {{ state.displayName }}
-            </md-option>
-          </md-select>
-        </div>
-      </div>
-      <div fxLayout="row" fxLayoutGap="20px">
-        <div fxFlex>
           <md-input-container class="full-width font-size20">
             <input mdInput placeholder="Postal Code" formControlName="postalCode">
           </md-input-container>
@@ -141,13 +131,23 @@
             [control]="createEditUserFrom.get('address.postalCode')">
           </c2s-control-validation-error-message>
         </div>
+      </div>
+      <div fxLayout="row" fxLayoutGap="20px">
         <div fxFlex>
-          <md-input-container class="full-width font-size20">
-            <input mdInput placeholder="Country" formControlName="country">
-          </md-input-container>
-          <c2s-control-validation-error-message
-            [control]="createEditUserFrom.get('address.country')">
-          </c2s-control-validation-error-message>
+          <md-select placeholder="State" formControlName="state"
+                     class="full-width font-size20">
+            <md-option *ngFor="let state of states" [value]="state.code">
+              {{ state.displayName }}
+            </md-option>
+          </md-select>
+        </div>
+        <div fxFlex>
+          <md-select placeholder="Country" formControlName="country"
+                     class="full-width font-size20">
+            <md-option *ngFor="let country of countries" [value]="country.code">
+              {{ country.displayName }}
+            </md-option>
+          </md-select>
         </div>
       </div>
     </div>
