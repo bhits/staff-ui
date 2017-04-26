@@ -4,6 +4,7 @@ import {Http, Response} from "@angular/http";
 import {ApiUrlService} from "../../shared/api-url.service";
 import {Gender} from "./gender.model";
 import {Observable} from "rxjs/Observable";
+import {Locale} from "./locale.model";
 
 @Injectable()
 export class UserCreationLookupService {
@@ -17,6 +18,12 @@ export class UserCreationLookupService {
   public getGenderCodes(): Observable<Gender[]> {
     return this.http.get(this.umsUserUrl.concat("/gendercodes"))
       .map((resp: Response) => <Gender[]>(resp.json()))
+      .catch(this.exceptionService.handleError);
+  }
+
+  public getLocales(): Observable<Locale[]> {
+    return this.http.get(this.umsUserUrl.concat("/locales"))
+      .map((resp: Response) => <Locale[]>(resp.json()))
       .catch(this.exceptionService.handleError);
   }
 }

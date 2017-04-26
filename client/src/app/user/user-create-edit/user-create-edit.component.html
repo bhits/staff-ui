@@ -25,8 +25,8 @@
       <div fxFlex>
         <md-select placeholder="Preferred Language" formControlName="locale"
                    class="full-width font-size20">
-          <md-option *ngFor="let locale of locales" [value]="locale.localeCode">
-            {{ locale.localeValue }}
+          <md-option *ngFor="let locale of locales" [value]="locale.code">
+            {{ locale.displayName }}
           </md-option>
         </md-select>
         <c2s-control-validation-error-message

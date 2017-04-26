@@ -7,6 +7,7 @@ import {UserResolveService} from "app/user/shared/user-resolve.service";
 import {CanDeactivateGuardService} from "../security/shared/can-deactivate-guard.service";
 import {UserListComponent} from "./user-list/user-list.component";
 import {GenderCodeLookupResolveService} from "./shared/gender-code-lookup-resolve.service";
+import {LocaleLookupResolveService} from "./shared/locale-lookup-resolve.service";
 
 const userRoutes: Routes = [
   {
@@ -24,7 +25,8 @@ const userRoutes: Routes = [
         component: UserCreateEditComponent,
         canDeactivate: [CanDeactivateGuardService],
         resolve: {
-          genderCodes: GenderCodeLookupResolveService
+          genderCodes: GenderCodeLookupResolveService,
+          localeCodes: LocaleLookupResolveService
         }
       },
       {
@@ -33,7 +35,8 @@ const userRoutes: Routes = [
         canDeactivate: [CanDeactivateGuardService],
         resolve: {
           user: UserResolveService,
-          genderCodes: GenderCodeLookupResolveService
+          genderCodes: GenderCodeLookupResolveService,
+          localeCodes: LocaleLookupResolveService
         }
       }
     ]
@@ -55,5 +58,6 @@ export const routedComponents = [
 
 export const routedResolveServices = [
   UserResolveService,
-  GenderCodeLookupResolveService
+  GenderCodeLookupResolveService,
+  LocaleLookupResolveService
 ];
