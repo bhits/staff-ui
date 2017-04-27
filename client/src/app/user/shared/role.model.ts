@@ -1,4 +1,4 @@
 export class Role {
-  code: string;
-  name: string;
+  public code: string;
+  public name: string;
 }

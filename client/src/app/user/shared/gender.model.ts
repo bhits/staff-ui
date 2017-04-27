@@ -1,4 +1,4 @@
-import {UserCreationLookupInfo} from "./user-creation-lookup-info.model";
+import {BaseUserCreationLookup} from "./base-user-creation-lookup.model";
 
-export class Gender extends UserCreationLookupInfo {
+export class Gender extends BaseUserCreationLookup {
 }

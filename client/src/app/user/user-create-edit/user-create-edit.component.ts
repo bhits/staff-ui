@@ -5,16 +5,14 @@ import {User} from "app/user/shared/user.model";
 import {NotificationService} from "app/shared/notification.service";
 import {UtilityService} from "app/shared/utility.service";
 import {ApiUrlService} from "app/shared/api-url.service";
-import {Locale} from "app/user/shared/locale.model";
 import {Role} from "app/user/shared/role.model";
 import {ActivatedRoute} from "@angular/router";
-import {Gender} from "app/user/shared/gender.model";
 import {ValidationRules} from "../../shared/validation-rules.model";
 import {ConfirmDialogService} from "app/shared/confirm-dialog.service";
 import {Observable} from "rxjs/Observable";
 import {ValidationService} from "../../shared/validation.service";
-import {State} from "app/user/shared/state.model";
-import {Country} from "app/user/shared/country.model";
+import {UserCreationLookupInfo} from "../shared/user-creation-lookup-info.model";
+import {BaseUserCreationLookup} from "../shared/base-user-creation-lookup.model";
 
 @Component({
   selector: 'c2s-user-create-edit',
@@ -27,12 +25,12 @@ export class UserCreateEditComponent implements OnInit {
   public createEditUserFrom: FormGroup;
   public editingUser: User;
   public isOpenOnFocus: boolean = true;
-  public FORMAT: string = "MM/dd/yyyy";
-  public genders: Gender[];
-  public locales: Locale[];
+  public FORMAT: string = "MM/dd/y";
+  public genders: BaseUserCreationLookup[];
+  public locales: BaseUserCreationLookup[];
+  public states: BaseUserCreationLookup[];
+  public countries: BaseUserCreationLookup[];
   public roles: Role[];
-  public states: State[];
-  public countries: Country[];
   public isEditMode: boolean = false;
   public phoneErrorMessage: string = ValidationRules.PHONE_MESSAGE;
   public ssnErrorMessage: string = ValidationRules.SSN_MESSAGE;
@@ -50,11 +48,12 @@ export class UserCreateEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.genders = this.route.snapshot.data['genderCodes'];
-    this.locales = this.route.snapshot.data['localeCodes'];
-    this.roles = this.route.snapshot.data['roleCodes'];
-    this.states = this.route.snapshot.data['stateCodes'];
-    this.countries = this.route.snapshot.data['countryCodes'];
+    let userCreationLookupInfo: UserCreationLookupInfo = this.route.snapshot.data['userCreationLookupInfo'];
+    this.roles = userCreationLookupInfo.roles;
+    this.genders = userCreationLookupInfo.genderCodes;
+    this.locales = userCreationLookupInfo.locales;
+    this.states = userCreationLookupInfo.stateCodes;
+    this.countries = userCreationLookupInfo.countryCodes;
     this.createEditUserFrom = this.formBuilder.group({
       firstName: ['',
         [
