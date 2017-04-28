@@ -2,7 +2,7 @@ export class Address {
   line1: string;
   line2: string;
   city: string;
-  state: string;
+  stateCode: string;
   postalCode: string;
-  country: string;
+  countryCode: string;
 }

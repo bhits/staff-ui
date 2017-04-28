@@ -36,6 +36,13 @@ export class UserCreateEditComponent implements OnInit {
   public ssnErrorMessage: string = ValidationRules.SSN_MESSAGE;
   public zipErrorMessage: string = ValidationRules.ZIP_MESSAGE;
   public title: string = "Create User";
+  public disabledRoles = [
+    "parents",
+    "guardian",
+    "provider",
+    "systemSupport",
+    "staffUser"
+  ];
 
   constructor(private apiUrlService: ApiUrlService,
               private confirmDialogService: ConfirmDialogService,
@@ -75,7 +82,7 @@ export class UserCreateEditComponent implements OnInit {
           Validators.required
         ]
       ],
-      email: ['', Validators.compose([
+      homeEmail: ['', Validators.compose([
         Validators.required,
         Validators.email])
       ],
@@ -85,9 +92,9 @@ export class UserCreateEditComponent implements OnInit {
         ValidationService.pastDateValidator])
       ],
       socialSecurityNumber: ['', Validators.pattern(ValidationRules.SSN_PATTERN)],
-      phone: ['', Validators.pattern(ValidationRules.PHONE_PATTERN)],
-      address: this.initAddressFormGroup(),
-      role: ['', Validators.required],
+      homePhone: ['', Validators.pattern(ValidationRules.PHONE_PATTERN)],
+      homeAddress: this.initAddressFormGroup(),
+      roles: ['', Validators.required],
       locale: ['', Validators.required]
     });
     this.route.params
@@ -110,9 +117,9 @@ export class UserCreateEditComponent implements OnInit {
       line1: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
       line2: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
       city: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
-      state: '',
+      stateCode: '',
       postalCode: ['', Validators.pattern(ValidationRules.ZIP_PATTERN)],
-      country: ''
+      countryCode: ''
     });
   }
 
@@ -121,20 +128,20 @@ export class UserCreateEditComponent implements OnInit {
       firstName: user.firstName,
       middleName: user.middleName,
       lastName: user.lastName,
-      email: user.email,
+      homeEmail: user.homeEmail,
       genderCode: user.genderCode,
       birthDate: user.birthDate,
       socialSecurityNumber: user.socialSecurityNumber,
-      phone: user.phone,
-      address: {
-        line1: user.address.line1,
-        line2: user.address.line2,
-        city: user.address.city,
-        state: user.address.state,
-        postalCode: user.address.postalCode,
-        country: user.address.country
+      homePhone: user.homePhone,
+      homeAddress: {
+        line1: user.homeAddress.line1,
+        line2: user.homeAddress.line2,
+        city: user.homeAddress.city,
+        stateCode: user.homeAddress.stateCode,
+        postalCode: user.homeAddress.postalCode,
+        countryCode: user.homeAddress.countryCode
       },
-      role: user.role,
+      roles: user.roles,
       locale: user.locale
     })
   }
@@ -188,13 +195,13 @@ export class UserCreateEditComponent implements OnInit {
       firstName: formModel.firstName,
       middleName: formModel.middleName,
       lastName: formModel.lastName,
-      email: formModel.email,
+      homeEmail: formModel.homeEmail,
       birthDate: formModel.birthDate,
       genderCode: formModel.genderCode,
       socialSecurityNumber: formModel.socialSecurityNumber,
-      phone: formModel.phone,
-      address: formModel.address,
-      role: formModel.role,
+      homePhone: formModel.homePhone,
+      homeAddress: formModel.homeAddress,
+      roles: formModel.roles,
       locale: formModel.locale
     };
   }
