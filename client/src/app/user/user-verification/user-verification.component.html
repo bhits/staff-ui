@@ -56,11 +56,23 @@
           <strong>{{accountStatusText}}</strong>
         </div>
       </div>
-      <div fxFlex fxLayoutAlign="end" *ngIf="!verified">
+      <div fxFlex fxLayoutAlign="end" *ngIf="verified; else sendVerificationEmailTemplate">
+        <div *ngIf="isAccountDisabled; else enableAccountTemplate">
+          <button md-raised-button color="primary" (click)="enableAccount()">
+            <strong>Enable Account</strong>
+          </button>
+        </div>
+        <template #enableAccountTemplate>
+          <button md-raised-button color="primary" (click)="disableAccount()">
+            <strong>Disable Account</strong>
+          </button>
+        </template>
+      </div>
+      <template #sendVerificationEmailTemplate>
         <button md-raised-button color="primary" (click)="sendVerificationEmail()">
           <strong>Send Email</strong>
         </button>
-      </div>
+      </template>
     </div>
   </md-card-footer>
 </md-card>

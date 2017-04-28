@@ -74,7 +74,7 @@
               <div class="m-t-xs flexcontainer column">
                 <div>
                   <div class="font-size12 p-b-xxs">Contact Number</div>
-                  <div class="font-size14 font-weight500 p-b-sm">{{user | user: 'phone'| usPhoneNumber}}
+                  <div class="font-size14 font-weight500 p-b-sm">{{user | user: 'homePhone'| usPhoneNumber}}
                   </div>
                   <div class="font-size12 p-b-xxs">Date of Birth</div>
                   <div class="font-size14 font-weight600">{{user | user: 'birthDate' | date}}</div>
@@ -85,7 +85,7 @@
               <div class="m-t-xs flexcontainer column">
                 <div fxLayout="column">
                   <div class="font-size12 p-b-xxs">Address</div>
-                  <div class="font-size14 font-weight700">{{user | user: 'address'}}</div>
+                  <div class="font-size14 font-weight700">{{user | user: 'homeAddress'}}</div>
                 </div>
               </div>
             </div>

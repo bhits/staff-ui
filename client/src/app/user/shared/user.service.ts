@@ -69,4 +69,18 @@ export class UserService {
       .map((resp: Response) => <UserActivationResponse>(resp.json()))
       .catch(this.exceptionService.handleError);
   }
+
+  public disableUser(userId: number): Observable<void> {
+    const USER_DISABLED_URL = `${this.umsUserUrl}/${userId}/disabled`;
+    return this.http.put(USER_DISABLED_URL, {})
+      .map(() => null)
+      .catch(this.exceptionService.handleError);
+  }
+
+  public enableUser(userId: number): Observable<void> {
+    const USER_DISABLED_URL = `${this.umsUserUrl}/${userId}/enabled`;
+    return this.http.put(USER_DISABLED_URL, {})
+      .map(() => null)
+      .catch(this.exceptionService.handleError);
+  }
 }

@@ -36,6 +36,7 @@ export class UserCreateEditComponent implements OnInit {
   public ssnErrorMessage: string = ValidationRules.SSN_MESSAGE;
   public zipErrorMessage: string = ValidationRules.ZIP_MESSAGE;
   public title: string = "Create User";
+  //Todo: Will remove when support multiple roles
   public disabledRoles = [
     "parents",
     "guardian",
@@ -61,42 +62,8 @@ export class UserCreateEditComponent implements OnInit {
     this.locales = userCreationLookupInfo.locales;
     this.states = userCreationLookupInfo.stateCodes;
     this.countries = userCreationLookupInfo.countryCodes;
-    this.createEditUserFrom = this.formBuilder.group({
-      firstName: ['',
-        [
-          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
-          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH),
-          Validators.required
-        ]
-      ],
-      middleName: ['',
-        [
-          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
-          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH)
-        ]
-      ],
-      lastName: ['',
-        [
-          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
-          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH),
-          Validators.required
-        ]
-      ],
-      homeEmail: ['', Validators.compose([
-        Validators.required,
-        Validators.email])
-      ],
-      genderCode: ['', Validators.required],
-      birthDate: ['', Validators.compose([
-        Validators.required,
-        ValidationService.pastDateValidator])
-      ],
-      socialSecurityNumber: ['', Validators.pattern(ValidationRules.SSN_PATTERN)],
-      homePhone: ['', Validators.pattern(ValidationRules.PHONE_PATTERN)],
-      homeAddress: this.initAddressFormGroup(),
-      roles: ['', Validators.required],
-      locale: ['', Validators.required]
-    });
+    this.createEditUserFrom = this.initCreateEditFormGroup();
+
     this.route.params
       .subscribe(
         params => {
@@ -112,14 +79,53 @@ export class UserCreateEditComponent implements OnInit {
         });
   }
 
+  private initCreateEditFormGroup() {
+    return this.formBuilder.group({
+      firstName: [null,
+        [
+          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
+          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH),
+          Validators.required
+        ]
+      ],
+      middleName: [null,
+        [
+          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
+          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH)
+        ]
+      ],
+      lastName: [null,
+        [
+          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
+          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH),
+          Validators.required
+        ]
+      ],
+      homeEmail: [null, Validators.compose([
+        Validators.required,
+        Validators.email])
+      ],
+      genderCode: [null, Validators.required],
+      birthDate: [null, Validators.compose([
+        Validators.required,
+        ValidationService.pastDateValidator])
+      ],
+      socialSecurityNumber: [null, Validators.pattern(ValidationRules.SSN_PATTERN)],
+      homePhone: [null, Validators.pattern(ValidationRules.PHONE_PATTERN)],
+      homeAddress: this.initAddressFormGroup(),
+      roles: [null, Validators.required],
+      locale: [null, Validators.required]
+    });
+  }
+
   private initAddressFormGroup() {
     return this.formBuilder.group({
-      line1: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
-      line2: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
-      city: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
-      stateCode: '',
-      postalCode: ['', Validators.pattern(ValidationRules.ZIP_PATTERN)],
-      countryCode: ''
+      line1: [null, Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
+      line2: [null, Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
+      city: [null, Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
+      stateCode: null,
+      postalCode: [null, Validators.pattern(ValidationRules.ZIP_PATTERN)],
+      countryCode: null
     });
   }
 
