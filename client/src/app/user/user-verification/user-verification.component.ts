@@ -27,10 +27,10 @@ export class UserVerificationComponent implements OnInit {
       .subscribe(
         (userActivationResponse) => {
           this.verificationCode = userActivationResponse.verificationCode;
-          this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Activated);
+          this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Verified);
           if (userActivationResponse.verified) {
             this.verified = true;
-            this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Created);
+            this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Activated);
             if (this.verified && this.user.disabled) {
               this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Disabled);
             }
@@ -48,7 +48,7 @@ export class UserVerificationComponent implements OnInit {
         (userActivationResponse) => {
           this.notificationService.show("Email sent successfully");
           this.verificationCode = userActivationResponse.verificationCode;
-          this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Activated)
+          this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Verified)
         },
         err => {
           this.notificationService.show("Failed to send email, please try again later...");
@@ -75,7 +75,7 @@ export class UserVerificationComponent implements OnInit {
       .subscribe(
         () => {
           this.isAccountDisabled = false;
-          this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Created);
+          this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Activated);
           this.notificationService.show("User account is back to work.");
         },
         err => {
