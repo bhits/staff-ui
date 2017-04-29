@@ -40,15 +40,6 @@ export class AuthenticationService {
 
   public isLoggedIn(response: AuthorizationResponse): void {
     this.tokenService.setOauthToken(response);
-    this.getUserInfo()
-      .subscribe(
-        (res) => {
-          console.log(res);
-        },
-        error => {
-          console.log(error);
-        }
-      );
     this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
   }
 
@@ -59,6 +50,7 @@ export class AuthenticationService {
   }
 
   public getUserInfo(): Observable<UserInfoResponse> {
+    //Todo: Get from ums
     return this.http.get(this.apiUrlService.getUaaUserInfoUrl())
       .map((resp: Response) => <UserInfoResponse>(resp.json()))
       .catch(this.exceptionService.handleError);
