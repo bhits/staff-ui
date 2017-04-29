@@ -6,6 +6,7 @@ import {HomeModule} from "./home/home.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {AppComponent} from "./app.component";
 import {UserModule} from "app/user/user.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations/";
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import {UserModule} from "app/user/user.module";
   ],
   imports: [
     // Angular Modules
+    BrowserAnimationsModule,
     BrowserModule,
 
     // Third Party Modules
