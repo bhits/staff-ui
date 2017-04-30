@@ -37,13 +37,7 @@ export class UserCreateEditComponent implements OnInit {
   public zipErrorMessage: string = ValidationRules.ZIP_MESSAGE;
   public title: string = "Create User";
   //Todo: Will remove when support multiple roles
-  public disabledRoles = [
-    "parents",
-    "guardian",
-    "provider",
-    "systemSupport",
-    "staffUser"
-  ];
+  public disabledRoles: string[];
 
   constructor(private apiUrlService: ApiUrlService,
               private confirmDialogService: ConfirmDialogService,
@@ -62,6 +56,9 @@ export class UserCreateEditComponent implements OnInit {
     this.locales = userCreationLookupInfo.locales;
     this.states = userCreationLookupInfo.stateCodes;
     this.countries = userCreationLookupInfo.countryCodes;
+    this.disabledRoles = userCreationLookupInfo.roles
+      .filter(role => role.code != "patient")
+      .map(role => role.code);
     this.createEditUserFrom = this.initCreateEditFormGroup();
 
     this.route.params
