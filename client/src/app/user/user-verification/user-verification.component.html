@@ -11,7 +11,7 @@
         <div class="m-t-xs flexcontainer column">
           <div>
             <div class="font-size20">Activate Account for:</div>
-            <div class="font-size18"><strong>{{user.email}}</strong></div>
+            <div class="font-size18"><strong>{{user | user: 'fullName'}}</strong></div>
           </div>
         </div>
       </div>
