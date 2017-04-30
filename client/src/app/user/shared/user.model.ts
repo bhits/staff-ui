@@ -14,8 +14,7 @@ export class User {
   workPhone?: string;
   homeAddress?: Address;
   workAddress?: Address;
-  //Todo: One user has multiple roles
-  roles: string;
+  roles: string[];
   locale: string;
   disabled?: boolean;
 }

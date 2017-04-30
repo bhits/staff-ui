@@ -12,7 +12,7 @@
     <h2>Required Information</h2>
     <div fxLayout="row" fxLayoutGap="20px">
       <div fxFlex>
-        <md-select placeholder="Role" formControlName="roles"
+        <md-select multiple placeholder="Role" formControlName="roles"
                    class="full-width font-size20">
           <md-option *ngFor="let role of roles; let i = index;" [value]="role.code"
                      [disabled]="role.code === disabledRoles[i-1]">
