@@ -6,14 +6,14 @@
 
   <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap="wrap" fxLayoutGap="15px" fxLayoutAlign="center">
 
-    <md-card class="home-card contacts">
+    <md-card class="home-card contacts" (click)="navigateTo()">
       <md-card-header class="middle">
         <md-card-title>
           <div class="m-n">My <span class="font-weight700">Users</span></div>
         </md-card-title>
       </md-card-header>
       <md-card-content class="p-md">
-        <button md-fab (click)="navigateTo()">
+        <button md-fab>
           <md-icon class="md-24 font-weight500">add</md-icon>
         </button>
         <md-chip-list class="p-15">

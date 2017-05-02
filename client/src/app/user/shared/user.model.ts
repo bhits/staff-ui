@@ -17,4 +17,5 @@ export class User {
   roles: string[];
   locale: string;
   disabled?: boolean;
+  mrn?: string;
 }

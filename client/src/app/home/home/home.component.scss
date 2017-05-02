@@ -3,6 +3,7 @@
   padding: 0;
   max-width: 350px;
   text-align: left;
+  &:hover{cursor: pointer;}
   @media (max-width: 599px) {
     flex: 1 1 0;
   }

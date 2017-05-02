@@ -133,7 +133,7 @@ export class UserCreateEditComponent implements OnInit {
       lastName: user.lastName,
       homeEmail: user.homeEmail,
       genderCode: user.genderCode,
-      birthDate: user.birthDate,
+      birthDate: new Date(user.birthDate),
       socialSecurityNumber: user.socialSecurityNumber,
       homePhone: user.homePhone,
       homeAddress: {
