@@ -122,6 +122,20 @@ Java has a default CA Certificates Store that allows it to trust well-known cert
 
 *NOTE: The `cacerts` references given regarding volume mapping above are files, not directories.*
 
+### Default Staff Admin user
+
+For demo purpose, the system has a default staff admin user configured in [User Account and Authentication (UAA)](http://docs.cloudfoundry.org/api/uaa/) uaa.yml file. The default account can be modified or/and create more users.
+```yml
+...
+scim:
+  users:
+#  Configure additional c2s staff admin(users) as:
+#    - EmailId | password | EmailId | FirstName | LastName | <Comma saperated list of permissions>
+#  For example:
+    - c2s-admin@mailinator.com|AAA#aaa1|c2s-admin@mailinator.com|admin|consent2share|staffUi.access,staffUiApi.read,staffUiApi.write
+...
+```
+
 [//]: # (## API Documentation)
 
 [//]: # (## Notes)
