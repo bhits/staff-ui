@@ -13,6 +13,7 @@ export class UserVerificationComponent implements OnInit {
   @Input()
   public user: User;
   public verified: boolean = false;
+  public isAccountDisabled: boolean;
   public verificationCode: string;
   public accountStatusText: string = ACCOUNT_STATUSES.get(AccountStatus.NotActivated);
 
@@ -21,14 +22,18 @@ export class UserVerificationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isAccountDisabled = this.user.disabled;
     this.userService.getCurrentUserCreationInfo(this.user.id)
       .subscribe(
-        (userCreationResponse) => {
-          this.verificationCode = userCreationResponse.verificationCode;
-          this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Activated);
-          if (userCreationResponse.verified) {
+        (userActivationResponse) => {
+          this.verificationCode = userActivationResponse.verificationCode;
+          this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Verified);
+          if (userActivationResponse.verified) {
             this.verified = true;
-            this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Created);
+            this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Activated);
+            if (this.verified && this.user.disabled) {
+              this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Disabled);
+            }
           }
         },
         err => {
@@ -38,16 +43,43 @@ export class UserVerificationComponent implements OnInit {
   }
 
   public sendVerificationEmail() {
-    this.userService.initiateUserCreation(this.user.id)
+    this.userService.initiateUserActivation(this.user.id)
       .subscribe(
-        (userCreationResponse) => {
+        (userActivationResponse) => {
           this.notificationService.show("Email sent successfully");
-          this.verificationCode = userCreationResponse.verificationCode;
-          this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Activated)
+          this.verificationCode = userActivationResponse.verificationCode;
+          this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Verified)
         },
         err => {
           this.notificationService.show("Failed to send email, please try again later...");
-          console.log(err);
+        }
+      );
+  }
+
+  public disableAccount() {
+    this.userService.disableUser(this.user.id)
+      .subscribe(
+        () => {
+          this.isAccountDisabled = true;
+          this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Disabled);
+          this.notificationService.show("Disable user account successfully");
+        },
+        err => {
+          this.notificationService.show("Error in disable user account, please try again later...");
+        }
+      );
+  }
+
+  public enableAccount() {
+    this.userService.enableUser(this.user.id)
+      .subscribe(
+        () => {
+          this.isAccountDisabled = false;
+          this.accountStatusText = ACCOUNT_STATUSES.get(AccountStatus.Activated);
+          this.notificationService.show("User account is back to work.");
+        },
+        err => {
+          this.notificationService.show("Error in enable user account, please try again later...");
         }
       );
   }

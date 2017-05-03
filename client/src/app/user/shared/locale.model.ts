@@ -1,6 +1,4 @@
-type LocaleType = "en" | "es";
+import {BaseUserCreationLookup} from "./base-user-creation-lookup.model";
 
-export class Locale {
-  localeCode: LocaleType;
-  localeValue: string;
+export class Locale extends BaseUserCreationLookup {
 }

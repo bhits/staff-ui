@@ -10,7 +10,7 @@ export class AuthorizationService {
   }
 
   public canAccess(): boolean {
-    const ADMIN_ACCESS_SCOPE: string = "staffUi.read";
+    const ADMIN_ACCESS_SCOPE: string = "staffUi.access";
     if (this.tokenService.hasScope(ADMIN_ACCESS_SCOPE)) {
       this.globalEventManagementService.setShowHeader(true);
       return true;

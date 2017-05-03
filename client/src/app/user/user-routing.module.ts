@@ -2,10 +2,11 @@ import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {UsersComponent} from "app/user/users/users.component";
 import {CanActivateAuthGuardService} from "../security/shared/can-activate-auth-guard.service";
-import {PatientListComponent} from "app/user/patient-list/patient-list.component";
 import {UserCreateEditComponent} from "app/user/user-create-edit/user-create-edit.component";
 import {UserResolveService} from "app/user/shared/user-resolve.service";
 import {CanDeactivateGuardService} from "../security/shared/can-deactivate-guard.service";
+import {UserListComponent} from "./user-list/user-list.component";
+import {UserCreationLookupResolveService} from "./shared/user-creation-lookup-resolve.service";
 
 const userRoutes: Routes = [
   {
@@ -16,19 +17,23 @@ const userRoutes: Routes = [
     children: [
       {
         path: '',
-        component: PatientListComponent
+        component: UserListComponent
       },
       {
         path: 'create',
         component: UserCreateEditComponent,
-        canDeactivate: [CanDeactivateGuardService]
+        canDeactivate: [CanDeactivateGuardService],
+        resolve: {
+          userCreationLookupInfo: UserCreationLookupResolveService
+        }
       },
       {
         path: 'edit/:userId',
         component: UserCreateEditComponent,
         canDeactivate: [CanDeactivateGuardService],
         resolve: {
-          user: UserResolveService
+          user: UserResolveService,
+          userCreationLookupInfo: UserCreationLookupResolveService
         }
       }
     ]
@@ -44,10 +49,11 @@ export class UserRoutingModule {
 
 export const routedComponents = [
   UsersComponent,
-  PatientListComponent,
+  UserListComponent,
   UserCreateEditComponent
 ];
 
 export const routedResolveServices = [
-  UserResolveService
+  UserResolveService,
+  UserCreationLookupResolveService
 ];

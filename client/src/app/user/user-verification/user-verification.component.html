@@ -11,7 +11,7 @@
         <div class="m-t-xs flexcontainer column">
           <div>
             <div class="font-size20">Activate Account for:</div>
-            <div class="font-size18"><strong>{{user.email}}</strong></div>
+            <div class="font-size18"><strong>{{user | user: 'fullName'}}</strong></div>
           </div>
         </div>
       </div>
@@ -22,22 +22,23 @@
             <div class="font-size18" *ngIf="verificationCode; else hyphenSymbol">
               <strong>{{verificationCode}}</strong>
             </div>
-            <template #hyphenSymbol>
+            <ng-template #hyphenSymbol>
               <strong class="font-size20">---</strong>
-            </template>
+            </ng-template>
           </div>
         </div>
       </div>
     </div>
     <div *ngIf="verificationCode; else sentVerificationCode">
-      <p class="font-size16">
-        <span>
-          <strong>Email has been sent, waiting for user to activate account. Or re-send an an account activation email</strong>
-        </span>
-      </p>
-      <p>
+      <div *ngIf="verified; else resentEmailTemplate"></div>
+      <ng-template #resentEmailTemplate>
+        <p class="font-size16">
+          <strong>Email has been sent, waiting for user to activate account. Or re-send an an account activation
+            email</strong>
+        </p>
+      </ng-template>
     </div>
-    <template #sentVerificationCode>
+    <ng-template #sentVerificationCode>
       <p class="font-size16">
         <span>
           <strong>Please Send Email to generate the Verification Code.</strong>
@@ -45,7 +46,7 @@
         Sending an account activation email to the address listed above will generate
         a unique Verification Code. That Verification Code will be displayed above.</p>
       <p>
-    </template>
+    </ng-template>
     <hr>
   </md-card-content>
   <md-card-footer>
@@ -56,11 +57,23 @@
           <strong>{{accountStatusText}}</strong>
         </div>
       </div>
-      <div fxFlex fxLayoutAlign="end" *ngIf="!verified">
+      <div fxFlex fxLayoutAlign="end" *ngIf="verified; else sendVerificationEmailTemplate">
+        <div *ngIf="isAccountDisabled; else enableAccountTemplate">
+          <button md-raised-button color="primary" (click)="enableAccount()">
+            <strong>Enable Account</strong>
+          </button>
+        </div>
+        <ng-template #enableAccountTemplate>
+          <button md-raised-button color="primary" (click)="disableAccount()">
+            <strong>Disable Account</strong>
+          </button>
+        </ng-template>
+      </div>
+      <ng-template #sendVerificationEmailTemplate>
         <button md-raised-button color="primary" (click)="sendVerificationEmail()">
           <strong>Send Email</strong>
         </button>
-      </div>
+      </ng-template>
     </div>
   </md-card-footer>
 </md-card>

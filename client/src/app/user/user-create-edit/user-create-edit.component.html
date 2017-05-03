@@ -11,24 +11,29 @@
   <form [formGroup]="createEditUserFrom" class="create-edit-user-form" novalidate>
     <h2>Required Information</h2>
     <div fxLayout="row" fxLayoutGap="20px">
-      <md-select fxLayout="column" placeholder="Role" formControlName="role"
-                 class="full-width font-size20">
-        <md-option *ngFor="let role of roles" [value]="role.roleCode">
-          {{ role.roleValue }}
-        </md-option>
-      </md-select>
-      <c2s-control-validation-error-message
-        [control]="createEditUserFrom.controls.role">
-      </c2s-control-validation-error-message>
-      <md-select fxLayout="column" placeholder="Locale" formControlName="locale"
-                 class="full-width font-size20">
-        <md-option *ngFor="let locale of locales" [value]="locale.localeCode">
-          {{ locale.localeValue }}
-        </md-option>
-      </md-select>
-      <c2s-control-validation-error-message
-        [control]="createEditUserFrom.controls.locale">
-      </c2s-control-validation-error-message>
+      <div fxFlex>
+        <md-select multiple placeholder="Role" formControlName="roles"
+                   class="full-width font-size20">
+          <md-option *ngFor="let role of roles; let i = index;" [value]="role.code"
+                     [disabled]="role.code === disabledRoles[i-1]">
+            {{ role.name }}
+          </md-option>
+        </md-select>
+        <c2s-control-validation-error-message
+          [control]="createEditUserFrom.controls.roles">
+        </c2s-control-validation-error-message>
+      </div>
+      <div fxFlex>
+        <md-select placeholder="Preferred Language" formControlName="locale"
+                   class="full-width font-size20">
+          <md-option *ngFor="let locale of locales" [value]="locale.code">
+            {{ locale.displayName }}
+          </md-option>
+        </md-select>
+        <c2s-control-validation-error-message
+          [control]="createEditUserFrom.controls.locale">
+        </c2s-control-validation-error-message>
+      </div>
     </div>
     <div fxLayout="row" fxLayoutGap="20px">
       <div fxFlex>
@@ -59,41 +64,45 @@
       </div>
       <div fxFlex>
         <md-input-container class="full-width font-size20">
-          <input mdInput placeholder="Email" formControlName="email">
+          <input mdInput placeholder="Email" formControlName="homeEmail">
         </md-input-container>
         <c2s-control-validation-error-message
-          [control]="createEditUserFrom.controls.email">
+          [control]="createEditUserFrom.controls.homeEmail">
         </c2s-control-validation-error-message>
       </div>
     </div>
     <div fxLayout="row" fxLayoutGap="20px">
-      <md-select fxLayout="column" placeholder="Gender" formControlName="genderCode"
-                 class="full-width font-size20">
-        <md-option *ngFor="let gender of genders" [value]="gender.genderCode">
-          {{ gender.genderValue }}
-        </md-option>
-      </md-select>
-      <c2s-control-validation-error-message
-        [control]="createEditUserFrom.controls.genderCode">
-      </c2s-control-validation-error-message>
-      <md2-datepicker class="full-width font-size20" placeholder="Date of Birth"
-                      [openOnFocus]="isOpenOnFocus" [format]="FORMAT"
-                      formControlName="birthDate">
-      </md2-datepicker>
-      <c2s-control-validation-error-message
-        [control]="createEditUserFrom.controls.birthDate">
-      </c2s-control-validation-error-message>
+      <div fxFlex>
+        <md-select placeholder="Gender" formControlName="genderCode"
+                   class="full-width font-size20">
+          <md-option *ngFor="let gender of genders" [value]="gender.code">
+            {{ gender.displayName }}
+          </md-option>
+        </md-select>
+        <c2s-control-validation-error-message
+          [control]="createEditUserFrom.controls.genderCode">
+        </c2s-control-validation-error-message>
+      </div>
+      <div fxFlex>
+        <md2-datepicker class="full-width font-size20" placeholder="Date of Birth"
+                        [openOnFocus]="isOpenOnFocus" [format]="FORMAT"
+                        formControlName="birthDate">
+        </md2-datepicker>
+        <c2s-control-validation-error-message
+          [control]="createEditUserFrom.controls.birthDate">
+        </c2s-control-validation-error-message>
+      </div>
     </div>
 
     <h2>Additional Information</h2>
-    <div formGroupName="address">
+    <div formGroupName="homeAddress">
       <div fxLayout="row" fxLayoutGap="20px">
         <div fxFlex>
           <md-input-container class="full-width font-size20">
             <input mdInput placeholder="Street Line1" formControlName="line1">
           </md-input-container>
           <c2s-control-validation-error-message
-            [control]="createEditUserFrom.get('address.line1')">
+            [control]="createEditUserFrom.get('homeAddress.line1')">
           </c2s-control-validation-error-message>
         </div>
         <div fxFlex>
@@ -101,7 +110,7 @@
             <input mdInput placeholder="Street Line2 (Optional)" formControlName="line2">
           </md-input-container>
           <c2s-control-validation-error-message
-            [control]="createEditUserFrom.get('address.line2')">
+            [control]="createEditUserFrom.get('homeAddress.line2')">
           </c2s-control-validation-error-message>
         </div>
       </div>
@@ -111,35 +120,35 @@
             <input mdInput placeholder="City" formControlName="city">
           </md-input-container>
           <c2s-control-validation-error-message
-            [control]="createEditUserFrom.get('address.city')">
+            [control]="createEditUserFrom.get('homeAddress.city')">
           </c2s-control-validation-error-message>
         </div>
-        <div fxFlex>
-          <md-input-container class="full-width font-size20">
-            <input mdInput placeholder="State" formControlName="state">
-          </md-input-container>
-          <c2s-control-validation-error-message
-            [control]="createEditUserFrom.get('address.state')">
-          </c2s-control-validation-error-message>
-        </div>
-      </div>
-      <div fxLayout="row" fxLayoutGap="20px">
         <div fxFlex>
           <md-input-container class="full-width font-size20">
             <input mdInput placeholder="Postal Code" formControlName="postalCode">
           </md-input-container>
           <c2s-control-validation-error-message
             [customMessage]="zipErrorMessage"
-            [control]="createEditUserFrom.get('address.postalCode')">
+            [control]="createEditUserFrom.get('homeAddress.postalCode')">
           </c2s-control-validation-error-message>
         </div>
+      </div>
+      <div fxLayout="row" fxLayoutGap="20px">
         <div fxFlex>
-          <md-input-container class="full-width font-size20">
-            <input mdInput placeholder="Country" formControlName="country">
-          </md-input-container>
-          <c2s-control-validation-error-message
-            [control]="createEditUserFrom.get('address.country')">
-          </c2s-control-validation-error-message>
+          <md-select placeholder="State" formControlName="stateCode"
+                     class="full-width font-size20">
+            <md-option *ngFor="let state of states" [value]="state.code">
+              {{ state.displayName }}
+            </md-option>
+          </md-select>
+        </div>
+        <div fxFlex>
+          <md-select placeholder="Country" formControlName="countryCode"
+                     class="full-width font-size20">
+            <md-option *ngFor="let country of countries" [value]="country.code">
+              {{ country.displayName }}
+            </md-option>
+          </md-select>
         </div>
       </div>
     </div>
@@ -155,11 +164,11 @@
       </div>
       <div fxFlex>
         <md-input-container class="full-width font-size20">
-          <input mdInput placeholder="Phone" formControlName="phone">
+          <input mdInput placeholder="Phone" formControlName="homePhone">
         </md-input-container>
         <c2s-control-validation-error-message
           [customMessage]="phoneErrorMessage"
-          [control]="createEditUserFrom.controls.phone">
+          [control]="createEditUserFrom.controls.homePhone">
         </c2s-control-validation-error-message>
       </div>
     </div>
@@ -174,6 +183,3 @@
     </div>
   </form>
 </div>
-<pre class="font-size20">
-  {{createEditUserFrom.get('birthDate').value|json}}
-</pre>

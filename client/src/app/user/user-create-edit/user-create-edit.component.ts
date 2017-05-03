@@ -5,17 +5,14 @@ import {User} from "app/user/shared/user.model";
 import {NotificationService} from "app/shared/notification.service";
 import {UtilityService} from "app/shared/utility.service";
 import {ApiUrlService} from "app/shared/api-url.service";
-import {Locale} from "app/user/shared/locale.model";
 import {Role} from "app/user/shared/role.model";
-import {LOCALES} from "app/user/shared/locales.model";
-import {ROLES} from "app/user/shared/roles.model";
 import {ActivatedRoute} from "@angular/router";
-import {Gender} from "app/user/shared/gender.model";
-import {GENDERS} from "app/user/shared/genders.model";
 import {ValidationRules} from "../../shared/validation-rules.model";
 import {ConfirmDialogService} from "app/shared/confirm-dialog.service";
 import {Observable} from "rxjs/Observable";
 import {ValidationService} from "../../shared/validation.service";
+import {UserCreationLookupInfo} from "../shared/user-creation-lookup-info.model";
+import {BaseUserCreationLookup} from "../shared/base-user-creation-lookup.model";
 
 @Component({
   selector: 'c2s-user-create-edit',
@@ -28,15 +25,19 @@ export class UserCreateEditComponent implements OnInit {
   public createEditUserFrom: FormGroup;
   public editingUser: User;
   public isOpenOnFocus: boolean = true;
-  public FORMAT: string = "MM/dd/yyyy";
-  public genders: Gender[];
-  public locales: Locale[];
+  public FORMAT: string = "MM/dd/y";
+  public genders: BaseUserCreationLookup[];
+  public locales: BaseUserCreationLookup[];
+  public states: BaseUserCreationLookup[];
+  public countries: BaseUserCreationLookup[];
   public roles: Role[];
   public isEditMode: boolean = false;
   public phoneErrorMessage: string = ValidationRules.PHONE_MESSAGE;
   public ssnErrorMessage: string = ValidationRules.SSN_MESSAGE;
   public zipErrorMessage: string = ValidationRules.ZIP_MESSAGE;
   public title: string = "Create User";
+  //Todo: Will remove when support multiple roles
+  public disabledRoles: string[];
 
   constructor(private apiUrlService: ApiUrlService,
               private confirmDialogService: ConfirmDialogService,
@@ -49,42 +50,17 @@ export class UserCreateEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.genders = GENDERS;
-    this.locales = LOCALES;
-    this.roles = ROLES;
-    this.createEditUserFrom = this.formBuilder.group({
-      firstName: ['',
-        [
-          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
-          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH),
-          Validators.required
-        ]
-      ],
-      middleName: ['',
-        [
-          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
-          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH)
-        ]
-      ],
-      lastName: ['',
-        [
-          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
-          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH),
-          Validators.required
-        ]
-      ],
-      email: ['', Validators.email],
-      genderCode: ['', Validators.required],
-      birthDate: ['', Validators.compose([
-        Validators.required,
-        ValidationService.pastDateValidator])
-      ],
-      socialSecurityNumber: ['', Validators.pattern(ValidationRules.SSN_PATTERN)],
-      phone: ['', Validators.pattern(ValidationRules.PHONE_PATTERN)],
-      address: this.initAddressFormGroup(),
-      role: ['', Validators.required],
-      locale: ['', Validators.required]
-    });
+    let userCreationLookupInfo: UserCreationLookupInfo = this.route.snapshot.data['userCreationLookupInfo'];
+    this.roles = userCreationLookupInfo.roles;
+    this.genders = userCreationLookupInfo.genderCodes;
+    this.locales = userCreationLookupInfo.locales;
+    this.states = userCreationLookupInfo.stateCodes;
+    this.countries = userCreationLookupInfo.countryCodes;
+    this.disabledRoles = userCreationLookupInfo.roles
+      .filter(role => role.code != "patient")
+      .map(role => role.code);
+    this.createEditUserFrom = this.initCreateEditFormGroup();
+
     this.route.params
       .subscribe(
         params => {
@@ -100,14 +76,53 @@ export class UserCreateEditComponent implements OnInit {
         });
   }
 
+  private initCreateEditFormGroup() {
+    return this.formBuilder.group({
+      firstName: [null,
+        [
+          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
+          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH),
+          Validators.required
+        ]
+      ],
+      middleName: [null,
+        [
+          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
+          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH)
+        ]
+      ],
+      lastName: [null,
+        [
+          Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
+          Validators.maxLength(ValidationRules.NAME_MAX_LENGTH),
+          Validators.required
+        ]
+      ],
+      homeEmail: [null, Validators.compose([
+        Validators.required,
+        Validators.email])
+      ],
+      genderCode: [null, Validators.required],
+      birthDate: [null, Validators.compose([
+        Validators.required,
+        ValidationService.pastDateValidator])
+      ],
+      socialSecurityNumber: [null, Validators.pattern(ValidationRules.SSN_PATTERN)],
+      homePhone: [null, Validators.pattern(ValidationRules.PHONE_PATTERN)],
+      homeAddress: this.initAddressFormGroup(),
+      roles: [null, Validators.required],
+      locale: [null, Validators.required]
+    });
+  }
+
   private initAddressFormGroup() {
     return this.formBuilder.group({
-      line1: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
-      line2: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
-      city: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
-      state: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
-      postalCode: ['', Validators.pattern(ValidationRules.ZIP_PATTERN)],
-      country: ['', Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)]
+      line1: [null, Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
+      line2: [null, Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
+      city: [null, Validators.minLength(ValidationRules.NORMAL_MIN_LENGTH)],
+      stateCode: null,
+      postalCode: [null, Validators.pattern(ValidationRules.ZIP_PATTERN)],
+      countryCode: null
     });
   }
 
@@ -116,20 +131,20 @@ export class UserCreateEditComponent implements OnInit {
       firstName: user.firstName,
       middleName: user.middleName,
       lastName: user.lastName,
-      email: user.email,
+      homeEmail: user.homeEmail,
       genderCode: user.genderCode,
-      birthDate: user.birthDate,
+      birthDate: new Date(user.birthDate),
       socialSecurityNumber: user.socialSecurityNumber,
-      phone: user.phone,
-      address: {
-        line1: user.address.line1,
-        line2: user.address.line2,
-        city: user.address.city,
-        state: user.address.state,
-        postalCode: user.address.postalCode,
-        country: user.address.country
+      homePhone: user.homePhone,
+      homeAddress: {
+        line1: user.homeAddress.line1,
+        line2: user.homeAddress.line2,
+        city: user.homeAddress.city,
+        stateCode: user.homeAddress.stateCode,
+        postalCode: user.homeAddress.postalCode,
+        countryCode: user.homeAddress.countryCode
       },
-      role: user.role,
+      roles: user.roles,
       locale: user.locale
     })
   }
@@ -183,13 +198,13 @@ export class UserCreateEditComponent implements OnInit {
       firstName: formModel.firstName,
       middleName: formModel.middleName,
       lastName: formModel.lastName,
-      email: formModel.email,
+      homeEmail: formModel.homeEmail,
       birthDate: formModel.birthDate,
       genderCode: formModel.genderCode,
       socialSecurityNumber: formModel.socialSecurityNumber,
-      phone: formModel.phone,
-      address: formModel.address,
-      role: formModel.role,
+      homePhone: formModel.homePhone,
+      homeAddress: formModel.homeAddress,
+      roles: formModel.roles,
       locale: formModel.locale
     };
   }
