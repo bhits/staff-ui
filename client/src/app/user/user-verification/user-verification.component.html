@@ -33,18 +33,18 @@
       <div *ngIf="verified; else resentEmailTemplate"></div>
       <ng-template #resentEmailTemplate>
         <p class="font-size16">
-          <strong>Email has been sent, waiting for user to activate account. Or re-send an an account activation
-            email</strong>
+          <strong>An email has been sent and awaiting the user to activate the account. Select the "Send Email" button
+            to re-send an account activation email.</strong>
         </p>
       </ng-template>
     </div>
     <ng-template #sentVerificationCode>
       <p class="font-size16">
         <span>
-          <strong>Please Send Email to generate the Verification Code.</strong>
+          <strong>Select the "Send Email" button to generate the Verification Code.</strong>
         </span>
         Sending an account activation email to the address listed above will generate
-        a unique Verification Code. That Verification Code will be displayed above.</p>
+        a unique Verification Code.</p>
       <p>
     </ng-template>
     <hr>
