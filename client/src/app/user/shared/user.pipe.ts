@@ -37,22 +37,30 @@ export class UserPipe implements PipeTransform {
           return value.workPhone;
         case "homeAddress":
           const homeAddress = [];
-          homeAddress.push(value.homeAddress.line1 || "");
-          homeAddress.push(value.homeAddress.line2 || "");
-          homeAddress.push(value.homeAddress.city || "");
-          homeAddress.push(value.homeAddress.stateCode || "");
-          homeAddress.push(this.utilityService.formatZipCode(value.homeAddress.postalCode || ""));
-          homeAddress.push(value.homeAddress.countryCode || "");
-          return homeAddress.filter(field => field !== "").join(", ");
+          if (value.homeAddress != null) {
+            homeAddress.push(value.homeAddress.line1 || "");
+            homeAddress.push(value.homeAddress.line2 || "");
+            homeAddress.push(value.homeAddress.city || "");
+            homeAddress.push(value.homeAddress.stateCode || "");
+            homeAddress.push(this.utilityService.formatZipCode(value.homeAddress.postalCode || ""));
+            homeAddress.push(value.homeAddress.countryCode || "");
+            return homeAddress.filter(field => field !== "").join(", ");
+          } else {
+            return homeAddress;
+          }
         case "workAddress":
           const workAddress = [];
-          workAddress.push(value.workAddress.line1 || "");
-          workAddress.push(value.workAddress.line2 || "");
-          workAddress.push(value.workAddress.city || "");
-          workAddress.push(value.workAddress.stateCode || "");
-          workAddress.push(this.utilityService.formatZipCode(value.workAddress.postalCode || ""));
-          workAddress.push(value.workAddress.countryCode || "");
-          return workAddress.filter(field => field !== "").join(", ");
+          if (value.workAddress != null) {
+            workAddress.push(value.workAddress.line1 || "");
+            workAddress.push(value.workAddress.line2 || "");
+            workAddress.push(value.workAddress.city || "");
+            workAddress.push(value.workAddress.stateCode || "");
+            workAddress.push(this.utilityService.formatZipCode(value.workAddress.postalCode || ""));
+            workAddress.push(value.workAddress.countryCode || "");
+            return workAddress.filter(field => field !== "").join(", ");
+          } else {
+            return workAddress;
+          }
       }
     }
     return null;
