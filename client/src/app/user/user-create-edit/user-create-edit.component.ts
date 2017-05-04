@@ -127,26 +127,49 @@ export class UserCreateEditComponent implements OnInit {
   }
 
   private setValueOnEditUserForm(user: User) {
-    this.createEditUserFrom.setValue({
-      firstName: user.firstName,
-      middleName: user.middleName,
-      lastName: user.lastName,
-      homeEmail: user.homeEmail,
-      genderCode: user.genderCode,
-      birthDate: new Date(user.birthDate),
-      socialSecurityNumber: user.socialSecurityNumber,
-      homePhone: user.homePhone,
-      homeAddress: {
-        line1: user.homeAddress.line1,
-        line2: user.homeAddress.line2,
-        city: user.homeAddress.city,
-        stateCode: user.homeAddress.stateCode,
-        postalCode: user.homeAddress.postalCode,
-        countryCode: user.homeAddress.countryCode
-      },
-      roles: user.roles,
-      locale: user.locale
-    })
+    if (user.homeAddress != null) {
+      this.createEditUserFrom.setValue({
+        firstName: user.firstName,
+        middleName: user.middleName,
+        lastName: user.lastName,
+        homeEmail: user.homeEmail,
+        genderCode: user.genderCode,
+        birthDate: new Date(user.birthDate),
+        socialSecurityNumber: user.socialSecurityNumber,
+        homePhone: user.homePhone,
+        homeAddress: {
+          line1: user.homeAddress.line1,
+          line2: user.homeAddress.line2,
+          city: user.homeAddress.city,
+          stateCode: user.homeAddress.stateCode,
+          postalCode: user.homeAddress.postalCode,
+          countryCode: user.homeAddress.countryCode
+        },
+        roles: user.roles,
+        locale: user.locale
+      })
+    } else {
+      this.createEditUserFrom.setValue({
+        firstName: user.firstName,
+        middleName: user.middleName,
+        lastName: user.lastName,
+        homeEmail: user.homeEmail,
+        genderCode: user.genderCode,
+        birthDate: new Date(user.birthDate),
+        socialSecurityNumber: user.socialSecurityNumber,
+        homePhone: user.homePhone,
+        homeAddress: {
+          line1: null,
+          line2: null,
+          city: null,
+          stateCode: null,
+          postalCode: null,
+          countryCode: null
+        },
+        roles: user.roles,
+        locale: user.locale
+      })
+    }
   }
 
   cancel(): void {

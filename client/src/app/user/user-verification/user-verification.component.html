@@ -17,7 +17,7 @@
       </div>
       <div fxFlex>
         <div class="m-t-xs flexcontainer column">
-          <div fxLayout="column">
+          <div fxLayout="column" *ngIf="!verified">
             <div class="font-size20">Verification Code:</div>
             <div class="font-size18" *ngIf="verificationCode; else hyphenSymbol">
               <strong>{{verificationCode}}</strong>
