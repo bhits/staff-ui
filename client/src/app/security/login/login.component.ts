@@ -9,6 +9,7 @@ import {AuthenticationService} from "app/security/shared/authentication.service"
 })
 export class LoginComponent implements OnInit {
   public loginFrom: FormGroup;
+  public passwordInputType: string = "password";
   public unauthorized: boolean = false;
 
   constructor(private authenticationService: AuthenticationService,
@@ -38,5 +39,9 @@ export class LoginComponent implements OnInit {
           console.log(err);
         }
       );
+  }
+
+  public getInputType(inputType: string) {
+    this.passwordInputType = inputType;
   }
 }

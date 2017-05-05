@@ -18,7 +18,10 @@
       [control]="loginFrom.controls.username">
     </c2s-control-validation-error-message>
     <md-input-container class="full-width">
-      <input type="password" class="font-size15" mdInput placeholder="Password" formControlName="password">
+      <div fxLayout="row">
+        <input [type]="passwordInputType" class="font-size15" mdInput placeholder="Password" formControlName="password">
+        <c2s-show-hide-password (setInputType)="getInputType($event)"></c2s-show-hide-password>
+      </div>
       <md-hint class="has-error" *ngIf="unauthorized">
         Sorry, you do not have permission to access this site.
       </md-hint>
