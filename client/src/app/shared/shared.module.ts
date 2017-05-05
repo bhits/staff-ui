@@ -17,6 +17,7 @@ import {ValidationService} from "app/shared/validation.service";
 import {ControlValidationErrorMessageComponent} from "./control-validation-error-message/control-validation-error-message.component";
 import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
 import {ConfirmDialogService} from "app/shared/confirm-dialog.service";
+import {ShowHidePasswordComponent} from "./show-hide-password/show-hide-password.component";
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import {ConfirmDialogService} from "app/shared/confirm-dialog.service";
   declarations: [
     UsPhoneNumberPipe,
     ControlValidationErrorMessageComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ShowHidePasswordComponent
   ],
   entryComponents: [ConfirmDialogComponent],
   providers: [
@@ -47,6 +49,7 @@ import {ConfirmDialogService} from "app/shared/confirm-dialog.service";
     RouterModule,
     ReactiveFormsModule,
     Ng2PaginationModule,
+    ShowHidePasswordComponent,
     UsPhoneNumberPipe
   ]
 })
