@@ -63,7 +63,7 @@ export class UserCreateEditComponent implements OnInit {
     //Set patient as default role
     this.createEditUserFrom.controls['roles'].setValue([this.roles.filter(role => role.code === "patient").pop().code]);
     //Set English as default locale
-    this.createEditUserFrom.controls['locale'].setValue([this.locales.filter(locale => locale.code === "en").pop().code]);
+    this.createEditUserFrom.controls['locale'].setValue(this.locales.filter(locale => locale.code === "en").pop().code);
 
     this.route.params
       .subscribe(
