@@ -5,7 +5,8 @@ The Staff User Interface (staff-ui) is an administrative user interface used to 
 
 # Supported Source Code Tags and Current `Dockerfile` Link
 
-[`0.1.0 (latest)`](https://github.com/bhits-dev/staff-ui/releases/tag/0.1.0)
+[`0.2.0 (latest)`](https://github.com/bhits-dev/staff-ui/releases/tag/0.2.0), [`0.1.0`](https://github
+.com/bhits-dev/staff-ui/releases/tag/0.1.0)
 
 [`Current Dockerfile`](https://github.com/bhits-dev/staff-ui/blob/master/server/src/main/docker/Dockerfile)
 
@@ -15,7 +16,7 @@ For more information about this image, the source code, and its history, please 
 
 The Staff User Interface (staff-ui) is an administrative user interface component of Consent2Share (C2S) used to create and manage user accounts. Administrative staff can use this to log in, visit their home page, create user accounts, and manage user information.
 
-For more information and related downloads for Consent2Share, please visit [Consent2Share](https://bhits.github.io/consent2share/).
+For more information and related downloads for Consent2Share, please visit [Consent2Share](https://bhits-dev.github.io/consent2share/).
 
 # How to use this image
 
