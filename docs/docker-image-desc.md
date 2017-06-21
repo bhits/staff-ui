@@ -5,8 +5,7 @@ The Staff User Interface (staff-ui) is an administrative user interface used to 
 
 # Supported Source Code Tags and Current `Dockerfile` Link
 
-[`0.2.0 (latest)`](https://github.com/bhits-dev/staff-ui/releases/tag/0.2.0), [`0.1.0`](https://github
-.com/bhits-dev/staff-ui/releases/tag/0.1.0)
+[`0.2.0 (latest)`](https://github.com/bhits-dev/staff-ui/releases/tag/0.2.0), [`0.1.0`](https://github.com/bhits-dev/staff-ui/releases/tag/0.1.0)
 
 [`Current Dockerfile`](https://github.com/bhits-dev/staff-ui/blob/master/server/src/main/docker/Dockerfile)
 
