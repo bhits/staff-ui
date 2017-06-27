@@ -17,4 +17,12 @@ export class UtilityService {
     }
     return zipCode;
   }
+
+  getSupportedLocaleCode(supportedLocales:any){
+    let localeCode:string [] = [];
+    supportedLocales.forEach(locale =>{
+      localeCode.push(locale.code);
+    });
+    return localeCode;
+  }
 }
