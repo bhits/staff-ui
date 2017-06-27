@@ -6,6 +6,7 @@ import {PageContentComponent} from "./page-content/page-content.component";
 import {LogoComponent} from "./logo/logo.component";
 import {UserProfileComponent} from "./user-profile/user-profile.component";
 import {MenuComponent} from "./menu/menu.component";
+import { MultiLanguageComponent } from './multi-language/multi-language.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import {MenuComponent} from "./menu/menu.component";
     PageHeaderComponent,
     PageFooterComponent,
     PageContentComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    MultiLanguageComponent
   ],
   exports: [
     PageHeaderComponent,
