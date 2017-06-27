@@ -1,0 +1,19 @@
+{
+  "HOME":{
+    "WELCOME_TITLE":"{spanish}Welcome to Consent2Share admin!",
+    "WELCOME_SUB_TITLE":"{spanish}You are now ready to manage your users.",
+    "PATIENT_CARD":{
+      "TITLE":"{spanish}My <span class=\"font-weight700\">Users</span>",
+      "STEP":"{spanish}Step 1.",
+      "TEXT":"{spanish}Begin by creating the users.",
+      "SINGULAR": "{spanish}User",
+      "PLURAL": "{spanish}Users"
+    },
+    "MENU":{
+      "TITLE":"{spanish}Menu",
+      "HOME":"{spanish}Home",
+      "PATIENTS":"{spanish}Users",
+      "LOGOUT":"{spanish}Logout"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "HOME":{
+    "WELCOME_TITLE":"Welcome to Consent2Share admin!",
+    "WELCOME_SUB_TITLE":"You are now ready to manage your users.",
+    "PATIENT_CARD":{
+      "TITLE":"My <span class=\"font-weight700\">Users</span>",
+      "STEP":"Step 1.",
+      "TEXT":"Begin by creating the users.",
+      "SINGULAR": "User",
+      "PLURAL": "Users"
+    },
+    "MENU":{
+      "TITLE":"Menu",
+      "HOME":"Home",
+      "PATIENTS":"Users",
+      "LOGOUT":"Logout"
+    }
+  }
+}
