@@ -1,10 +1,11 @@
 import {Injectable} from "@angular/core";
 import {SessionStorageService} from "./session-storage.service";
 import {AuthorizationResponse} from "./authorization-response.model";
-
+import {Profile} from "../../core/profile.model";
 @Injectable()
 export class TokenService {
   private OAUTH_TOKEN_KEY: string = 'c2s-oauth-token';
+  private USER_PROFILE_KEY: string = 'c2s-user-profile-token';
   private USER_INFO_KEY: string = 'c2s-userinfo-token';
 
   constructor(private sessionStorageService: SessionStorageService) {
@@ -28,5 +29,25 @@ export class TokenService {
       return uaaToken.scope.includes(scope);
     }
     return false;
+  }
+
+  public createProfileObject(uaaProfile: any): Profile {
+    let profile = new Profile();
+    profile.email = uaaProfile.email;
+    profile.userName = uaaProfile.user_name;
+    profile.givenName = uaaProfile.given_name;
+    profile.familyName = uaaProfile.family_name;
+    profile.name = uaaProfile.name;
+    profile.userId = uaaProfile.user_id;
+
+    return profile;
+  }
+
+  public deleteAccessToken(): void {
+    this.sessionStorageService.clear(this.OAUTH_TOKEN_KEY);
+  }
+
+  public storeUserProfile(userProfile: any) {
+    this.sessionStorageService.store(this.USER_PROFILE_KEY, userProfile);
   }
 }

@@ -8,7 +8,7 @@ import {UserInfoResponse} from "./user-info-response.model";
 import {TokenService} from "./token.service";
 import {UtilityService} from "../../shared/utility.service";
 import {GlobalEventManagementService} from "../../core/global-event-management.service";
-
+import {Profile} from "../../core/profile.model";
 @Injectable()
 export class AuthenticationService {
   //Todo: get from configuration
@@ -43,6 +43,15 @@ export class AuthenticationService {
     this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
   }
 
+  public onLoggedIn(response: AuthorizationResponse): void {
+    this.tokenService.setOauthToken(response);
+  }
+
+  public getUserProfile() {
+    return this.http.get(this.apiUrlService.getUaaUserInfoUrl())
+      .map((resp: Response) => <any>(resp.json()));
+  }
+
   public logout(): void {
     this.tokenService.deleteOauthToken();
     this.globalEventManagementService.setShowHeader(false);
@@ -54,5 +63,10 @@ export class AuthenticationService {
     return this.http.get(this.apiUrlService.getUaaUserInfoUrl())
       .map((resp: Response) => <UserInfoResponse>(resp.json()))
       .catch(this.exceptionService.handleError);
+  }
+
+  public onGetUserProfileSuccess(profile: Profile) {
+    this.globalEventManagementService.setProfile(profile);
+    this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
   }
 }
