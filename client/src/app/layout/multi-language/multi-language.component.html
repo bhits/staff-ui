@@ -1,6 +1,3 @@
-<label>
-  <select #langSelect (change)="setLocale(langSelect.value)">
-    <option *ngFor="let lang of getSupportedLanguage()" [value]="lang.code"
-            [selected]="lang.code === getCurrentLanguage()">{{ lang.displayName }}</option>
-  </select>
-</label>
+<p>
+  multi-language works!
+</p>
