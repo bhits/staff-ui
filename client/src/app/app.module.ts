@@ -7,9 +7,10 @@ import {AppRoutingModule} from "./app-routing.module";
 import {AppComponent} from "./app.component";
 import {UserModule} from "app/user/user.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations/";
+
+import {Http} from "@angular/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
-import {Http} from "@angular/http";
 import {CustomTranslateService} from "./core/custom-translate.service";
 
 export function createTranslateLoader(http: Http) {
