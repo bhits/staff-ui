@@ -1,5 +1,5 @@
 {
-  "HOME":{
+  "HOME": {
     "WELCOME_TITLE":"Welcome to Consent2Share admin!",
     "WELCOME_SUB_TITLE":"You are now ready to manage your users.",
     "PATIENT_CARD":{
@@ -9,11 +9,27 @@
       "SINGULAR": "User",
       "PLURAL": "Users"
     },
-    "MENU":{
+    "MENU": {
       "TITLE":"Menu",
       "HOME":"Home",
       "PATIENTS":"Users",
       "LOGOUT":"Logout"
     }
+  },
+  "CONSENT": {
+
+  },
+  "USERS":{
+    "LIST":{
+      "TITLE": "My Users",
+      "INFO": "OK! You are now ready to manage your users.",
+      "SEARCH_USER_PLACEHOLDER": "Search by first and last name",
+      "CREATE_USER_BUTTON": "Create a User Account",
+      "SORT_LIST_TITLE": "Show List by",
+      "NO_PATIENTS_MSG": "There are currently no Users available. Please click the 'Create a User Account' button to create a new user."
+    }
+
+
   }
+
 }

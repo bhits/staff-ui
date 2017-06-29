@@ -5,11 +5,13 @@ import {UserService} from "./shared/user.service";
 import {UserVerificationComponent} from "./user-verification/user-verification.component";
 import {UserPipe} from "./shared/user.pipe";
 import {UserCreationLookupService} from "./shared/user-creation-lookup.service";
+import {TranslateModule} from "@ngx-translate/core/index";
 
 @NgModule({
   imports: [
     SharedModule,
-    UserRoutingModule
+    UserRoutingModule,
+    TranslateModule
   ],
   declarations: [
     routedComponents,
