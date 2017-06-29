@@ -1,8 +1,8 @@
 <div class="p-t-75 p-l-md p-r-md p-b">
-  <h1 class="">{{'USERS.LIST.TITLE' | translate}}</h1>
+  <h1 class="">{{'USER.LIST.TITLE' | translate}}</h1>
   <div>
     <div style="background-color: #BCDEDB;" class="p-md font-size18 font-weight center-sm-left">
-      {{'USERS.LIST.INFO' | translate}}
+      {{'USER.LIST.INFO' | translate}}
     </div>
   </div>
 
@@ -10,7 +10,7 @@
     <div fxLayoutAlign="center" fxLayout="column">
       <md-input-container class="search-field font-size20">
         <input mdInput type="search"
-               placeholder="{{ 'USERS.LIST.SEARCH_USER_PLACEHOLDER' | translate }}"
+               placeholder="{{ 'USER.LIST.SEARCH_USER_PLACEHOLDER' | translate }}"
                #searchField (keyup)="search(searchField.value)"/>
       </md-input-container>
       <div *ngIf="searchUsers">
@@ -28,13 +28,13 @@
     <div fxLayoutAlign="center">
       <a md-raised-button fxFlex="0 1 500px" routerLink="/users/create" color="primary">
         <md-icon class="font-weight700">add</md-icon>
-        {{ 'USERS.LIST.CREATE_USER_BUTTON' | translate }}</a>
+        {{ 'USER.LIST.CREATE_USER_BUTTON' | translate }}</a>
     </div>
     <div fxLayoutAlign="center">
       <div class="m-t-lg p-b-sm border-bottom-purple" fxFlex="1 0 auto" fxLayoutAlign="flex-start center"
            fxLayoutGap="10px">
         <div fxFlex="0 1 100px" class="font-size18 font-weight500 right">
-          {{ 'USERS.LIST.SORT_LIST_TITLE' | translate }}
+          {{ 'USER.LIST.SORT_LIST_TITLE' | translate }}
         </div>
         <md-card class="filter-card center disabled" md-raised-button fxFlex="0 0 60px">
           <span class="fa fa-user-md fa-4x"></span>
@@ -48,7 +48,7 @@
     <div fxLayoutAlign="center">
       <div style="padding-top: 20px">
         <div style="background-color: #DEBCC9;" class="p-md font-size18 font-weight center-sm-left" *ngIf="noResult">
-          {{ 'USERS.LIST.NO_PATIENTS_MSG' | translate }}
+          {{ 'USER.LIST.NO_PATIENTS_MSG' | translate }}
         </div>
       </div>
       <pagination-controls (pageChange)="getPage($event)" *ngIf="!noResult"></pagination-controls>
@@ -74,10 +74,10 @@
             <div fxFlex="0 1 120px">
               <div class="m-t-xs flexcontainer column">
                 <div>
-                  <div class="font-size12 p-b-xxs">Contact Number</div>
+                  <div class="font-size12 p-b-xxs">{{ 'USER.LIST.CARD.CONTENT.CONTACT_NUMBER' | translate}}</div>
                   <div class="font-size14 font-weight500 p-b-sm">{{user | user: 'homePhone'| usPhoneNumber}}
                   </div>
-                  <div class="font-size12 p-b-xxs">Date of Birth</div>
+                  <div class="font-size12 p-b-xxs">{{ 'USER.LIST.CARD.CONTENT.DOB' | translate}}</div>
                   <div class="font-size14 font-weight600">{{user | user: 'birthDate' | date}}</div>
                 </div>
               </div>
@@ -85,7 +85,7 @@
             <div fxFlex="1 0 120px">
               <div class="m-t-xs flexcontainer column">
                 <div fxLayout="column">
-                  <div class="font-size12 p-b-xxs">Address</div>
+                  <div class="font-size12 p-b-xxs">{{ 'USER.LIST.CARD.CONTENT.ADDRESS' | translate}}</div>
                   <div class="font-size14 font-weight700">{{user | user: 'homeAddress'}}</div>
                 </div>
               </div>
@@ -95,7 +95,11 @@
       </md-card>
     </div>
     <div fxLayoutAlign="center">
-      <pagination-controls (pageChange)="getPage($event)" *ngIf="!noResult"></pagination-controls>
+      <pagination-controls
+        previousLabel="{{ 'USER.LIST.PAGINATION.PREVIOUS' | translate }}"
+        nextLabel="{{ 'USER.LIST.PAGINATION.NEXT' | translate }}"
+        (pageChange)="getPage($event)" *ngIf="!noResult">
+      </pagination-controls>
     </div>
   </div>
 </div>
