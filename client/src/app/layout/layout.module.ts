@@ -7,11 +7,13 @@ import {LogoComponent} from "./logo/logo.component";
 import {UserProfileComponent} from "./user-profile/user-profile.component";
 import {MenuComponent} from "./menu/menu.component";
 import {MultiLanguageComponent} from "./multi-language/multi-language.component";
+import {TranslateModule} from "@ngx-translate/core/index";
 
 
 @NgModule({
   imports: [
-    SharedModule
+    SharedModule,
+    TranslateModule
   ],
   declarations: [
     LogoComponent,
