@@ -63,7 +63,7 @@ export class UserCreateEditComponent implements OnInit {
     this.states = userCreationLookupInfo.stateCodes;
     this.countries = userCreationLookupInfo.countryCodes;
     this.disabledRoles = userCreationLookupInfo.roles
-                                              .filter(role => role.code != "patient")
+                                              .filter(role => role.code != this.DEFAULT_ROLE)
                                               .map(role => role.code);
 
     this.identifierSystems = userCreationLookupInfo.identifierSystems
