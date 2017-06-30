@@ -67,10 +67,33 @@
           <input mdInput placeholder="Email" formControlName="homeEmail">
         </md-input-container>
         <c2s-control-validation-error-message
+          [customMessage]="emailErrorMessage"
           [control]="createEditUserFrom.controls.homeEmail">
         </c2s-control-validation-error-message>
+        <md-hint class="has-error font-size16" *ngIf="createEditUserFrom.hasError('oneEmailRequired')">
+          {{oneEmailRequiredMessage }}
+        </md-hint>
       </div>
     </div>
+
+    <div fxLayout="row" fxLayoutGap="20px">
+      <div fxFlex>
+        <md-input-container class="full-width font-size20">
+          <input mdInput
+                 placeholder="Registration Purpose Email(Optional)"
+                 formControlName="registrationPurposeEmail">
+        </md-input-container>
+        <c2s-control-validation-error-message
+          [customMessage]="emailErrorMessage"
+          [control]="createEditUserFrom.controls.registrationPurposeEmail">
+        </c2s-control-validation-error-message>
+        <md-hint class="has-error font-size16" *ngIf="createEditUserFrom.hasError('oneEmailRequired')">
+          {{oneEmailRequiredMessage }}
+        </md-hint>
+      </div>
+    </div>
+
+
     <div fxLayout="row" fxLayoutGap="20px">
       <div fxFlex>
         <md-select placeholder="Gender" formControlName="genderCode"
@@ -91,6 +114,35 @@
         <c2s-control-validation-error-message
           [control]="createEditUserFrom.controls.birthDate">
         </c2s-control-validation-error-message>
+      </div>
+    </div>
+
+    <div formGroupName="identifier" *ngIf="isIdentifiersEnabled()">
+      <div fxLayout="row" fxLayoutGap="20px">
+        <div fxFlex>
+          <md-select
+            placeholder="Identifier System"
+            formControlName="system"
+            class="full-width font-size20"
+            (change)="onIdentifierSystemChange($event)">
+            <md-option *ngFor="let identifierSystem of identifierSystems" [value]="identifierSystem.system">
+              {{ identifierSystem.display }}
+            </md-option>
+          </md-select>
+          <c2s-control-validation-error-message
+            [control]="createEditUserFrom.get('identifier.system')">
+          </c2s-control-validation-error-message>
+        </div>
+        <div fxFlex>
+          <md-input-container class="full-width font-size20">
+            <input mdInput
+                   placeholder="Identifier Value"
+                   formControlName="value">
+          </md-input-container>
+          <c2s-control-validation-error-message
+            [control]="createEditUserFrom.get('identifier.value')">
+          </c2s-control-validation-error-message>
+        </div>
       </div>
     </div>
 
