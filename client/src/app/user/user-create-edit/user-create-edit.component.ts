@@ -184,8 +184,8 @@ export class UserCreateEditComponent implements OnInit {
     if (this.toSubmit) {
       return true;
     } else if (this.createEditUserFrom.dirty) {
-      const confirmTitle: string = "Confirm Navigation";
-      const confirmMessage: string = "You will lose all unsaved work, Are you sure you want to leave this page?";
+      const confirmTitle: string = "USER.CREATE_EDIT.CONFIRM_DIALOG.TITLE";
+      const confirmMessage: string = "USER.CREATE_EDIT.CONFIRM_DIALOG.CONTENT";
       return this.confirmDialogService.confirm(confirmTitle, confirmMessage, this.viewContainerRef);
     } else {
       return true;
