@@ -70,7 +70,7 @@ export class UserCreateEditComponent implements OnInit {
         params => {
           if (params['userId']) {
             // Edit mode
-            this.title = "Edit User";
+            this.title = "USER.CREATE_EDIT.EDIT_TITLE";
             let user: User = this.route.snapshot.data['user'];
             this.isEditMode = user.id != null;
             this.userId = user.id;
