@@ -25,7 +25,8 @@
         </c2s-control-validation-error-message>
       </div>
       <div fxFlex>
-        <md-select placeholder="{{ 'USER.CREATE_EDIT.REQUIRED_INFORMATION.LOCALE_PLACEHOLDER' | translate }}" formControlName="locale"
+        <md-select placeholder="{{ 'USER.CREATE_EDIT.REQUIRED_INFORMATION.LOCALE_PLACEHOLDER' | translate }}"
+                   formControlName="locale"
                    class="full-width font-size20">
           <md-option *ngFor="let locale of locales" [value]="locale.code">
             {{ locale.displayName }}
@@ -39,7 +40,8 @@
     <div fxLayout="row" fxLayoutGap="20px">
       <div fxFlex>
         <md-input-container class="full-width font-size20">
-          <input mdInput placeholder="{{ 'USER.CREATE_EDIT.REQUIRED_INFORMATION.FIRST_NAME_PLACEHOLDER' | translate }}" formControlName="firstName">
+          <input mdInput placeholder="{{ 'USER.CREATE_EDIT.REQUIRED_INFORMATION.FIRST_NAME_PLACEHOLDER' | translate }}"
+                 formControlName="firstName">
         </md-input-container>
         <c2s-control-validation-error-message
           [control]="createEditUserFrom.controls.firstName">
@@ -47,7 +49,8 @@
       </div>
       <div fxFlex>
         <md-input-container class="full-width font-size20">
-          <input mdInput placeholder="{{ 'USER.CREATE_EDIT.REQUIRED_INFORMATION.MIDDLE_NAME_PLACEHOLDER' | translate }}" formControlName="middleName">
+          <input mdInput placeholder="{{ 'USER.CREATE_EDIT.REQUIRED_INFORMATION.MIDDLE_NAME_PLACEHOLDER' | translate }}"
+                 formControlName="middleName">
         </md-input-container>
         <c2s-control-validation-error-message
           [control]="createEditUserFrom.controls.middleName">
@@ -57,7 +60,8 @@
     <div fxLayout="row" fxLayoutGap="20px">
       <div fxFlex>
         <md-input-container class="full-width font-size20">
-          <input mdInput placeholder="{{ 'USER.CREATE_EDIT.REQUIRED_INFORMATION.LAST_NAME_PLACEHOLDER' | translate }}" formControlName="lastName">
+          <input mdInput placeholder="{{ 'USER.CREATE_EDIT.REQUIRED_INFORMATION.LAST_NAME_PLACEHOLDER' | translate }}"
+                 formControlName="lastName">
         </md-input-container>
         <c2s-control-validation-error-message
           [control]="createEditUserFrom.controls.lastName">
@@ -65,18 +69,18 @@
       </div>
       <div fxFlex>
         <md-input-container class="full-width font-size20">
-          <input mdInput placeholder="{{ 'USER.CREATE_EDIT.REQUIRED_INFORMATION.EMAIL_PLACEHOLDER' | translate }}" formControlName="homeEmail">
+          <input mdInput placeholder="{{ 'USER.CREATE_EDIT.REQUIRED_INFORMATION.EMAIL_PLACEHOLDER' | translate }}"
+                        formControlName="homeEmail">
         </md-input-container>
         <c2s-control-validation-error-message
           [customMessage]="emailErrorMessage"
           [control]="createEditUserFrom.controls.homeEmail">
         </c2s-control-validation-error-message>
         <md-hint class="has-error font-size16" *ngIf="createEditUserFrom.hasError('oneEmailRequired')">
-          {{oneEmailRequiredMessage }}
+          {{ oneEmailRequiredMessage | translate }}
         </md-hint>
       </div>
     </div>
-
     <div fxLayout="row" fxLayoutGap="20px">
       <div fxFlex>
         <md-input-container class="full-width font-size20">
@@ -89,7 +93,7 @@
           [control]="createEditUserFrom.controls.registrationPurposeEmail">
         </c2s-control-validation-error-message>
         <md-hint class="has-error font-size16" *ngIf="createEditUserFrom.hasError('oneEmailRequired')">
-          {{oneEmailRequiredMessage }}
+          {{ oneEmailRequiredMessage | translate }}
         </md-hint>
       </div>
     </div>
@@ -217,7 +221,8 @@
       </div>
       <div fxFlex>
         <md-input-container class="full-width font-size20">
-          <input mdInput placeholder="{{ 'USER.CREATE_EDIT.ADDITIONAL_INFORMATION.PHONE_PLACEHOLDER' | translate }}" formControlName="homePhone">
+          <input mdInput placeholder="{{ 'USER.CREATE_EDIT.ADDITIONAL_INFORMATION.PHONE_PLACEHOLDER' | translate }}"
+                 formControlName="homePhone">
         </md-input-container>
         <c2s-control-validation-error-message
           [customMessage]="phoneErrorMessage"
