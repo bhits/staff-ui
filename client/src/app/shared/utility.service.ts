@@ -18,6 +18,14 @@ export class UtilityService {
     return zipCode;
   }
 
+  getSupportedLocaleCode(supportedLocales: any) {
+    let localeCode: string [] = [];
+    supportedLocales.forEach(locale => {
+      localeCode.push(locale.code);
+    });
+    return localeCode;
+  }
+
   public convertJsonObjToStrMap(jsonStr) {
     const strMap = new Map();
     for (let k of Object.keys(jsonStr)) {

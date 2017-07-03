@@ -27,6 +27,5 @@ export class ValidationRules {
   public static REQUIRED_MESSAGE: string = "SHARED.VALIDATION_RULES.REQUIRED_ERROR_MESSAGE";
   public static REQUIRED_TRUE_MESSAGE: string = "SHARED.VALIDATION_RULES.REQUIRED_TRUE_ERROR_MESSAGE";
   public static INVALID_PAST_DATE_MESSAGE: string = "SHARED.VALIDATION_RULES.INVALID_PAST_DATE_ERROR_MESSAGE";
-  public static INVALID_PAST_DATE_MESSAGE: string = "Selected date must be earlier than today";
   public static ONE_EMAIL_REQUIRED_MESSAGE: string = "At least one email address needed";
 }

@@ -81,7 +81,7 @@
       <div fxFlex>
         <md-input-container class="full-width font-size20">
           <input mdInput
-                 placeholder="Registration Purpose Email(Optional)"
+                 placeholder="{{ 'USER.CREATE_EDIT.REQUIRED_INFORMATION.REG_PURPOSE_EMAIL_PLACEHOLDER' | translate }}"
                  formControlName="registrationPurposeEmail">
         </md-input-container>
         <c2s-control-validation-error-message
@@ -122,7 +122,7 @@
       <div fxLayout="row" fxLayoutGap="20px">
         <div fxFlex>
           <md-select
-            placeholder="Identifier System"
+            placeholder="{{ 'USER.CREATE_EDIT.REQUIRED_INFORMATION.IDENTIFIER_SYSTEM_PLACEHOLDER' | translate }}"
             formControlName="system"
             class="full-width font-size20"
             (change)="onIdentifierSystemChange($event)">
@@ -137,7 +137,7 @@
         <div fxFlex>
           <md-input-container class="full-width font-size20">
             <input mdInput
-                   placeholder="Identifier Value"
+                   placeholder="{{ 'USER.CREATE_EDIT.REQUIRED_INFORMATION.IDENTIFIER_VALUE_PLACEHOLDER' | translate }}"
                    formControlName="value">
           </md-input-container>
           <c2s-control-validation-error-message

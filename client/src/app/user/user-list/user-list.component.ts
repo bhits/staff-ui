@@ -40,7 +40,7 @@ export class UserListComponent implements OnInit {
           this.searchUsers = users;
         },
         err => {
-          this.notificationService.show("Failed to search user, please try again later...");
+          this.notificationService.i18nShow("USER.NOTIFICATION_MSG.FAILED_SEARCH_PATIENT");
         });
   }
 

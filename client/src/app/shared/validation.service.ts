@@ -1,8 +1,7 @@
 import {Injectable} from "@angular/core";
 import {ValidationRules} from "app/shared/validation-rules.model";
 import {TranslateService} from "@ngx-translate/core";
-import {FormGroup} from "@angular/forms";
-
+import {FormGroup} from "../../../../../c2s-ui/client/node_modules/@angular/forms/src/model";
 @Injectable()
 export class ValidationService {
   private lengthMessage: string;
