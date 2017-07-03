@@ -18,11 +18,13 @@ import {ControlValidationErrorMessageComponent} from "./control-validation-error
 import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
 import {ConfirmDialogService} from "app/shared/confirm-dialog.service";
 import {ShowHidePasswordComponent} from "./show-hide-password/show-hide-password.component";
+import {TranslateModule} from "@ngx-translate/core/index";
 
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    TranslateModule
   ],
   declarations: [
     UsPhoneNumberPipe,
