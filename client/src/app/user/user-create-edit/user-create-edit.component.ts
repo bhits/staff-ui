@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewContainerRef} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "app/user/shared/user.service";
+
 import {User} from "app/user/shared/user.model";
 import {NotificationService} from "app/shared/notification.service";
 import {UtilityService} from "app/shared/utility.service";
@@ -13,6 +14,7 @@ import {Observable} from "rxjs/Observable";
 import {ValidationService} from "../../shared/validation.service";
 import {UserCreationLookupInfo} from "../shared/user-creation-lookup-info.model";
 import {BaseUserCreationLookup} from "../shared/base-user-creation-lookup.model";
+import {IdentifierSystem} from "../shared/IdentifierSystem.model";
 
 @Component({
   selector: 'c2s-user-create-edit',
@@ -20,6 +22,7 @@ import {BaseUserCreationLookup} from "../shared/base-user-creation-lookup.model"
   styleUrls: ['./user-create-edit.component.scss']
 })
 export class UserCreateEditComponent implements OnInit {
+  private readonly DEFAULT_ROLE: string = "patient";
   private userId: number;
   private toSubmit: boolean = false;
   public createEditUserFrom: FormGroup;
@@ -35,9 +38,12 @@ export class UserCreateEditComponent implements OnInit {
   public phoneErrorMessage: string = ValidationRules.PHONE_MESSAGE;
   public ssnErrorMessage: string = ValidationRules.SSN_MESSAGE;
   public zipErrorMessage: string = ValidationRules.ZIP_MESSAGE;
+  public identifierSystems: IdentifierSystem[];
   public title: string = "USER.CREATE_EDIT.CREATE_TITLE";
   //Todo: Will remove when support multiple roles
   public disabledRoles: string[];
+  public oneEmailRequiredMessage: string = "At least one email address needed";
+  public emailErrorMessage: string = ValidationRules.EMAIL_MESSAGE;
 
   constructor(private apiUrlService: ApiUrlService,
               private confirmDialogService: ConfirmDialogService,
@@ -57,11 +63,22 @@ export class UserCreateEditComponent implements OnInit {
     this.states = userCreationLookupInfo.stateCodes;
     this.countries = userCreationLookupInfo.countryCodes;
     this.disabledRoles = userCreationLookupInfo.roles
-      .filter(role => role.code != "patient")
-      .map(role => role.code);
+                                              .filter(role => role.code != this.DEFAULT_ROLE)
+                                              .map(role => role.code);
+
+    this.identifierSystems = userCreationLookupInfo.identifierSystems
+      .map(identifierSystem => {
+        identifierSystem.requiredIdentifierSystemsByRole = this.utilityService.convertJsonObjToStrMap(identifierSystem.requiredIdentifierSystemsByRole);
+        return identifierSystem;
+      })
+      .filter(identifierSystem => identifierSystem.requiredIdentifierSystemsByRole)
+      .filter(identifierSystem => identifierSystem.requiredIdentifierSystemsByRole.size > 0)
+      .filter(identifierSystem => identifierSystem.requiredIdentifierSystemsByRole.has(this.DEFAULT_ROLE))
+      .filter(identifierSystem => identifierSystem.requiredIdentifierSystemsByRole.get(this.DEFAULT_ROLE).filter(requiredIdentifierSystem => requiredIdentifierSystem.algorithm === "NONE").length > 0);
+
     this.createEditUserFrom = this.initCreateEditFormGroup();
     //Set patient as default role
-    this.createEditUserFrom.controls['roles'].setValue([this.roles.filter(role => role.code === "patient").pop().code]);
+    this.createEditUserFrom.controls['roles'].setValue([this.roles.filter(role => role.code === this.DEFAULT_ROLE).pop().code]);
     //Set English as default locale
     this.createEditUserFrom.controls['locale'].setValue(this.locales.filter(locale => locale.code === "en").pop().code);
 
@@ -81,7 +98,7 @@ export class UserCreateEditComponent implements OnInit {
   }
 
   private initCreateEditFormGroup() {
-    return this.formBuilder.group({
+    let createEditFormGroupConfig: any = {
       firstName: [null,
         [
           Validators.minLength(ValidationRules.NAME_MIN_LENGTH),
@@ -102,10 +119,8 @@ export class UserCreateEditComponent implements OnInit {
           Validators.required
         ]
       ],
-      homeEmail: [null, Validators.compose([
-        Validators.required,
-        Validators.email])
-      ],
+      homeEmail: [null, Validators.pattern(ValidationRules.EMAIL_PATTERN)],
+      registrationPurposeEmail: [null, Validators.pattern(ValidationRules.EMAIL_PATTERN)],
       genderCode: [null, Validators.required],
       birthDate: [null, Validators.compose([
         Validators.required,
@@ -116,7 +131,26 @@ export class UserCreateEditComponent implements OnInit {
       homeAddress: this.initAddressFormGroup(),
       roles: [null, Validators.required],
       locale: [null, Validators.required]
+    };
+
+    if (this.isIdentifiersEnabled()) {
+      createEditFormGroupConfig.identifier = this.initIdentifierFormGroup();
+    }
+
+    return this.formBuilder.group(createEditFormGroupConfig,{validator: ValidationService.oneEmailRequired('homeEmail', 'registrationPurposeEmail')});
+  }
+
+  private initIdentifierFormGroup() {
+    return this.formBuilder.group({
+      system: [null, Validators.required],
+      value: [null, Validators.required]
     });
+  }
+
+
+
+  onIdentifierSystemChange(event: any) {
+    this.createEditUserFrom.get("identifier.value").setValue(null);
   }
 
   private initAddressFormGroup() {
@@ -131,12 +165,14 @@ export class UserCreateEditComponent implements OnInit {
   }
 
   private setValueOnEditUserForm(user: User) {
+    let patientIdentifiers = user.identifiers.filter(identifier => identifier.system !== "https://bhits.github.io/consent2share" && identifier.system !== "http://hl7.org/fhir/sid/us-ssn");
     if (user.homeAddress != null) {
-      this.createEditUserFrom.setValue({
+      let value: any = {
         firstName: user.firstName,
         middleName: user.middleName,
         lastName: user.lastName,
         homeEmail: user.homeEmail,
+        registrationPurposeEmail: user.registrationPurposeEmail,
         genderCode: user.genderCode,
         birthDate: new Date(user.birthDate),
         socialSecurityNumber: user.socialSecurityNumber,
@@ -151,13 +187,22 @@ export class UserCreateEditComponent implements OnInit {
         },
         roles: user.roles,
         locale: user.locale
-      })
+      };
+
+      if (this.isIdentifiersEnabled()) {
+        value.identifier = {
+          system: patientIdentifiers[0].system,
+          value: patientIdentifiers[0].value
+        };
+      }
+      this.createEditUserFrom.setValue(value)
     } else {
-      this.createEditUserFrom.setValue({
+      let value:any = {
         firstName: user.firstName,
         middleName: user.middleName,
         lastName: user.lastName,
         homeEmail: user.homeEmail,
+        registrationPurposeEmail: user.registrationPurposeEmail,
         genderCode: user.genderCode,
         birthDate: new Date(user.birthDate),
         socialSecurityNumber: user.socialSecurityNumber,
@@ -172,7 +217,19 @@ export class UserCreateEditComponent implements OnInit {
         },
         roles: user.roles,
         locale: user.locale
-      })
+      };
+      if (this.isIdentifiersEnabled()) {
+        value.identifier = {
+          system: patientIdentifiers[0].system,
+          value: patientIdentifiers[0].value
+        }
+      }
+      this.createEditUserFrom.setValue(value)
+    }
+
+    if (this.isIdentifiersEnabled()) {
+      //Disable identifier system when in Patient Edit Mode
+      this.createEditUserFrom.get("identifier.system").disable();
     }
   }
 
@@ -219,20 +276,53 @@ export class UserCreateEditComponent implements OnInit {
     }
   }
 
+  private filterEmptyStringValue(field: string) {
+    return field === '' ? null : field;
+  }
+
   private prepareCreateEditUser(): User {
     const formModel = this.createEditUserFrom.value;
-    return {
+    let identifiers = [];
+    identifiers.push(formModel.identifier);
+    let user: User =  {
       firstName: formModel.firstName,
-      middleName: formModel.middleName,
+      middleName: this.filterEmptyStringValue(formModel.middleName),
       lastName: formModel.lastName,
-      homeEmail: formModel.homeEmail,
+      homeEmail: this.filterEmptyStringValue(formModel.homeEmail) ,
+      registrationPurposeEmail: this.filterEmptyStringValue(formModel.registrationPurposeEmail),
       birthDate: formModel.birthDate,
       genderCode: formModel.genderCode,
-      socialSecurityNumber: formModel.socialSecurityNumber,
-      homePhone: formModel.homePhone,
-      homeAddress: formModel.homeAddress,
+      socialSecurityNumber: this.filterEmptyStringValue(formModel.socialSecurityNumber) ,
+      homePhone: this.filterEmptyStringValue(formModel.homePhone),
+      homeAddress: this.filterEmptyStringValueForAddress(formModel.homeAddress) ,
       roles: formModel.roles,
-      locale: formModel.locale
+      locale: formModel.locale,
+      identifiers: []
     };
+
+    if (this.isIdentifiersEnabled()) {
+      let identifiers = [];
+      identifiers.push(this.createEditUserFrom.getRawValue().identifier);
+      user.identifiers = identifiers;
+    }
+    return user;
   }
+
+  private filterEmptyStringValueForAddress(homeAddress) {
+    homeAddress.line1 = this.filterEmptyStringValue(homeAddress.line1);
+    homeAddress.line2 = this.filterEmptyStringValue(homeAddress.line2);
+    homeAddress.city = this.filterEmptyStringValue(homeAddress.city);
+    homeAddress.stateCode = this.filterEmptyStringValue(homeAddress.stateCode);
+    homeAddress.postalCode = this.filterEmptyStringValue(homeAddress.postalCode);
+    homeAddress.countryCode = this.filterEmptyStringValue(homeAddress.countryCode);
+    return homeAddress;
+  }
+
+  public isIdentifiersEnabled(): boolean {
+    if(this.identifierSystems && this.identifierSystems.length > 0){
+      return true;
+    }
+    return false;
+  }
+
 }

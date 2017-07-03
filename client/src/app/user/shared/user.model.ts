@@ -1,4 +1,5 @@
 import {Address} from "../../shared/address.model";
+import {Identifier} from "../../shared/identifier.model";
 
 export class User {
   id?: number;
@@ -6,6 +7,7 @@ export class User {
   middleName?: string;
   lastName: string;
   homeEmail?: string;
+  registrationPurposeEmail:string;
   workEmail?: string;
   birthDate: Date;
   genderCode: string;
@@ -16,6 +18,7 @@ export class User {
   workAddress?: Address;
   roles: string[];
   locale: string;
+  identifiers:Identifier[];
   disabled?: boolean;
   mrn?: string;
 }
