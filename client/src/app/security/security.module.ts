@@ -8,11 +8,13 @@ import {CanActivateAuthGuardService} from "./shared/can-activate-auth-guard.serv
 import {AuthorizationService} from "app/security/shared/authorization.service";
 import {CanDeactivateGuardService} from "./shared/can-deactivate-guard.service";
 import {ProfileService} from "./shared/profile.service";
+import {TranslateModule} from "@ngx-translate/core/index";
 
 @NgModule({
   imports: [
     SharedModule,
-    SecurityRoutingModule
+    SecurityRoutingModule,
+    TranslateModule
   ],
   declarations: [routedComponents],
   providers: [
