@@ -6,8 +6,7 @@ import {Profile} from "../../core/profile.model";
 export class TokenService {
   private OAUTH_TOKEN_KEY: string = 'c2s-oauth-token';
   private USER_PROFILE_KEY: string = 'c2s-user-profile-token';
-  private USER_INFO_KEY: string = 'c2s-userinfo-token';
-
+  private USER_COUNT_KEY: string = 'c2s-user-count';
   constructor(private sessionStorageService: SessionStorageService) {
   }
 
@@ -23,12 +22,44 @@ export class TokenService {
     this.sessionStorageService.clear(this.OAUTH_TOKEN_KEY);
   }
 
+  public createAuthorizationHeaderObject() {
+    let token = this.getOauthToken();
+    let customHeaders = {};
+    if (token && token['access_token']) {
+      let access_token = token['access_token'];
+      let access_token_string = 'Bearer ' + access_token;
+      customHeaders = {
+        "Authorization": access_token_string
+      };
+    } else {
+      // FIXME: Replace this with proper error handling.
+      throw new Error("token variable check failed");
+    }
+    return customHeaders;
+  }
+
   public hasScope(scope: string): boolean {
     if (this.getOauthToken()) {
       const uaaToken: AuthorizationResponse = this.getOauthToken();
       return uaaToken.scope.includes(scope);
     }
     return false;
+  }
+
+  public deleteAccessToken(): void {
+    this.sessionStorageService.clear(this.OAUTH_TOKEN_KEY);
+  }
+
+  public storeUserProfile(userProfile: any) {
+    this.sessionStorageService.store(this.USER_PROFILE_KEY, userProfile);
+  }
+
+  public getProfileToken(): Profile {
+    return this.sessionStorageService.retrieve(this.USER_PROFILE_KEY);
+  }
+
+  public deleteUserProfile(): void {
+    this.sessionStorageService.clear(this.USER_PROFILE_KEY);
   }
 
   public createProfileObject(uaaProfile: any): Profile {
@@ -43,11 +74,15 @@ export class TokenService {
     return profile;
   }
 
-  public deleteAccessToken(): void {
-    this.sessionStorageService.clear(this.OAUTH_TOKEN_KEY);
+  public storeProviderCount(count: Number) {
+    this.sessionStorageService.store(this.USER_COUNT_KEY, count);
   }
 
-  public storeUserProfile(userProfile: any) {
-    this.sessionStorageService.store(this.USER_PROFILE_KEY, userProfile);
+  public getProviderCount() {
+    return this.sessionStorageService.retrieve(this.USER_COUNT_KEY);
+  }
+
+  public deleteProviderCount() {
+    this.sessionStorageService.clear(this.USER_COUNT_KEY);
   }
 }
