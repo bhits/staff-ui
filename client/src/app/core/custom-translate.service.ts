@@ -15,8 +15,13 @@ export class CustomTranslateService {
     return this.translateService.currentLang;
   }
 
-  getSupportedLanguages(): any[]{
-    return this.profileService.getProfileFromSessionStorage().supportedLocales;
+  addSupportedLanguages(locales: string[]){
+    this.translateService.addLangs(locales);
+  }
+
+  setDefaultLanguage(locale:string){
+    this.updateProfileLocale(locale);
+    this.translateService.use(locale);
   }
 
   updateDefaultLanguage(locale:string){
@@ -25,10 +30,6 @@ export class CustomTranslateService {
     this.updateProfileLocale(locale);
   }
 
-  setDefaultLanguage(locale:string){
-    this.updateProfileLocale(locale);
-    this.translateService.use(locale);
-  }
 
   private updateProfileLocale(locale:string){
     let profile: UmsProfile = this.profileService.getProfileFromSessionStorage();
@@ -38,8 +39,8 @@ export class CustomTranslateService {
     }
   }
 
-  addSupportedLanguages(locales: string[]){
-    this.translateService.addLangs(locales);
+  getSupportedLanguages(): any[]{
+    return this.profileService.getProfileFromSessionStorage().supportedLocales;
   }
 
 }
