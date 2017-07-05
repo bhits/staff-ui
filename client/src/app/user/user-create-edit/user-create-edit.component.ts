@@ -42,7 +42,7 @@ export class UserCreateEditComponent implements OnInit {
   public title: string = "USER.CREATE_EDIT.CREATE_TITLE";
   //Todo: Will remove when support multiple roles
   public disabledRoles: string[];
-  public oneEmailRequiredMessage: string = "SHARED.VALIDATION_RULES.ONE_EMAIL_REQUIRED_MESSAGE";
+  public oneEmailRequiredMessage: string = ValidationRules.ONE_EMAIL_REQUIRED_MESSAGE;
   public emailErrorMessage: string = ValidationRules.EMAIL_MESSAGE;
 
   constructor(private apiUrlService: ApiUrlService,
