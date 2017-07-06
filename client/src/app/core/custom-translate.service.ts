@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {ProfileService} from "../security/shared/profile.service";
 import {UmsProfile} from "../security/shared/ums-profile.model";
-
+import {Http} from "@angular/http";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 
 //staff custom-translate service
 @Injectable()
@@ -42,5 +43,9 @@ export class CustomTranslateService {
   getSupportedLanguages(): any[]{
     return this.profileService.getProfileFromSessionStorage().supportedLocales;
   }
-
 }
+
+export function createTranslateLoader(http: Http) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+

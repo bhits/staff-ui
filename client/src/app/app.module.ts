@@ -9,13 +9,9 @@ import {UserModule} from "app/user/user.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations/";
 
 import {Http} from "@angular/http";
-import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
-import {CustomTranslateService} from "./core/custom-translate.service";
+import {createTranslateLoader,CustomTranslateService} from "./core/custom-translate.service";
 
-export function createTranslateLoader(http: Http) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
 
 @NgModule({
   declarations: [
