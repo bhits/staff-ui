@@ -10,6 +10,7 @@ import {UserService} from "../../user/shared/user.service";
 })
 export class HomeComponent implements OnInit {
   public numberOfUsers: number = 0;
+  public patientsMapping:any;
 
   constructor(private apiUrlService: ApiUrlService,
               private userService: UserService,
@@ -27,6 +28,11 @@ export class HomeComponent implements OnInit {
           console.log(err);
         }
       );
+    this.patientsMapping = {
+      '=0': 'HOME.PATIENT_CARD.SINGULAR',
+      '=1': 'HOME.PATIENT_CARD.SINGULAR',
+      'other': 'HOME.PATIENT_CARD.PLURAL'
+    };
   }
 
   navigateTo() {

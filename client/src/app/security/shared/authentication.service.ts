@@ -8,7 +8,8 @@ import {UserInfoResponse} from "./user-info-response.model";
 import {TokenService} from "./token.service";
 import {UtilityService} from "../../shared/utility.service";
 import {GlobalEventManagementService} from "../../core/global-event-management.service";
-
+import {Profile} from "../../core/profile.model";
+import {ProfileService} from "./profile.service";
 @Injectable()
 export class AuthenticationService {
   //Todo: get from configuration
@@ -18,6 +19,7 @@ export class AuthenticationService {
               private exceptionService: ExceptionService,
               private globalEventManagementService: GlobalEventManagementService,
               private http: Http,
+              private profileService: ProfileService,
               private tokenService: TokenService,
               private utilityService: UtilityService) {
   }
@@ -38,15 +40,30 @@ export class AuthenticationService {
       .catch(this.exceptionService.handleError);
   }
 
-  public isLoggedIn(response: AuthorizationResponse): void {
+  public onLoggedIn(response: AuthorizationResponse): void {
     this.tokenService.setOauthToken(response);
-    this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
+  }
+
+  public storeTokenInSessionStorage(response: AuthorizationResponse): void {
+    this.tokenService.setOauthToken(response);
   }
 
   public logout(): void {
     this.tokenService.deleteOauthToken();
+    this.tokenService.deleteUserProfile();
+    this.profileService.deleteProfileFromSessionStorage();
     this.globalEventManagementService.setShowHeader(false);
     this.utilityService.navigateTo(this.apiUrlService.getLoginUrl());
+  }
+
+  public onGetUserProfileSuccess(profile: Profile) {
+    this.globalEventManagementService.setProfile(profile);
+    this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
+  }
+
+  public getUserProfile() {
+    return this.http.get(this.apiUrlService.getUaaUserInfoUrl())
+      .map((resp: Response) => <any>(resp.json()));
   }
 
   public getUserInfo(): Observable<UserInfoResponse> {

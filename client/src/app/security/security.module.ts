@@ -7,11 +7,14 @@ import {SessionStorageService} from "./shared/session-storage.service";
 import {CanActivateAuthGuardService} from "./shared/can-activate-auth-guard.service";
 import {AuthorizationService} from "app/security/shared/authorization.service";
 import {CanDeactivateGuardService} from "./shared/can-deactivate-guard.service";
+import {ProfileService} from "./shared/profile.service";
+import {TranslateModule} from "@ngx-translate/core/index";
 
 @NgModule({
   imports: [
     SharedModule,
-    SecurityRoutingModule
+    SecurityRoutingModule,
+    TranslateModule
   ],
   declarations: [routedComponents],
   providers: [
@@ -20,7 +23,8 @@ import {CanDeactivateGuardService} from "./shared/can-deactivate-guard.service";
     CanActivateAuthGuardService,
     CanDeactivateGuardService,
     SessionStorageService,
-    TokenService
+    TokenService,
+    ProfileService,
   ]
 })
 export class SecurityModule {

@@ -39,10 +39,10 @@ export class UserCreateEditComponent implements OnInit {
   public ssnErrorMessage: string = ValidationRules.SSN_MESSAGE;
   public zipErrorMessage: string = ValidationRules.ZIP_MESSAGE;
   public identifierSystems: IdentifierSystem[];
-  public title: string = "Create User";
+  public title: string = "USER.CREATE_EDIT.CREATE_TITLE";
   //Todo: Will remove when support multiple roles
   public disabledRoles: string[];
-  public oneEmailRequiredMessage: string = "At least one email address needed";
+  public oneEmailRequiredMessage: string = ValidationRules.ONE_EMAIL_REQUIRED_MESSAGE;
   public emailErrorMessage: string = ValidationRules.EMAIL_MESSAGE;
 
   constructor(private apiUrlService: ApiUrlService,
@@ -82,13 +82,12 @@ export class UserCreateEditComponent implements OnInit {
     //Set English as default locale
     this.createEditUserFrom.controls['locale'].setValue(this.locales.filter(locale => locale.code === "en").pop().code);
 
-
     this.route.params
       .subscribe(
         params => {
           if (params['userId']) {
             // Edit mode
-            this.title = "Edit User";
+            this.title = "USER.CREATE_EDIT.EDIT_TITLE";
             let user: User = this.route.snapshot.data['user'];
             this.isEditMode = user.id != null;
             this.userId = user.id;
@@ -96,7 +95,6 @@ export class UserCreateEditComponent implements OnInit {
             this.setValueOnEditUserForm(user);
           }
         });
-
   }
 
   private initCreateEditFormGroup() {
@@ -243,8 +241,8 @@ export class UserCreateEditComponent implements OnInit {
     if (this.toSubmit) {
       return true;
     } else if (this.createEditUserFrom.dirty) {
-      const confirmTitle: string = "Confirm Navigation";
-      const confirmMessage: string = "You will lose all unsaved work, Are you sure you want to leave this page?";
+      const confirmTitle: string = "USER.CREATE_EDIT.CONFIRM_DIALOG.TITLE";
+      const confirmMessage: string = "USER.CREATE_EDIT.CONFIRM_DIALOG.CONTENT";
       return this.confirmDialogService.confirm(confirmTitle, confirmMessage, this.viewContainerRef);
     } else {
       return true;
@@ -260,7 +258,7 @@ export class UserCreateEditComponent implements OnInit {
             this.utilityService.navigateTo(this.apiUrlService.getUserListUrl())
           },
           err => {
-            this.notificationService.show("Error in updating user.");
+            this.notificationService.i18nShow("USER.NOTIFICATION_MSG.FAILED_UPDATE_PATIENT");
             console.log(err);
           }
         );
@@ -271,7 +269,7 @@ export class UserCreateEditComponent implements OnInit {
             this.utilityService.navigateTo(this.apiUrlService.getUserListUrl())
           },
           err => {
-            this.notificationService.show("Error in creating user.");
+            this.notificationService.i18nShow("USER.NOTIFICATION_MSG.FAILED_CREATE_PATIENT");
             console.log(err);
           }
         );

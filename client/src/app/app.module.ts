@@ -8,6 +8,11 @@ import {AppComponent} from "./app.component";
 import {UserModule} from "app/user/user.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations/";
 
+import {Http} from "@angular/http";
+import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
+import {createTranslateLoader,CustomTranslateService} from "./core/custom-translate.service";
+
+
 @NgModule({
   declarations: [
     AppComponent
@@ -18,7 +23,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations/";
     BrowserModule,
 
     // Third Party Modules
-
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [Http]
+      }
+    }),
     // Staff UI Modules
     CoreModule,
     HomeModule,
@@ -26,7 +37,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations/";
     UserModule,
     AppRoutingModule // Order matters, this must in the end
   ],
-  providers: [],
+  providers: [
+    TranslateService,
+    CustomTranslateService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
