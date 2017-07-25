@@ -4,22 +4,24 @@ import {AuthorizationResponse} from "./authorization-response.model";
 import {Profile} from "../../core/profile.model";
 @Injectable()
 export class TokenService {
-  private OAUTH_TOKEN_KEY: string = 'c2s-oauth-token';
+  private ACCESS_TOKEN_KEY: string = 'c2s-access-token';
   private USER_PROFILE_KEY: string = 'c2s-user-profile-token';
   private USER_COUNT_KEY: string = 'c2s-user-count';
+  private MASTER_UI_LOGIN: string = 'c2s-master-ui-login';
+
   constructor(private sessionStorageService: SessionStorageService) {
   }
 
   public getOauthToken(): AuthorizationResponse {
-    return this.sessionStorageService.retrieve(this.OAUTH_TOKEN_KEY);
+    return this.sessionStorageService.retrieve(this.ACCESS_TOKEN_KEY);
   }
 
   public setOauthToken(authorizationResponse: AuthorizationResponse): void {
-    this.sessionStorageService.store(this.OAUTH_TOKEN_KEY, authorizationResponse);
+    this.sessionStorageService.store(this.ACCESS_TOKEN_KEY, authorizationResponse);
   }
 
   public deleteOauthToken(): void {
-    this.sessionStorageService.clear(this.OAUTH_TOKEN_KEY);
+    this.sessionStorageService.clear(this.ACCESS_TOKEN_KEY);
   }
 
   public createAuthorizationHeaderObject() {
@@ -47,7 +49,7 @@ export class TokenService {
   }
 
   public deleteAccessToken(): void {
-    this.sessionStorageService.clear(this.OAUTH_TOKEN_KEY);
+    this.sessionStorageService.clear(this.ACCESS_TOKEN_KEY);
   }
 
   public storeUserProfile(userProfile: any) {
@@ -84,5 +86,13 @@ export class TokenService {
 
   public deleteProviderCount() {
     this.sessionStorageService.clear(this.USER_COUNT_KEY);
+  }
+
+  getMasterUiLoginUrl(): string{
+    return this.sessionStorageService.retrieve(this.MASTER_UI_LOGIN);
+  }
+
+  deleteMasterUiLoginUrl(){
+    this.sessionStorageService.clear(this.MASTER_UI_LOGIN);
   }
 }

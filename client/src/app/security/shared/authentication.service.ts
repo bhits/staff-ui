@@ -53,9 +53,18 @@ export class AuthenticationService {
     this.tokenService.deleteUserProfile();
     this.profileService.deleteProfileFromSessionStorage();
     this.globalEventManagementService.setShowHeader(false);
-    this.utilityService.navigateTo(this.apiUrlService.getLoginUrl());
+    this.goToLogin();
   }
 
+  private goToLogin(){
+    let masterUiLoginUrl = this.tokenService.getMasterUiLoginUrl();
+    if(masterUiLoginUrl){
+      this.tokenService.deleteMasterUiLoginUrl();
+      this.utilityService.redirectInSameTab(masterUiLoginUrl);
+    }else{
+      this.utilityService.navigateTo(this.apiUrlService.getLoginUrl());
+    }
+  }
   public onGetUserProfileSuccess(profile: Profile) {
     this.globalEventManagementService.setProfile(profile);
     this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
