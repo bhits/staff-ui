@@ -4,12 +4,12 @@ import {Headers, Http, Response, URLSearchParams} from "@angular/http";
 import {ExceptionService} from "app/shared/exception.service";
 import {Observable} from "rxjs";
 import {AuthorizationResponse} from "app/security/shared/authorization-response.model";
-import {UserInfoResponse} from "./user-info-response.model";
 import {TokenService} from "./token.service";
 import {UtilityService} from "../../shared/utility.service";
 import {GlobalEventManagementService} from "../../core/global-event-management.service";
 import {Profile} from "../../core/profile.model";
 import {ProfileService} from "./profile.service";
+
 @Injectable()
 export class AuthenticationService {
   //Todo: get from configuration
@@ -44,10 +44,6 @@ export class AuthenticationService {
     this.tokenService.setOauthToken(response);
   }
 
-  public storeTokenInSessionStorage(response: AuthorizationResponse): void {
-    this.tokenService.setOauthToken(response);
-  }
-
   public logout(): void {
     this.globalEventManagementService.setShowHeader(false);
     this.clearSessionStorgeAndRedirectToLogin();
@@ -72,10 +68,4 @@ export class AuthenticationService {
       .map((resp: Response) => <any>(resp.json()));
   }
 
-  public getUserInfo(): Observable<UserInfoResponse> {
-    //Todo: Get from ums
-    return this.http.get(this.apiUrlService.getUaaUserInfoUrl())
-      .map((resp: Response) => <UserInfoResponse>(resp.json()))
-      .catch(this.exceptionService.handleError);
-  }
 }
