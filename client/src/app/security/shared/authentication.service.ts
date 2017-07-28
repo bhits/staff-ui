@@ -4,12 +4,12 @@ import {Headers, Http, Response, URLSearchParams} from "@angular/http";
 import {ExceptionService} from "app/shared/exception.service";
 import {Observable} from "rxjs";
 import {AuthorizationResponse} from "app/security/shared/authorization-response.model";
-import {UserInfoResponse} from "./user-info-response.model";
 import {TokenService} from "./token.service";
 import {UtilityService} from "../../shared/utility.service";
 import {GlobalEventManagementService} from "../../core/global-event-management.service";
 import {Profile} from "../../core/profile.model";
 import {ProfileService} from "./profile.service";
+
 @Injectable()
 export class AuthenticationService {
   //Todo: get from configuration
@@ -44,18 +44,20 @@ export class AuthenticationService {
     this.tokenService.setOauthToken(response);
   }
 
-  public storeTokenInSessionStorage(response: AuthorizationResponse): void {
-    this.tokenService.setOauthToken(response);
-  }
-
   public logout(): void {
-    this.tokenService.deleteOauthToken();
-    this.tokenService.deleteUserProfile();
-    this.profileService.deleteProfileFromSessionStorage();
     this.globalEventManagementService.setShowHeader(false);
-    this.utilityService.navigateTo(this.apiUrlService.getLoginUrl());
+    this.clearSessionStorgeAndRedirectToLogin();
   }
 
+  private clearSessionStorgeAndRedirectToLogin(){
+    let masterUiLoginUrl = this.tokenService.getMasterUiLoginUrl();
+    sessionStorage.clear();
+    if(masterUiLoginUrl){
+      this.utilityService.redirectInSameTab(masterUiLoginUrl);
+    }else{
+      this.utilityService.navigateTo(this.apiUrlService.getLoginUrl());
+    }
+  }
   public onGetUserProfileSuccess(profile: Profile) {
     this.globalEventManagementService.setProfile(profile);
     this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
@@ -66,10 +68,4 @@ export class AuthenticationService {
       .map((resp: Response) => <any>(resp.json()));
   }
 
-  public getUserInfo(): Observable<UserInfoResponse> {
-    //Todo: Get from ums
-    return this.http.get(this.apiUrlService.getUaaUserInfoUrl())
-      .map((resp: Response) => <UserInfoResponse>(resp.json()))
-      .catch(this.exceptionService.handleError);
-  }
 }
