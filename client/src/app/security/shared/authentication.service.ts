@@ -31,7 +31,7 @@ export class AuthenticationService {
     this.tokenService.setOauthToken(response);
   }
 
-  public onLoginFailure(): void {
+  public onGetUserProfileFailure(): void {
     this.globalEventManagementService.setShowHeader(false);
     this.tokenService.deleteAccessToken();
   }

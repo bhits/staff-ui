@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
                 this.getUMSProfileAndSetDefaultLanguage(profile);
               }
               ,
-              () => this.authenticationService.onLoginFailure()
+              () => this.authenticationService.onGetUserProfileFailure()
             );
         },
         () => {
@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
         this.profileService.setProfileInSessionStorage(profile);
         this.authenticationService.onGetUserProfileSuccess(uaaProfile);
       },
-      () => this.authenticationService.onLoginFailure()
+      () => this.authenticationService.onGetUserProfileFailure()
     )
   }
 
