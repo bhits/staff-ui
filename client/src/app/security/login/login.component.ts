@@ -8,6 +8,7 @@ import {CustomTranslateService} from "../../core/custom-translate.service";
 import {TranslateService} from "@ngx-translate/core";
 import {Profile} from "../../core/profile.model";
 import {UmsProfile} from "../shared/ums-profile.model";
+
 @Component({
   selector: 'c2s-login',
   templateUrl: './login.component.html',
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  login() {
+  public login(): void {
     const formModel = this.loginFrom.value;
     const username: string = formModel.username;
     const password: string = formModel.password;
@@ -54,18 +55,17 @@ export class LoginComponent implements OnInit {
                 this.getUMSProfileAndSetDefaultLanguage(profile);
               }
               ,
-              (error) => this.handleLoginError
+              () => this.authenticationService.onLoginFailure()
             );
         },
-        err => {
+        () => {
           this.unauthorized = true;
           this.loginFrom.reset();
-          console.log(err);
         }
       );
   }
 
-  getUMSProfileAndSetDefaultLanguage(uaaProfile: Profile) {
+  public getUMSProfileAndSetDefaultLanguage(uaaProfile: Profile): void {
     this.profileService.getUMSProfile().subscribe(
       (profile: UmsProfile) => {
         let localesCode: string[] = this.utilityService.getSupportedLocaleCode(profile.supportedLocales);
@@ -74,13 +74,8 @@ export class LoginComponent implements OnInit {
         this.profileService.setProfileInSessionStorage(profile);
         this.authenticationService.onGetUserProfileSuccess(uaaProfile);
       },
-      this.handleLoginError
+      () => this.authenticationService.onLoginFailure()
     )
-  }
-
-  handleLoginError(error: any) {
-    this.tokenService.deleteAccessToken();
-    this.unauthorized = true;
   }
 
   public getInputType(inputType: string) {
