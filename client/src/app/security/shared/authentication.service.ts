@@ -13,6 +13,9 @@ import {LoginRequest} from "./login-request.model";
 @Injectable()
 export class AuthenticationService {
 
+  private ACCOUNT_LOCKED_MESSAGE:string = "Your account has been locked because of too many failed attempts to login.";
+  private BAD_CREDENTIAL_MESSAGE = "Bad credential Exception.";
+
   constructor(private apiUrlService: ApiUrlService,
               private exceptionService: ExceptionService,
               private globalEventManagementService: GlobalEventManagementService,
@@ -24,7 +27,6 @@ export class AuthenticationService {
   public login(username: string, password: string): Observable<AuthorizationResponse> {
     return this.http.post(this.apiUrlService.getUaaBaseUrl().concat("/login"), new LoginRequest(username, password))
       .map((resp: Response) => <AuthorizationResponse>(resp.json()))
-      .catch(this.exceptionService.handleError);
   }
 
   public onLoggedIn(response: AuthorizationResponse): void {
@@ -60,4 +62,13 @@ export class AuthenticationService {
     return this.http.get(this.apiUrlService.getUaaUserInfoUrl())
       .map((resp: Response) => <any>(resp.json()));
   }
+
+  isAccountLocked(msg: string): boolean {
+    return msg === this.ACCOUNT_LOCKED_MESSAGE;
+  }
+
+  isBadCredendials(msg: string): boolean {
+    return msg === this.BAD_CREDENTIAL_MESSAGE;
+  }
+
 }
