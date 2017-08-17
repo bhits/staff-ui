@@ -3,7 +3,6 @@
     "LOG_IN": {
       "TITLE": "Log in with your Admin Credentials.",
       "SUB_TITLE": "Take control of your health and well-being with Consent2Share.",
-      "NO_PERMISSION_MSG": "Sorry, you do not have permission to access this site.",
       "LOG_IN_BTN": "Login"
     }
   },
