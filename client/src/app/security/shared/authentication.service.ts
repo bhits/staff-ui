@@ -58,8 +58,7 @@ export class AuthenticationService {
     return msg === this.ACCOUNT_LOCKED_MESSAGE;
   }
 
-  public isBadCredendials(msg: string): boolean {
+  public isBadCredentials(msg: string): boolean {
     return msg === this.BAD_CREDENTIAL_MESSAGE;
   }
-
 }
