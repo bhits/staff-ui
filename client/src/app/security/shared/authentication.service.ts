@@ -1,23 +1,20 @@
 import {Injectable} from "@angular/core";
 import {ApiUrlService} from "app/shared/api-url.service";
 import {Http, Response} from "@angular/http";
-import {ExceptionService} from "app/shared/exception.service";
 import {Observable} from "rxjs";
 import {AuthorizationResponse} from "app/security/shared/authorization-response.model";
 import {TokenService} from "./token.service";
 import {UtilityService} from "../../shared/utility.service";
 import {GlobalEventManagementService} from "../../core/global-event-management.service";
-import {Profile} from "../../core/profile.model";
 import {LoginRequest} from "./login-request.model";
 
 @Injectable()
 export class AuthenticationService {
 
-  private ACCOUNT_LOCKED_MESSAGE:string = "Your account has been locked because of too many failed attempts to login.";
+  private ACCOUNT_LOCKED_MESSAGE: string = "Your account has been locked because of too many failed attempts to login.";
   private BAD_CREDENTIAL_MESSAGE = "Bad credential Exception.";
 
   constructor(private apiUrlService: ApiUrlService,
-              private exceptionService: ExceptionService,
               private globalEventManagementService: GlobalEventManagementService,
               private http: Http,
               private tokenService: TokenService,
@@ -31,6 +28,10 @@ export class AuthenticationService {
 
   public onLoggedIn(response: AuthorizationResponse): void {
     this.tokenService.setOauthToken(response);
+  }
+
+  public onGetUserProfileSuccess(): void {
+    this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
   }
 
   public onGetUserProfileFailure(): void {
@@ -53,22 +54,11 @@ export class AuthenticationService {
     }
   }
 
-  public onGetUserProfileSuccess(profile: Profile): void {
-    this.globalEventManagementService.setProfile(profile);
-    this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
-  }
-
-  public getUserProfile() {
-    return this.http.get(this.apiUrlService.getUaaUserInfoUrl())
-      .map((resp: Response) => <any>(resp.json()));
-  }
-
-  isAccountLocked(msg: string): boolean {
+  public isAccountLocked(msg: string): boolean {
     return msg === this.ACCOUNT_LOCKED_MESSAGE;
   }
 
-  isBadCredendials(msg: string): boolean {
+  public isBadCredentials(msg: string): boolean {
     return msg === this.BAD_CREDENTIAL_MESSAGE;
   }
-
 }
