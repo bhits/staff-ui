@@ -10,36 +10,31 @@ export class ApiUrlService {
       ["userListUrl", "/users"],
 
       // External api Url maps
-      ["UmsBaseUrl", "/staff-ui-api/ums"],
-      ["uaaBaseUrl", "/staff-ui-api/uaa"],
-      ["uaaUserInfoUrl", "/uaa/userinfo"]
+      ["umsBaseUrl", "/staff-ui-api/ums"],
+      ["uaaBaseUrl", "/staff-ui-api/uaa"]
     ]
   );
 
   constructor() {
   }
 
-  getLoginUrl(): string {
+  public getLoginUrl(): string {
     return this.urls.get('loginUrl');
   }
 
-  getHomeUrl(): string {
+  public getHomeUrl(): string {
     return this.urls.get('homeUrl');
   }
 
-  getUserListUrl(): string {
+  public getUserListUrl(): string {
     return this.urls.get('userListUrl');
   }
 
-  getUmsBaseUrl(): string {
-    return this.urls.get('UmsBaseUrl');
+  public getUmsBaseUrl(): string {
+    return this.urls.get('umsBaseUrl');
   }
 
-  getUaaBaseUrl(): string {
+  public getUaaBaseUrl(): string {
     return this.urls.get('uaaBaseUrl');
-  }
-
-  getUaaUserInfoUrl(): string {
-    return this.urls.get('uaaUserInfoUrl');
   }
 }

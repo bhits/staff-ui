@@ -7,7 +7,6 @@ import {AuthorizationResponse} from "app/security/shared/authorization-response.
 import {TokenService} from "./token.service";
 import {UtilityService} from "../../shared/utility.service";
 import {GlobalEventManagementService} from "../../core/global-event-management.service";
-import {Profile} from "../../core/profile.model";
 import {LoginRequest} from "./login-request.model";
 
 @Injectable()
@@ -31,6 +30,10 @@ export class AuthenticationService {
     this.tokenService.setOauthToken(response);
   }
 
+  public onGetUserProfileSuccess(): void {
+    this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
+  }
+
   public onGetUserProfileFailure(): void {
     this.globalEventManagementService.setShowHeader(false);
     this.tokenService.deleteAccessToken();
@@ -49,15 +52,5 @@ export class AuthenticationService {
     } else {
       this.utilityService.navigateTo(this.apiUrlService.getLoginUrl());
     }
-  }
-
-  public onGetUserProfileSuccess(profile: Profile): void {
-    this.globalEventManagementService.setProfile(profile);
-    this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
-  }
-
-  public getUserProfile() {
-    return this.http.get(this.apiUrlService.getUaaUserInfoUrl())
-      .map((resp: Response) => <any>(resp.json()));
   }
 }
