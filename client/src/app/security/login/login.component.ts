@@ -1,4 +1,5 @@
 import {Component, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationService} from "app/security/shared/authentication.service";
 import {ProfileService} from "../shared/profile.service";
@@ -13,6 +14,7 @@ import {UmsProfile} from "../shared/ums-profile.model";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  private redirectUrl: string;
   public loginFrom: FormGroup;
   public passwordInputType: string = "password";
   public showBadCredentialError: boolean = false;
@@ -22,6 +24,7 @@ export class LoginComponent implements OnInit {
               private profileService: ProfileService,
               private utilityService: UtilityService,
               private customTranslateService: CustomTranslateService,
+              private route: ActivatedRoute,
               private translate: TranslateService,
               private formBuilder: FormBuilder) {
     // Set default language for login page
@@ -30,6 +33,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    // get redirect url from route parameters
+    this.redirectUrl = this.route.snapshot.queryParams['redirectUrl'];
     this.loginFrom = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -48,13 +53,13 @@ export class LoginComponent implements OnInit {
           this.authenticationService.onLoggedIn(res);
           this.getUMSProfileAndSetDefaultLanguage();
         },
-        (error)=>{
-          let message:string = error.json()['message'];
-          if(this.authenticationService.isAccountLocked(message)){
+        (error) => {
+          let message: string = error.json()['message'];
+          if (this.authenticationService.isAccountLocked(message)) {
             this.showAccountLockedError = true;
             this.showBadCredentialError = false;
             console.log(message);
-          }else if(this.authenticationService.isBadCredentials(message)){
+          } else if (this.authenticationService.isBadCredentials(message)) {
             this.showBadCredentialError = true;
             this.showAccountLockedError = false;
             console.log(message);
@@ -71,7 +76,7 @@ export class LoginComponent implements OnInit {
         this.customTranslateService.addSupportedLanguages(localesCode);
         this.customTranslateService.setDefaultLanguage(profile.userLocale);
         this.profileService.setProfileInSessionStorage(profile);
-        this.authenticationService.onGetUserProfileSuccess();
+        this.authenticationService.onGetUserProfileSuccess(this.redirectUrl);
       },
       () => this.authenticationService.onGetUserProfileFailure()
     )
