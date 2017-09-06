@@ -19,6 +19,8 @@ import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component"
 import {ConfirmDialogService} from "app/shared/confirm-dialog.service";
 import {ShowHidePasswordComponent} from "./show-hide-password/show-hide-password.component";
 import {TranslateModule} from "@ngx-translate/core/index";
+import { SocialSecurityMaskDirective } from './social-security-mask.directive';
+import { SocialSecurityPipe } from './social-security.pipe';
 
 @NgModule({
   imports: [
@@ -30,7 +32,9 @@ import {TranslateModule} from "@ngx-translate/core/index";
     UsPhoneNumberPipe,
     ControlValidationErrorMessageComponent,
     ConfirmDialogComponent,
-    ShowHidePasswordComponent
+    ShowHidePasswordComponent,
+    SocialSecurityMaskDirective,
+    SocialSecurityPipe
   ],
   entryComponents: [ConfirmDialogComponent],
   providers: [
@@ -39,7 +43,8 @@ import {TranslateModule} from "@ngx-translate/core/index";
     ExceptionService,
     NotificationService,
     UtilityService,
-    ValidationService
+    ValidationService,
+    SocialSecurityPipe
   ],
   exports: [
     BrowserAnimationsModule,
@@ -52,7 +57,9 @@ import {TranslateModule} from "@ngx-translate/core/index";
     ReactiveFormsModule,
     Ng2PaginationModule,
     ShowHidePasswordComponent,
-    UsPhoneNumberPipe
+    UsPhoneNumberPipe,
+    SocialSecurityMaskDirective,
+    SocialSecurityPipe
   ]
 })
 export class SharedModule {
