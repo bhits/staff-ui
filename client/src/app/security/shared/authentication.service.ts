@@ -30,8 +30,12 @@ export class AuthenticationService {
     this.tokenService.setOauthToken(response);
   }
 
-  public onGetUserProfileSuccess(): void {
-    this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
+  public onGetUserProfileSuccess(redirectUrl: string): void {
+    if (redirectUrl != null) {
+      this.utilityService.navigateTo(redirectUrl);
+    } else {
+      this.utilityService.navigateTo(this.apiUrlService.getHomeUrl());
+    }
   }
 
   public onGetUserProfileFailure(): void {
