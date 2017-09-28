@@ -11,8 +11,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations/";
 import {Http} from "@angular/http";
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import {createTranslateLoader,CustomTranslateService} from "./core/custom-translate.service";
-import {getBaseHref} from "./shared/common-functions";
-import { APP_BASE_HREF } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -40,11 +38,7 @@ import { APP_BASE_HREF } from '@angular/common';
   ],
   providers: [
     TranslateService,
-    CustomTranslateService,
-    {
-      provide: APP_BASE_HREF,
-      useFactory: getBaseHref
-    }
+    CustomTranslateService
   ],
   bootstrap: [AppComponent]
 })
