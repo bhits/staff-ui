@@ -5,6 +5,8 @@ import {UserService} from "../../user/shared/user.service";
 import {AuthenticationService} from "../../security/shared/authentication.service";
 import {SessionStorageService} from "../../security/shared/session-storage.service";
 import {Md2Dialog, Md2DialogConfig} from "md2/dialog/dialog";
+import {ConfigService} from "../../core/config.service";
+import { SessionStorageKey} from "../../core/staff-constant";
 
 @Component({
   selector: 'c2s-home',
@@ -15,23 +17,25 @@ export class HomeComponent implements OnInit {
   public numberOfUsers: number = 0;
   public patientsMapping:any;
   @ViewChild('warningDialog') warningDialog: Md2Dialog;
-  private readonly DEMO_DISCLAIMER_DISABLED: string = 'demoDisclaimerDisabled';
   public disabled : boolean =false;
 
   constructor(private apiUrlService: ApiUrlService,
               private userService: UserService,
               private utilityService: UtilityService,
               private authenticationService: AuthenticationService,
+              private configService: ConfigService,
               private sessionStorageService: SessionStorageService,
               ) {
   }
 
   ngOnInit() {
-    let config = new Md2DialogConfig();
-    config.disableClose = true;
-    this.warningDialog.open(config);
-
-
+    if (this.configService.getConfigInSessionStorage().features.demoDisclaimerEnabled){
+      if (!this.sessionStorageService.retrieve(SessionStorageKey.TERMS_OF_USE_AGREEMENT)){
+        let config = new Md2DialogConfig();
+        config.disableClose = true;
+        this.warningDialog.open(config);
+      }
+    }
     const FIRST_PAGE: number = 0;
     this.userService.getUsers(FIRST_PAGE)
       .subscribe(
@@ -55,7 +59,7 @@ export class HomeComponent implements OnInit {
 
   public continue(dialog: any): void {
     dialog.close();
-    this.sessionStorageService.store(this.DEMO_DISCLAIMER_DISABLED,true);
+    this.sessionStorageService.store(SessionStorageKey.TERMS_OF_USE_AGREEMENT,true);
   }
 
   public logout(dialog: any): void {
