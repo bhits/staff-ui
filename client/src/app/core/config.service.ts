@@ -35,7 +35,7 @@ export class ConfigService {
     if (config != null){
       return config;
     } else {
-      // If logged in using mater-ui then get config
+      // If logged in using staff-ui then get config
       if (this.tokenService.getOauthToken()){
         //Get config data once login
         this.getConfig().subscribe(
