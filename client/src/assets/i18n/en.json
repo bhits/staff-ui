@@ -8,11 +8,11 @@
   },
   "HOME": {
     "WARNING_DIALOG": {
-      "TITLE": "DEMONSTRATION DATA ONLY",
-      "DESCRIPTION": "<strong>NOTICE</strong>:  The purpose of this system is to demonstrate the features of Consent2Share, using <strong>TEST DATA ONLY</strong>.  Any use of <strong>REAL PATIENT DATA</strong> and/or patient identifying information will be a violation of state and federal privacy laws, specifically 42 CFR Part 2, HIPAA, and Title 38 and the user(s) may be subject to fines and/or imprisonment as defined under the enforcement rules of Office of Civil Rights.",
-      "CHECKBOX": "Check",
+      "TITLE": "Terms of Use",
+      "DESCRIPTION": "<strong>NOTICE</strong>:  The purpose of this system is to demonstrate the features of Consent2Share, using TEST DATA ONLY.  Any use of REAL PATIENT DATA and/or patient identifying information will be a violation of state and federal privacy laws, specifically 42 CFR Part 2, HIPAA, and Title 38 and the user(s) may be subject to fines and/or imprisonment as defined under the enforcement rules of Office of Civil Rights.",
+      "CHECKBOX": "<strong>I agree to the terms</strong>, and will not use real Patient Data or Identifying Information.",
       "CONTINUE_BTN": "CONTINUE",
-      "LOGOUT_BTN": "LOG OUT"
+      "LOGOUT_BTN": "I Do Not Agree"
     },
     "WELCOME_TITLE": "Welcome to Consent2Share admin!",
     "WELCOME_SUB_TITLE": "You are now ready to manage your users.",
@@ -123,6 +123,7 @@
     }
   },
   "SHARED": {
+    "CONFIGURATION_SERVICE_ERROR": "Could not load configurations from the server. Please go to the Login Page and try again.",
     "VALIDATION_RULES": {
       "PHONE_ERROR_MESSAGE": "Must be with formats: 123-456-7890 (123)456-7890 1234567890 123.456.7890.",
       "SSN_ERROR_MESSAGE": "Must be with formats:  123-45-6789, 123456789; 123-456789; 12345-6789",
