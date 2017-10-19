@@ -10,6 +10,7 @@ export class ApiUrlService {
       ["userListUrl", "/users"],
 
       // External api Url maps
+      ["configBaseUrl", "/staff-ui-api/config"],
       ["umsBaseUrl", "/staff-ui-api/ums"],
       ["uaaBaseUrl", "/staff-ui-api/uaa"]
     ]
@@ -36,5 +37,9 @@ export class ApiUrlService {
 
   public getUaaBaseUrl(): string {
     return this.urls.get('uaaBaseUrl');
+  }
+
+  public getConfigBaseUrl(): string {
+    return this.urls.get('configBaseUrl');
   }
 }

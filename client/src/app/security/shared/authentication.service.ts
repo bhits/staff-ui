@@ -7,6 +7,9 @@ import {TokenService} from "./token.service";
 import {UtilityService} from "../../shared/utility.service";
 import {GlobalEventManagementService} from "../../core/global-event-management.service";
 import {LoginRequest} from "./login-request.model";
+import {Config} from "../../core/config.model";
+import {ConfigService} from "../../core/config.service";
+import {NotificationService} from "../../shared/notification.service";
 
 @Injectable()
 export class AuthenticationService {
@@ -18,7 +21,9 @@ export class AuthenticationService {
               private globalEventManagementService: GlobalEventManagementService,
               private http: Http,
               private tokenService: TokenService,
-              private utilityService: UtilityService) {
+              private utilityService: UtilityService,
+              private configService: ConfigService,
+              private notficationService: NotificationService) {
   }
 
   public login(username: string, password: string): Observable<AuthorizationResponse> {
@@ -28,6 +33,16 @@ export class AuthenticationService {
 
   public onLoggedIn(response: AuthorizationResponse): void {
     this.tokenService.setOauthToken(response);
+
+    // Get Config data once login
+    this.configService.getConfig().subscribe(
+      (config: Config) => {
+        this.configService.setConfigInSessionStorage(config);
+      },
+      () => {
+        this.notficationService.i18nShow("SHARED.CONFIGURATION_SERVICE_ERROR");
+      }
+    );
   }
 
   public onGetUserProfileSuccess(redirectUrl: string): void {

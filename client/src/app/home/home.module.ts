@@ -8,7 +8,7 @@ import {TranslateModule} from "@ngx-translate/core/index";
   imports: [
     SharedModule,
     HomeRoutingModule,
-    TranslateModule
+    TranslateModule,
   ],
   declarations: [HomeComponent]
 })
