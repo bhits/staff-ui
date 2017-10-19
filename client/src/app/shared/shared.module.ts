@@ -21,6 +21,7 @@ import {ShowHidePasswordComponent} from "./show-hide-password/show-hide-password
 import {TranslateModule} from "@ngx-translate/core/index";
 import { SocialSecurityMaskDirective } from './social-security-mask.directive';
 import { SocialSecurityPipe } from './social-security.pipe';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
@@ -59,7 +60,8 @@ import { SocialSecurityPipe } from './social-security.pipe';
     ShowHidePasswordComponent,
     UsPhoneNumberPipe,
     SocialSecurityMaskDirective,
-    SocialSecurityPipe
+    SocialSecurityPipe,
+    FormsModule
   ]
 })
 export class SharedModule {
